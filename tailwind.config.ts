@@ -8,6 +8,12 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        roboto: ["var(--font-roboto)"],
+        bebasNeue: ["var(--font-bebasNeue)"],
+        rockSalt: ["var(--font-rockSalt)"]
+
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
