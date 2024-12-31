@@ -1,9 +1,12 @@
+import { Vinyl } from "@/components/vinyl/vinyl";
+
 export default function Home() {
 	return (
-		<div className='grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20'>
-			<main className='flex flex-col gap-8 row-start-2 items-center sm:items-start'>
-				<p className='font-bebasNeue'>ello</p>
-			</main>
+		<div className='flex items-center justify-center min-h-screen w-screen p-4 sm:p-8'>
+			<div className='flex flex-col items-center justify-center'>
+				<h1 className="font-rockSalt text-3xl sm:text-6xl">Backseat 90</h1>
+				<Vinyl />
+			</div>
 		</div>
 	)
 }
