@@ -1,10 +1,11 @@
 import { motion } from 'motion/react'
 import s from '../vinyl.module.css'
-import { useMediaQuery } from '@siberiacancode/reactuse'
 
 type Props = { color: string }
 export const Label = ({ color }: Props) => {
-	const isMobile = useMediaQuery('(max-width: 640px)')
+	// const isMobile = useMediaQuery('(max-width: 640px)')
+	// FIXME: add new lib
+	const isMobile = false
 
 	return (
 		<motion.div

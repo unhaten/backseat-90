@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
-import fonts from '@/utils/constants/fonts'
-import '@/styles/fonts.css'
 import '@/styles/globals.css'
+import '@/styles/fonts.css'
 import '@/styles/normalize.css'
+import fonts from '@/lib/constants/fonts'
 
 export const metadata: Metadata = {
 	title: 'Backseat 90',

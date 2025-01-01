@@ -13,7 +13,7 @@ export const Radio = ({}: Props) => {
 			</h1>
 			<div className='relative my-6'>
 				<div className='bg-red-500 w-full h-full rounded-md' />
-				{/* <AlbumCover /> */}
+				<AlbumCover />
 				<Vinyl />
 			</div>
 			<Player />
