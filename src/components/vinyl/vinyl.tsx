@@ -1,4 +1,3 @@
-'use client'
 import { Label } from './ui/label'
 import { Line } from './ui/line'
 import { Needle } from './ui/needle'
