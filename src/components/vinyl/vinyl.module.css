@@ -1,0 +1,104 @@
+/* vinyl.module.css */
+.recordContainer {
+	position: relative;
+}
+
+.record {
+	position: relative;
+	width: 262px;
+	height: 262px;
+	border-radius: 50%;
+	background: linear-gradient(
+				30deg,
+				transparent 40%,
+				rgba(42, 41, 40, 0.85) 40%
+			)
+			no-repeat 100% 0,
+		linear-gradient(60deg, rgba(42, 41, 40, 0.85) 60%, transparent 60%)
+			no-repeat 0 100%,
+		repeating-radial-gradient(#2a2928 0 3px, #ada9a0 4px, #2a2928 6px);
+	background-size: 50% 100%, 100% 50%, 100% 100%;
+}
+
+.line {
+	position: absolute;
+	top: 0%;
+	left: 50%;
+	height: 262px;
+	width: 0;
+	/* box-shadow: 0 0px 30px 1.5px rgb(187, 255, 0); */
+	border-radius: 1rem;
+	z-index: 2;
+}
+
+.label {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 68px;
+	height: 68px;
+	border-radius: 50%;
+	background: radial-gradient(circle, #b5ac9a 20%, #d2c5b7 80%);
+	/* border: solid 1px #d9a388; */
+	margin-top: -35px;
+	margin-left: -35px;
+	/* box-shadow: 0 0 0 4px #da5b33, inset 0 0 0 27px #da5b33; */
+	z-index: 3;
+}
+
+.needle {
+	--needle-height: 5px;
+	top: calc(50% - var(--needle-height));
+	right: 0;
+	position: absolute;
+	height: var(--needle-height);
+	width: 3.25rem;
+	background-color: #f08d6f;
+	border-top-right-radius: 0.25rem;
+	border-bottom-right-radius: 0.25rem;
+}
+
+.needle::before {
+    content: "";
+    position: absolute;
+    top: -4px;
+    width: 13px;
+    height: 15px;
+    background-color: rgb(230, 114, 79);
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.15rem;
+    border-bottom-left-radius: 0.15rem;
+}
+
+.needle::after {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 4px;
+    width: 5px;
+    height: 7px;
+    background: linear-gradient( #f08d6f, 80%, rgb(0, 255, 42));
+    border-bottom-left-radius: 100%;
+    border-bottom-right-radius: 100%;
+
+}
+
+@media screen and (max-width: 640px) {
+	.record {
+		width: 202px;
+		height: 202px;
+	}
+
+	.label {
+		width: 30px;
+		height: 30px;
+		margin-top: -15px;
+		margin-left: -15px;
+		/* box-shadow: 0 0 0 4px #da5b33, inset 0 0 0 11px #da5b33; */
+	}
+
+	.line {
+		height: 202px;
+	}
+}
