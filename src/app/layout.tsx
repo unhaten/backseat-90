@@ -3,7 +3,7 @@ import '@/styles/globals.css'
 import '@/styles/fonts.css'
 import '@/styles/normalize.css'
 import fonts from '@/lib/constants/fonts'
-import StoreProvider from '@/providers/store-provider'
+import StoreProvider from '@/providers/store'
 
 export const metadata: Metadata = {
 	title: 'Backseat 90',

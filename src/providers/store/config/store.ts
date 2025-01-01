@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import playerReducer from '@/components/player/model/player.slice'
+import playerReducer from '@/widgets/radio/index'
 
 const rootReducer = combineReducers({
 	player: playerReducer
