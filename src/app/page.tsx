@@ -1,4 +1,4 @@
-import { Radio } from '@/widgets/radio'
+import Radio from '@/widgets/radio'
 
 export default function Home() {
 	return (

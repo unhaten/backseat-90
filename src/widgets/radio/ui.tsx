@@ -1,8 +1,6 @@
-'use client'
-
-import { AlbumCover } from '@/components/album-cover/album-cover'
-import { Player } from '@/components/player/player'
-import { Vinyl } from '@/components/vinyl/vinyl'
+import Player from '@/components/player'
+import AlbumCover from '@/components/album-cover'
+import Vinyl from '@/components/vinyl'
 
 type Props = object
 export const Radio = ({}: Props) => {
