@@ -1,25 +1,33 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux'
+import { toggleRadio } from '@/widgets/radio'
+import { useEffect, useRef } from 'react'
 
-type Props = object
-export const Player = ({}: Props) => {
+export const Player = () => {
 	const ref = useRef<HTMLAudioElement>(null)
-	const [player, setPlayer] = useState<HTMLAudioElement | null>(null)
+	const radio = useAppSelector(state => state.radio)
+	const dispatch = useAppDispatch()
+
+	const handleToggle = () => {
+		dispatch(toggleRadio())
+	}
 
 	useEffect(() => {
 		if (!ref.current) return
-		if (!player) {
-			setPlayer(ref.current)
+
+		if (radio.isPlaying) {
+			ref.current.play()
+		} else {
+			ref.current.pause()
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ref])
+	}, [ref, radio.isPlaying])
 
 	return (
 		<div>
 			<audio ref={ref} controls src='/hiphopproject-rare.mp3' />
-			<button className='bg-blue-300 p-2' onClick={() => player?.play()}>
-				button
+			<button className='bg-blue-300 p-2' onClick={handleToggle}>
+				radio {radio.isPlaying ? 'on' : 'off'}
 			</button>
 		</div>
 	)

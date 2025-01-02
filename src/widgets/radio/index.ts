@@ -1,4 +1,3 @@
 export { Radio as default } from './ui'
-// import { Radio } from './ui'
-
-// export default Radio
+export { default as radioReducer, toggleRadio } from './model/radio.slice'
+export * from './model/radio.type'

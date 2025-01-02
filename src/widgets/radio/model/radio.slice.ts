@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit'
 import { IRadio } from './radio.type'
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState: IRadio = {
 	isPlaying: false
 }
 
-export const radioSlice = createSlice({
+const radioSlice = createSlice({
 	name: 'radio',
 	initialState,
 	reducers: {
