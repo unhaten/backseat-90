@@ -1,7 +1,6 @@
 'use client'
 
 import { useAppSelector } from '@/lib/hooks/redux'
-import { Label } from './ui/label'
 import { Line } from './ui/line'
 import { Needle } from './ui/needle'
 import { Record } from './ui/record'
@@ -13,10 +12,13 @@ export const Vinyl = ({}: Props) => {
 
 	return (
 		<div className={s.recordContainer}>
-			<Record color={radio.color} isPlaying={radio.isPlaying} />
-			<Label color={radio.color} isPlaying={radio.isPlaying}/>
-			<Line color={radio.color} isPlaying={radio.isPlaying}/>
-			<Needle color={radio.color} isPlaying={radio.isPlaying}/>
+			<Record
+				mainColor={radio.mainColor}
+				secondaryColor={radio.secondaryColor}
+				isPlaying={radio.isPlaying}
+			/>
+			<Line mainColor={radio.mainColor} isPlaying={radio.isPlaying} />
+			<Needle mainColor={radio.mainColor} isPlaying={radio.isPlaying} />
 		</div>
 	)
 }

@@ -1,4 +1,5 @@
 export interface IRadio {
 	isPlaying: boolean
-	color: string
+	mainColor: string
+	secondaryColor: string
 }

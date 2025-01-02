@@ -1,8 +1,8 @@
 import { motion } from 'motion/react'
 import s from '../vinyl.module.css'
 
-type Props = { color: string; isPlaying: boolean }
-export const Line = ({ color, isPlaying }: Props) => {
+type Props = { mainColor: string; isPlaying: boolean }
+export const Line = ({ mainColor, isPlaying }: Props) => {
 	const motionProps = isPlaying
 		? {
 				animate: { rotate: 360 },
@@ -18,7 +18,7 @@ export const Line = ({ color, isPlaying }: Props) => {
 			{...motionProps}
 			className={s.line}
 			style={{
-				boxShadow: `0 0px 30px 1.5px ${color}`
+				boxShadow: `0 0px 30px 1.5px ${mainColor}`
 			}}
 		/>
 	)

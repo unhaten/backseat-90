@@ -3,10 +3,11 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState: IRadio = {
 	isPlaying: false,
-	color: '#da5b33'
+	mainColor: '#e7568d',
+	secondaryColor: '#ea6a9b'
 }
 
-const radioSlice = createSlice({
+const radioSlice = createSlice({  
 	name: 'radio',
 	initialState,
 	reducers: {

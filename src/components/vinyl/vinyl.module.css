@@ -1,25 +1,45 @@
 /* vinyl.module.css */
 .recordContainer {
 	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	width: 200px;
 	height: 200px;
 }
 
 .record {
 	position: relative;
-	width: 100%;
-	height: 100%;
+	width: 58px;
+	height: 60px;
 	border-radius: 50%;
-	background: linear-gradient(
-				30deg,
-				transparent 40%,
-				rgba(42, 41, 40, 0.85) 40%
-			)
-			no-repeat 100% 0,
-		linear-gradient(60deg, rgba(42, 41, 40, 0.85) 60%, transparent 60%)
-			no-repeat 0 100%,
-		repeating-radial-gradient(#2a2928 0 3px, #ada9a0 4px, #2a2928 6px);
-	background-size: 50% 100%, 100% 50%, 100% 100%;
+	border-width: 29.5px 0px !important;
+	background: #f7aac7;
+	color: #da5a33ce;
+}
+
+.spin {
+	animation: spin 1.3s linear infinite;
+}
+
+.record:before {
+	content: '';
+	position: absolute;
+	width: 6px;
+	height: 6px;
+	background: white;
+	top: calc(50% - 3px);
+	left: calc(50% - 3px);
+	border-radius: 50%;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }
 
 .line {
@@ -121,11 +141,6 @@
 }
 
 @media screen and (max-width: 640px) {
-	.record {
-		width: 202px;
-		height: 202px;
-	}
-
 	.label {
 		width: 30px;
 		height: 30px;

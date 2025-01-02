@@ -56,6 +56,8 @@
 		0px 0px 0px 55px #2f2e2e, 0px 0px 0px 56px #000,
 		0px 0px 0px 57px #2f2e2e, 0px 0px 0px 58px #cecece, /** this and last on is for border */
 		0px 0px 0px 59px #2f2e2e;
+        animation: pull-out 1.3s 2s ease-out forwards, spin 1.3s 4s linear infinite;
+
 }
 
 .vinyl:before {
@@ -67,4 +69,14 @@
 	top: calc(50% - 3px);
 	left: calc(50% - 3px);
 	border-radius: 50%;
+    
 }
+
+@keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
