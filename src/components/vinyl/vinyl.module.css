@@ -1,12 +1,14 @@
 /* vinyl.module.css */
 .recordContainer {
 	position: relative;
+	width: 200px;
+	height: 200px;
 }
 
 .record {
 	position: relative;
-	width: 262px;
-	height: 262px;
+	width: 100%;
+	height: 100%;
 	border-radius: 50%;
 	background: linear-gradient(
 				30deg,
@@ -38,12 +40,45 @@
 	width: 68px;
 	height: 68px;
 	border-radius: 50%;
-	background: radial-gradient(circle, #b5ac9a 20%, #d2c5b7 80%);
-	/* border: solid 1px #d9a388; */
 	margin-top: -35px;
 	margin-left: -35px;
-	/* box-shadow: 0 0 0 4px #da5b33, inset 0 0 0 27px #da5b33; */
 	z-index: 3;
+}
+
+.label::before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 1px;
+	height: 1px;
+	padding: 3px;
+	background: linear-gradient(
+		45deg,
+		#999 5%,
+		#999 10%,
+		#ccc 30%,
+		#ddd 50%,
+		#ccc 70%,
+		#999 80%,
+		#999 95%
+	);
+	border-radius: 50%;
+	z-index: 4;
+}
+
+.label::after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 1px;
+	height: 1px;
+	padding: 15px;
+	border-radius: 50%;
+	box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
 .needle {
@@ -59,29 +94,30 @@
 }
 
 .needle::before {
-    content: "";
-    position: absolute;
-    top: -4px;
-    width: 13px;
-    height: 15px;
-    background-color: rgb(230, 114, 79);
-    border-top-left-radius: 0.25rem;
-    border-top-right-radius: 0.25rem;
-    border-bottom-right-radius: 0.15rem;
-    border-bottom-left-radius: 0.15rem;
+	content: '';
+	position: absolute;
+	top: -4px;
+	width: 13px;
+	height: 15px;
+	background-color: rgb(230, 114, 79);
+	border-top-left-radius: 0.25rem;
+	border-top-right-radius: 0.25rem;
+	border-bottom-right-radius: 0.15rem;
+	border-bottom-left-radius: 0.15rem;
+	z-index: 2;
 }
 
 .needle::after {
-    content: "";
-    position: absolute;
-    top: 8px;
-    left: 4px;
-    width: 5px;
-    height: 7px;
-    background: linear-gradient( #f08d6f, 80%, rgb(0, 255, 42));
-    border-bottom-left-radius: 100%;
-    border-bottom-right-radius: 100%;
-
+	content: '';
+	position: absolute;
+	top: 8px;
+	left: 5px;
+	width: 2.5px;
+	height: 7px;
+	background: linear-gradient(#f08d6f, 85%, rgb(0, 255, 42));
+	border-bottom-left-radius: 100%;
+	border-bottom-right-radius: 100%;
+	z-index: 1;
 }
 
 @media screen and (max-width: 640px) {
