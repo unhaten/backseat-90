@@ -1,10 +1,8 @@
 import { motion } from 'motion/react'
 import s from '../vinyl.module.css'
-import { useEffect, useState } from 'react'
 
 type Props = { mainColor: string; secondaryColor: string; isPlaying: boolean }
 export const Record = ({ mainColor, secondaryColor, isPlaying }: Props) => {
-	const [rotation, setRotation] = useState(0)
 	const colorWithOpacity = secondaryColor + '4d'
 
 	const boxShadow = `0px 0px 4px 1px ${colorWithOpacity}, 0px 0px 0px 10px ${secondaryColor},
@@ -25,39 +23,35 @@ export const Record = ({ mainColor, secondaryColor, isPlaying }: Props) => {
 		0px 0px 0px 57px #2f2e2e, 0px 0px 0px 58px ${mainColor},
 		0px 0px 0px 59px ${colorWithOpacity}`
 
-	// const motionProps = isPlaying
-	// 	? {
-	// 			animate: { rotate: 360 },
-	// 			transition: {
-	// 				repeat: Infinity,
-	// 				repeatType: 'loop' as const,
-	// 				duration: 1.3,
-	// 				ease: 'linear'
-	// 			}
-	// 	  }
-	// 	: {}
-
-	useEffect(() => {
-		if (isPlaying) {
-			const interval = setInterval(() => {
-				setRotation(prevRotation => prevRotation + 1)
-			}, 13) // To make a complete 360 in 1.3 seconds, adjust the step size accordingly
-			return () => clearInterval(interval)
+	const variants = {
+		play: {
+			rotate: 360,
+			transition: {
+				repeat: Infinity,
+				repeatType: 'loop' as const,
+				duration: 1.3,
+				ease: 'linear',
+			}
+		},
+		stop: {
+			rotate: 0,
+			transition: {
+				type: 'spring',
+				duration: 7,
+				bounce: 0.25
+			}
 		}
-	}, [isPlaying])
+	}
 
 	return (
 		<motion.div
 			// {...motionProps}
-			className={`${s.record} ${isPlaying ? s.spin : ''}`}
+			variants={variants}
+			animate={isPlaying ? 'play' : 'stop'}
+			className={isPlaying ? `${s.record} ${s.spin}` : s.record}
 			style={{
 				boxShadow: boxShadow,
-				border: `solid ${mainColor}`,
-			}}
-			animate={{ rotate: rotation }}
-			transition={{
-				duration: 1.3, // Duration for one full rotation
-				ease: 'linear',
+				border: `solid ${mainColor}`
 			}}
 		/>
 	)
