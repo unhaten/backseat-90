@@ -2,7 +2,13 @@
 
 import { useAppSelector } from '@/lib/hooks/redux'
 import s from './vinyl.module.css'
-import { Record, Line, Needle, NeedleConstruction, NeedleContainer } from './ui/index'
+import {
+	Record,
+	Line,
+	Needle,
+	NeedleConstruction,
+	NeedleContainer
+} from './ui/index'
 
 type Props = object
 export const Vinyl = ({}: Props) => {
@@ -18,7 +24,10 @@ export const Vinyl = ({}: Props) => {
 			<Line mainColor={radio.mainColor} isPlaying={radio.isPlaying} />
 			{/* TODO: lol this div container moves my vinyl so it is out of container randomly sty guys if you see this thing im a little dumb but it works and gives more atmosphere lol again! */}
 			<div>spacing</div>
-			<NeedleContainer />
+			<NeedleContainer
+				isPlaying={radio.isPlaying}
+				mainColor={radio.mainColor}
+			/>
 			<NeedleConstruction
 				secondaryColor={radio.secondaryColor}
 				isPlaying={radio.isPlaying}
