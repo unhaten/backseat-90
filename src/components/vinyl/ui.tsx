@@ -1,10 +1,8 @@
 'use client'
 
 import { useAppSelector } from '@/lib/hooks/redux'
-import { Line } from './ui/line'
-import { Needle } from './ui/needle'
-import { Record } from './ui/record'
 import s from './vinyl.module.css'
+import { Record, Line, Needle, NeedleConstruction } from './ui/index'
 
 type Props = object
 export const Vinyl = ({}: Props) => {
@@ -18,6 +16,7 @@ export const Vinyl = ({}: Props) => {
 				isPlaying={radio.isPlaying}
 			/>
 			<Line mainColor={radio.mainColor} isPlaying={radio.isPlaying} />
+			<NeedleConstruction />
 			<Needle mainColor={radio.mainColor} isPlaying={radio.isPlaying} />
 		</div>
 	)

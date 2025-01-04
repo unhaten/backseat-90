@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 
 type Props = { mainColor: string; isPlaying: boolean }
 
+// TODO: refactor and make less code
+
 export const Needle = ({ mainColor, isPlaying }: Props) => {
 	const mainColorWithOpacity = mainColor + '4d'
 	const [hasLifted, setHasLifted] = useState(false)
