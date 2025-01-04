@@ -37,8 +37,8 @@ export const Record = ({ mainColor, secondaryColor, isPlaying }: Props) => {
 			rotate: 0,
 			transition: {
 				type: 'spring',
-				duration: 7,
-				bounce: 0.25
+				duration: 5,
+				bounce: 0.20
 			}
 		}
 	}
