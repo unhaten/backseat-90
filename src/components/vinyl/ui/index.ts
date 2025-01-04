@@ -1,3 +1,4 @@
+export { NeedleContainer } from './needle-container';
 export { Label } from './label'
 export { Line } from './line'
 export { Needle } from './needle'

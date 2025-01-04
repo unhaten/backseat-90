@@ -21,7 +21,7 @@ export const Radio = () => {
 					<h1 className='font-rockSalt text-3xl sm:text-6xl my-0'>
 						Backseat 90
 					</h1>
-					<div className='pr-10 my-6 isolate rounded-md bg-red-600/80 shadow-lg ring-1 ring-orange-600/75'>
+					<div className='pr-2 my-6 isolate rounded-md bg-blue-300/90 shadow-blue-500/40 shadow-lg ring-1 ring-blue-600/5'>
 						<div className='relative'>
 							<AlbumCover />
 							<Vinyl />

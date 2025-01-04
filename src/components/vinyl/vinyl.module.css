@@ -42,15 +42,6 @@
 	border-radius: 50%;
 }
 
-@keyframes spin {
-	0% {
-		transform: rotate(0deg);
-	}
-	100% {
-		transform: rotate(360deg);
-	}
-}
-
 .line {
 	position: absolute;
 	top: 0%;
@@ -64,7 +55,7 @@
 .needle {
 	--needle-height: 5px;
 	top: calc(50% - var(--needle-height));
-	right: 0;
+	right: 10px;
 	position: absolute;
 	height: var(--needle-height);
 	width: 3rem;
@@ -97,4 +88,53 @@
 	border-bottom-left-radius: 100%;
 	border-bottom-right-radius: 100%;
 	z-index: 1;
+}
+
+.needleConstruction {
+	--needle-construction: 80px;
+	position: absolute;
+	top: calc(50% - var(--needle-construction) - 15px);
+	right: 8px;
+	width: 8px;
+	height: var(--needle-construction);
+	border-bottom-right-radius: 12px;
+	border-bottom-left-radius: 12px;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	z-index: 2;
+}
+
+.needleConstruction::before {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	right: -1px;
+	width: 10px;
+	height: 10px;
+	background-color: inherit;
+	border: 1px dashed black;
+	border-radius: 50%;
+}
+
+.spinNeedle::before {
+	animation: spin 1.5s linear infinite;
+}
+
+.needleContainer {
+	position: absolute;
+	top: 10px;
+	right: -2px;
+	width: 30px;
+	height: 30px;
+	border: 1px solid black;
+	border-radius: 50%;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }

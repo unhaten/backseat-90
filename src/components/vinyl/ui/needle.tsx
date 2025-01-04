@@ -30,25 +30,25 @@ export const Needle = ({ mainColor, isPlaying }: Props) => {
 
 	const variants = {
 		play: {
-			rotateZ: [0, 4, -4, 0],
-			x: 0,
+			rotateZ: [0, 5, -5, 0],
+			x: -15,
 			transition: {
 				rotateZ: {
 					repeat: Infinity,
 					repeatType: 'reverse' as const,
 					duration: 3,
-					repeatDelay: 1
+					repeatDelay: 1,
+					delay: 1
 				}
 			}
 		},
 		stay: {
 			rotateZ: -50,
-			x: 40,
-			transition: { ...transitionPropsForLifting }
+			x: 7
 		},
 		lifting: {
 			rotateZ: 0,
-			x: 0,
+			x: -5,
 			transition: { ...transitionPropsForLifting }
 		}
 	}
@@ -57,7 +57,7 @@ export const Needle = ({ mainColor, isPlaying }: Props) => {
 		<motion.div
 			variants={variants}
 			className={s.needle}
-			initial={{ rotateZ: -50, x: 40 }}
+			initial={{ rotateZ: -50, x: 7 }}
 			animate={isPlaying ? (hasLifted ? 'play' : 'lifting') : 'stay'}
 			onAnimationComplete={() => {
 				if (isPlaying && !hasLifted) {
