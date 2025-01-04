@@ -134,8 +134,8 @@
 	--needle-container-size: 20px;
 	content: '';
 	position: absolute;
-	top: calc(50% - var(--needle-container-size)/2);
-	left: calc(50% - var(--needle-container-size)/2);
+	top: calc(50% - var(--needle-container-size) / 2);
+	left: calc(50% - var(--needle-container-size) / 2);
 	width: var(--needle-container-size);
 	height: var(--needle-container-size);
 	border: 2px dotted black;

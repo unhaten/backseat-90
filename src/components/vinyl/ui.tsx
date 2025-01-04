@@ -7,7 +7,9 @@ import {
 	Line,
 	Needle,
 	NeedleConstruction,
-	NeedleContainer
+	NeedleContainer,
+	Details,
+	SongName
 } from './ui/index'
 
 type Props = object
@@ -33,6 +35,8 @@ export const Vinyl = ({}: Props) => {
 				isPlaying={radio.isPlaying}
 			/>
 			<Needle mainColor={radio.mainColor} isPlaying={radio.isPlaying} />
+			<SongName />
+			<Details />
 		</div>
 	)
 }
