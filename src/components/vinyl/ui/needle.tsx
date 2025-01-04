@@ -6,59 +6,48 @@ type Props = { mainColor: string; isPlaying: boolean }
 
 export const Needle = ({ mainColor, isPlaying }: Props) => {
 	const mainColorWithOpacity = mainColor + '4d'
-	const [hasLifted, setHasLifted] = useState(false) // Стейт для отслеживания завершения подъема
+	const [hasLifted, setHasLifted] = useState(false)
 
-	// Сбросить флаг hasLifted, когда isPlaying меняется на false
 	useEffect(() => {
 		if (!isPlaying) {
-			setHasLifted(false) // При остановке сбрасываем флаг
+			setHasLifted(false)
 		}
 	}, [isPlaying])
 
+	const transitionPropsForLifting = {
+		rotateZ: {
+			type: 'spring',
+			stiffness: 200,
+			damping: 25
+		},
+		x: {
+			type: 'spring',
+			stiffness: 100
+		}
+	}
+
 	const variants = {
 		play: {
-			rotateZ: [0, 3, -3, 0], // Вращение от 0 до 3 и обратно
+			rotateZ: [0, 4, -4, 0],
 			x: 0,
 			transition: {
 				rotateZ: {
 					repeat: Infinity,
 					repeatType: 'reverse' as const,
-					duration: 1.5,
-					repeatDelay: 0.5
-				},
-				x: {}
+					duration: 3,
+					repeatDelay: 1
+				}
 			}
 		},
 		stay: {
-			rotateZ: -50, // Начальное положение иглы при остановке
+			rotateZ: -50,
 			x: 40,
-			transition: {
-				rotateZ: {
-					type: 'spring',
-					stiffness: 200,
-					damping: 25
-				},
-				x: {
-					type: 'spring',
-					stiffness: 100
-				}
-			}
+			transition: { ...transitionPropsForLifting }
 		},
 		lifting: {
-			rotateZ: 0, // Вращение от -50 до 0 при подъеме
-			x: 0, // Можно добавить, если игла должна двигаться по оси X
-			transition: {
-				rotateZ: {
-					type: 'spring',
-					stiffness: 200,
-					damping: 25,
-					duration: 1 // Длительность подъема
-				},
-				x: {
-					type: 'spring',
-					stiffness: 100
-				}
-			}
+			rotateZ: 0,
+			x: 0,
+			transition: { ...transitionPropsForLifting }
 		}
 	}
 
@@ -66,11 +55,11 @@ export const Needle = ({ mainColor, isPlaying }: Props) => {
 		<motion.div
 			variants={variants}
 			className={s.needle}
-			initial={{ rotateZ: -50, x: 40 }} // Начальное положение
-			animate={isPlaying ? (hasLifted ? 'play' : 'lifting') : 'stay'} // Если поднята, начинаем вращение
+			initial={{ rotateZ: -50, x: 40 }}
+			animate={isPlaying ? (hasLifted ? 'play' : 'lifting') : 'stay'}
 			onAnimationComplete={() => {
 				if (isPlaying && !hasLifted) {
-					setHasLifted(true) // После завершения подъема начинаем вращение
+					setHasLifted(true)
 				}
 			}}
 			style={{
