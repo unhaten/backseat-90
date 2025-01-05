@@ -4,7 +4,8 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState: IRadio = {
 	isPlaying: false,
 	mainColor: '#e7568d',
-	secondaryColor: '#ea6a9b'
+	secondaryColor: '#ea6a9b',
+	songName: 'untitled'
 }
 
 const radioSlice = createSlice({  

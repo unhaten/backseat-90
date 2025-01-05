@@ -1,4 +1,3 @@
-export { SongName } from './song-name'
 export { Details } from './details'
 export { NeedleContainer } from './needle-container'
 export { Label } from './label'

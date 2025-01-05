@@ -12,7 +12,8 @@ export const Radio = () => {
 				className='absolute top-0 left-0 z-0 w-full h-full object-center'
 				src={'/gifwebp.webp'}
 				alt='the gif'
-				layout='fill'
+				unoptimized
+				fill
 			/>
 
 			{/* Content */}
@@ -21,11 +22,10 @@ export const Radio = () => {
 					<h1 className='font-rockSalt text-3xl sm:text-6xl my-0'>
 						Backseat 90
 					</h1>
-					<div className='pr-2 pb-2 my-6 isolate rounded-md bg-blue-300/90 shadow-blue-500/40 shadow-lg ring-1 ring-blue-600/5'>
-						<div className='relative'>
-							<AlbumCover />
-							<Vinyl />
-						</div>
+					<div className='relative z-[2] pr-2 pb-2 my-6 isolate rounded-md bg-blue-300/90 shadow-blue-500/40 shadow-lg ring-1 ring-blue-600/5'>
+						<div className='absolute h-4 z-1 w-4 top-0 left-0 bg-red-300' />
+						<AlbumCover />
+						<Vinyl />
 					</div>
 					<Player />
 				</div>
