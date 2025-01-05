@@ -1,4 +1,3 @@
-export { Details } from './details'
 export { NeedleContainer } from './needle-container'
 export { Label } from './label'
 export { Line } from './line'

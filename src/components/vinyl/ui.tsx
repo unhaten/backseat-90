@@ -7,8 +7,7 @@ import {
 	Line,
 	Needle,
 	NeedleConstruction,
-	NeedleContainer,
-	Details
+	NeedleContainer
 } from './ui/index'
 import { SongName } from './components'
 
@@ -36,7 +35,6 @@ export const Vinyl = ({}: Props) => {
 			/>
 			<Needle mainColor={radio.mainColor} isPlaying={radio.isPlaying} />
 			<SongName songName={radio.songName} />
-			<Details />
 		</div>
 	)
 }
