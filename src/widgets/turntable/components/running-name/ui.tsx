@@ -1,13 +1,13 @@
 import s from './style.module.css'
 
 type Props = {
-	songName: string
+	runningName: string
 }
 
-export const SongName = ({ songName }: Props) => {
+export const RunningName = ({ runningName }: Props) => {
 	return (
 		<div
-			className={`${s.textContainer} absolute overflow-hidden h-6 w-12 bg-gray-600 
+			className={`${s.textContainer} absolute text-white overflow-hidden h-6 w-12 bg-gray-600 
         border-2 border-black rounded-sm bottom-6 right-3 z-[2]`}
 		>
 			<div
@@ -16,17 +16,17 @@ export const SongName = ({ songName }: Props) => {
 				<p
 					className={`${s.textLine} font-bebasNeue text-xs m-0 mt-0.5`}
 				>
-					{songName}
+					{runningName}
 				</p>
 				<p
 					className={`${s.textLine} font-bebasNeue text-xs m-0 mt-0.5`}
 				>
-					{songName}
+					{runningName}
 				</p>
 				<p
 					className={`${s.textLine} font-bebasNeue text-xs m-0 mt-0.5`}
 				>
-					{songName}
+					{runningName}
 				</p>
 			</div>
 		</div>
