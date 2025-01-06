@@ -1,4 +1,4 @@
-export interface IRadio {
+export interface IPlayer {
 	isPlaying: boolean
 	mainColor: string
 	secondaryColor: string

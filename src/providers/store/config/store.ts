@@ -1,8 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import { radioReducer } from '@/widgets/radio'
+import { playerReducer } from '@/widgets/player'
 
 const rootReducer = combineReducers({
-	radio: radioReducer
+	player: playerReducer
 })
 
 export const setupStore = () => {

@@ -8,7 +8,7 @@ export const SongName = ({ songName }: Props) => {
 	return (
 		<div
 			className={`${s.textContainer} absolute overflow-hidden h-6 w-12 bg-gray-600 
-        border-2 border-black rounded-sm bottom-4 right-1`}
+        border-2 border-black rounded-sm bottom-6 right-3 z-[2]`}
 		>
 			<div
 				className={`${s.textInnerContainer} flex items-center justify-center h-full`}
