@@ -1,5 +1,6 @@
 'use client'
 
+import { Button } from '@/components/ui'
 import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux'
 import { togglePlayer } from '@/widgets/player'
 import { useEffect, useRef } from 'react'
@@ -25,10 +26,10 @@ export const Player = () => {
 
 	return (
 		<div>
-			<audio ref={ref} controls src='/hiphopproject-rare.mp3' />
-			<button className='bg-blue-300 p-2' onClick={handleToggle}>
+			<audio ref={ref} src='/hiphopproject-rare.mp3' />
+			<Button className='bg-blue-300 p-2' onClick={handleToggle}>
 				player {player.isPlaying ? 'on' : 'off'}
-			</button>
+			</Button>
 		</div>
 	)
 }

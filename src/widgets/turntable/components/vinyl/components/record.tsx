@@ -30,15 +30,15 @@ export const Record = ({ mainColor, secondaryColor, isPlaying }: Props) => {
 				repeat: Infinity,
 				repeatType: 'loop' as const,
 				duration: 1.3,
-				ease: 'linear',
+				ease: 'linear'
 			}
 		},
 		stop: {
 			rotate: 0,
 			transition: {
 				type: 'spring',
-				duration: 5,
-				bounce: 0.20
+				mass: 3,
+				stiffness: 100
 			}
 		}
 	}
