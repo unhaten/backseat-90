@@ -32,7 +32,7 @@ export const Player = () => {
 						/>
 					</div>
 					<h3>Now playing:</h3>
-					<h4>Song name</h4>
+					<h4>here is song name</h4>
 				</div>
 			</div>
 			<Controls />
