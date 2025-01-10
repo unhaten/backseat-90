@@ -14,11 +14,11 @@ export const PlayButton = ({ isPlaying }: Props) => {
 	}
 
 	return (
-		<Button size='icon' aria-label='Toggle Radio' onClick={handleToggle}>
+		<Button size='icon' className='' aria-label='Toggle Radio' onClick={handleToggle}>
 			{isPlaying ? (
-				<Pause strokeWidth={'2px'} />
+				<Pause />
 			) : (
-				<Play strokeWidth={'3px'} />
+				<Play />
 			)}
 		</Button>
 	)

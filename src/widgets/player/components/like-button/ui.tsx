@@ -19,7 +19,6 @@ export const LikeButton = ({ isLiked, setIsLiked }: Props) => {
 				className={`${
 					isLiked ? 'fill-rose-500' : 'fill-primary'
 				} transition-colors`}
-				strokeWidth='3px'
 			/>
 		</Button>
 	)
