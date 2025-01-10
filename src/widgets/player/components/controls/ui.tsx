@@ -1,9 +1,12 @@
 import { PlayButton } from './components'
 
-export const Controls = () => {
+type Props = {
+	isPlaying: boolean
+}
+export const Controls = ({isPlaying}: Props) => {
 	return (
 		<div className='flex items-center gap-2 mt-2'>
-			<PlayButton />
+			<PlayButton isPlaying={isPlaying}/>
 		</div>
 	)
 }

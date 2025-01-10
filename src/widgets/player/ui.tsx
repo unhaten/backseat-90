@@ -39,7 +39,7 @@ export const Player = () => {
 					<SongDuration />
 				</div>
 			</div>
-			<Controls />
+			<Controls isPlaying={player.isPlaying} />
 		</div>
 	)
 }
