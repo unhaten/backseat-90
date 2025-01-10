@@ -1,13 +1,20 @@
 'use client'
 
 import { useAppSelector } from '@/lib/hooks/redux'
-import { useEffect, useRef } from 'react'
-import { Controls } from './components'
-import Image from 'next/image'
+import { useEffect, useRef, useState } from 'react'
+import {
+	Controls,
+	LikeButton,
+	SongDuration,
+	SongImage,
+	SongInfo
+} from './components'
 
 export const Player = () => {
 	const ref = useRef<HTMLAudioElement>(null)
 	const player = useAppSelector(state => state.player)
+
+	const [isLiked, setIsLiked] = useState(false)
 
 	useEffect(() => {
 		if (!ref.current) return
@@ -22,17 +29,14 @@ export const Player = () => {
 	return (
 		<div>
 			<audio ref={ref} src='/hiphopproject-rare.mp3' />
-			<div>
-				<div className='flex align-center gap-4'>
-					<div className='relative w-24 h-24'>
-						<Image
-							src='/song-placeholder.png'
-							fill
-							alt='song placeholder'
-						/>
+			<div className='flex items-center gap-4'>
+				<SongImage />
+				<div className='w-full'>
+					<div className='flex justify-between items-center gap-2'>
+						<SongInfo />
+						<LikeButton isLiked={isLiked} setIsLiked={setIsLiked} />
 					</div>
-					<h3>Now playing:</h3>
-					<h4>here is song name</h4>
+					<SongDuration />
 				</div>
 			</div>
 			<Controls />
