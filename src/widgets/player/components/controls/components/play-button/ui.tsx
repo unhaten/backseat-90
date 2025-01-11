@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui'
+import { Button } from '@/components'
 import { Pause, Play } from 'lucide-react'
 import { useAppDispatch } from '@/lib/hooks/redux'
 import { togglePlayer } from '@/widgets/player'
@@ -14,7 +14,7 @@ export const PlayButton = ({ isPlaying }: Props) => {
 	}
 
 	return (
-		<Button size='icon' className='' aria-label='Toggle Radio' onClick={handleToggle}>
+		<Button size='icon' className='shrink-0' aria-label='Toggle Radio' onClick={handleToggle}>
 			{isPlaying ? (
 				<Pause />
 			) : (

@@ -3,4 +3,5 @@ export interface IPlayer {
 	mainColor: string
 	secondaryColor: string
 	songName: string
+	volume: number
 }

@@ -1,12 +1,14 @@
-import { PlayButton } from './components'
+import { PlayButton, SoundButton } from './components'
 
 type Props = {
 	isPlaying: boolean
 }
-export const Controls = ({isPlaying}: Props) => {
+export const Controls = ({ isPlaying }: Props) => {
 	return (
-		<div className='flex items-center justify-center gap-2 mt-2'>
-			<PlayButton isPlaying={isPlaying}/>
+		<div className='flex justify-between items-center'>
+			<SoundButton />
+			<PlayButton isPlaying={isPlaying} />
+			<div className='basis-2/5' />
 		</div>
 	)
 }
