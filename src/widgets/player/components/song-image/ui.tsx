@@ -1,3 +1,4 @@
+import { Skeleton, SongPlaceholder } from '@/components'
 import Image from 'next/image'
 // import { useEffect, useRef, useState } from 'react'
 
@@ -15,15 +16,23 @@ export const SongImage = ({ thumbnail }: Props) => {
 	// 	imageRef.current.onload = () => setImageLoaded(true)
 	// }, [imageRef, thumbnail])
 
+	console.log(thumbnail)
+
 	return (
-		<div className='relative min-w-16 min-h-16 rounded-lg'>
-			<Image
-				// src={imageLoaded ? thumbnail : '/song-placeholder.png'}
-				src={thumbnail}
-				fill
-				alt='song placeholder'
-				className='rounded-lg'
-			/>
-		</div>
+		<>
+			<div className='relative min-w-16 min-h-16 rounded-lg'>
+				{thumbnail && (
+					<Image
+						src={thumbnail}
+						fill
+						alt='song placeholder'
+						className='rounded-lg z-[1]'
+					/>
+				)}
+				<Skeleton className='z-0'>
+					<SongPlaceholder />
+				</Skeleton>
+			</div>
+		</>
 	)
 }

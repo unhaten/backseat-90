@@ -43,6 +43,30 @@ export const SoundButton = ({}: Props) => {
 		setIsClicked(prev => !prev)
 	}
 
+	const variants = {
+		initial: {
+			opacity: 0,
+			x: -20
+		},
+		animate: {
+			opacity: 1,
+			x: 0,
+			transition: {
+				type: 'spring',
+				stiffness: 600,
+				damping: 15,
+				mass: 0.5
+			}
+		},
+		exit: {
+			opacity: 0,
+			x: -20,
+			transition: {
+				duration: 0.1
+			}
+		}
+	}
+
 	return (
 		<div className='flex items-center gap-2 basis-2/5'>
 			<Button className='shrink-0' size='icon' onClick={handleClick}>
@@ -51,14 +75,10 @@ export const SoundButton = ({}: Props) => {
 			<AnimatePresence>
 				{isClicked && (
 					<motion.div
-						initial={{ opacity: 0, x: -10 }}
-						animate={{ opacity: 1, x: 0 }}
-						exit={{ opacity: 0, x: -10 }}
-						transition={{
-							type: 'spring',
-							stiffness: 360,
-							damping: 20,
-						}}
+						variants={variants}
+						initial='initial'
+						animate='animate'
+						exit='exit'
 						key='slider'
 					>
 						<Slider

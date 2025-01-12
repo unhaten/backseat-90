@@ -64,7 +64,7 @@ export const Player = () => {
 				ref={audioRef}
 				src={currentTrack.src}
 				preload='metadata'
-				// onLoadedMetadata={handleLoad}
+				onLoadedMetadata={handleLoad}
 			/>
 			<div className='flex items-center gap-4'>
 				<SongImage thumbnail={currentTrack.thumbnail} />
