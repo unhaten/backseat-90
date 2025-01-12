@@ -1,10 +1,10 @@
 import s from './style.module.css'
 
 type Props = {
-	runningName: string
+	listeningUsers: number
 }
 
-export const RunningName = ({ runningName }: Props) => {
+export const RunningName = ({ listeningUsers }: Props) => {
 	return (
 		<div
 			className={`${s.textContainer} absolute text-white overflow-hidden h-6 w-12 bg-gray-600 
@@ -16,17 +16,17 @@ export const RunningName = ({ runningName }: Props) => {
 				<p
 					className={`${s.textLine} font-bebasNeue text-xs m-0 mt-0.5`}
 				>
-					{runningName}
+					online: {listeningUsers}
 				</p>
 				<p
 					className={`${s.textLine} font-bebasNeue text-xs m-0 mt-0.5`}
 				>
-					{runningName}
+					online: {listeningUsers}
 				</p>
 				<p
 					className={`${s.textLine} font-bebasNeue text-xs m-0 mt-0.5`}
 				>
-					{runningName}
+					online: {listeningUsers}
 				</p>
 			</div>
 		</div>

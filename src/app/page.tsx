@@ -16,7 +16,8 @@ export default async function Home() {
 				fill
 			/>
 			<div className='relative flex items-center bg-background/30 justify-center min-h-screen w-screen sm:p-8'>
-				<div className='bg-rose-500/35 rounded-lg p-4 md:p-8 w-80 md:w-96'>
+				<div className='bg-rose-500/35 rounded-lg px-4 pb-4 md:px-8 w-80 md:w-96'>
+					<h1 className='font-rockSalt text-center text-2xl font-bold m-0 my-4'>Backseat 90</h1>
 					<Turntable />
 					<Player />
 				</div>

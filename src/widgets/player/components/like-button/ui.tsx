@@ -1,5 +1,6 @@
 import { Button } from '@/components'
 import { Heart } from 'lucide-react'
+import { toast } from 'sonner'
 
 type Props = {
 	isLiked: boolean
@@ -7,13 +8,30 @@ type Props = {
 }
 
 export const LikeButton = ({ isLiked, setIsLiked }: Props) => {
+	const handleClick = () => {
+		if (!isLiked) {
+			toast.success('Like', {
+				description: 'This track is added to favorites'
+				// action: {
+				// 	label: 'Undo',
+				// 	onClick: () => setIsLiked(!isLiked)
+				// }
+			})
+		} else {
+			toast.error('Dislike', {
+				description: 'This track is removed from favorites'
+			})
+		}
+		setIsLiked(!isLiked)
+	}
+
 	return (
 		<Button
 			className=''
 			size='icon'
 			variant={'ghost'}
 			aria-label='Like'
-			onClick={() => setIsLiked(!isLiked)}
+			onClick={handleClick}
 		>
 			<Heart
 				className={`${

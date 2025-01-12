@@ -12,7 +12,7 @@ export const Turntable = () => {
 				<AlbumCover />
 				<Vinyl player={player} />
 				<Details />
-				<RunningName runningName={player.songName} />
+				<RunningName listeningUsers={player.listeningUsers} />
 			</div>
 			<Wheels />
 		</div>

@@ -4,6 +4,7 @@ import '@/styles/fonts.css'
 import '@/styles/normalize.css'
 import fonts from '@/lib/constants/fonts'
 import StoreProvider from '@/providers/store'
+import { Toaster } from '@/components'
 
 export const metadata: Metadata = {
 	title: 'Backseat 90',
@@ -23,6 +24,7 @@ export default function RootLayout({
 				<StoreProvider>
 					<main>{children}</main>
 				</StoreProvider>
+				<Toaster />
 			</body>
 		</html>
 	)

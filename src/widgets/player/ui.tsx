@@ -46,6 +46,7 @@ export const Player = () => {
 
 	useEffect(() => {
 		if (!audioRef.current) return
+		audioRef.current.load() //* forcing because mobile browsers does not preload music smh
 		handleLoad()
 	}, [audioRef, handleLoad])
 
@@ -63,7 +64,7 @@ export const Player = () => {
 			<audio
 				ref={audioRef}
 				src={currentTrack.src}
-				preload='metadata'
+				preload='auto'
 				onLoadedMetadata={handleLoad}
 			/>
 			<div className='flex items-center gap-4'>

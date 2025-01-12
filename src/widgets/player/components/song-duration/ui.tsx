@@ -1,4 +1,4 @@
-import { SliderNoThumb } from '@/components'
+import { Progress } from '@/components'
 
 type Props = {
 	duration: number
@@ -17,7 +17,7 @@ export const SongDuration = ({ duration, currentTime }: Props) => {
 
 	return (
 		<div className='mt-2'>
-			<SliderNoThumb disabled value={[progress]} max={100} step={0.1} />
+			<Progress value={progress} />
 			<div className='flex justify-between text-sm mt-1'>
 				<span>{formatTime(currentTime)}</span>
 				<span>{formatTime(duration)}</span>

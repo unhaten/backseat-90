@@ -16,8 +16,8 @@ export const SoundButton = ({}: Props) => {
 
 	const getVolumeIcon = (volume: number) => {
 		if (volume < 1) return <VolumeX />
-		if (volume <= 25) return <Volume />
-		if (volume <= 75) return <Volume1 />
+		if (volume <= 10) return <Volume />
+		if (volume <= 70) return <Volume1 />
 		return <Volume2 />
 	}
 
