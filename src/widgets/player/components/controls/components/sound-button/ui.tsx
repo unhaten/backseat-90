@@ -11,8 +11,8 @@ export const SoundButton = ({}: Props) => {
 	const dispatch = useAppDispatch()
 	const volume = useAppSelector(state => state.player.volume)
 	const [isMuted, setIsMuted] = useState(false)
-	const [isHovered, setIsHovered] = useState(false)
-	const [lastVolume, setLastVolume] = useState(volume)
+	const [isClicked, setIsClicked] = useState(false)
+	// const [lastVolume, setLastVolume] = useState(volume)
 
 	const getVolumeIcon = (volume: number) => {
 		if (volume < 1) return <VolumeX />
@@ -29,27 +29,36 @@ export const SoundButton = ({}: Props) => {
 		dispatch(setVolume(newVolume))
 	}
 
-	const handleMute = () => {
-		if (isMuted) {
-			dispatch(setVolume(lastVolume))
-		} else {
-			dispatch(setVolume(0))
-			setLastVolume(volume)
-		}
-		setIsMuted(prev => !prev)
+	// const handleMute = () => {
+	// 	if (isMuted) {
+	// 		dispatch(setVolume(lastVolume))
+	// 	} else {
+	// 		dispatch(setVolume(0))
+	// 		setLastVolume(volume)
+	// 	}
+	// 	setIsMuted(prev => !prev)
+	// }
+
+	const handleClick = () => {
+		setIsClicked(prev => !prev)
 	}
 
 	return (
 		<div className='flex items-center gap-2 basis-2/5'>
-			<Button className='shrink-0' size='icon' onClick={handleMute}>
+			<Button className='shrink-0' size='icon' onClick={handleClick}>
 				{volumeIcon}
 			</Button>
 			<AnimatePresence>
-				{isHovered && (
+				{isClicked && (
 					<motion.div
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						exit={{ opacity: 0 }}
+						initial={{ opacity: 0, x: -10 }}
+						animate={{ opacity: 1, x: 0 }}
+						exit={{ opacity: 0, x: -10 }}
+						transition={{
+							type: 'spring',
+							stiffness: 360,
+							damping: 20,
+						}}
 						key='slider'
 					>
 						<Slider

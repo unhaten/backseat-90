@@ -1,12 +1,26 @@
-import { Slider } from "@/components"
+import { SliderNoThumb } from '@/components'
 
-export const SongDuration = () => {
+type Props = {
+	duration: number
+	currentTime: number
+}
+export const SongDuration = ({ duration, currentTime }: Props) => {
+	const formatTime = (time: number) => {
+		const minutes = Math.floor(time / 60)
+		const seconds = Math.floor(time % 60)
+			.toString()
+			.padStart(2, '0')
+		return `${minutes}:${seconds}`
+	}
+
+	const progress = (currentTime / duration) * 100 || 0
+
 	return (
 		<div className='mt-2'>
-			<Slider defaultValue={[33]} max={100} step={1} />
+			<SliderNoThumb disabled value={[progress]} max={100} step={0.1} />
 			<div className='flex justify-between text-sm mt-1'>
-				<span>0:00</span>
-				<span>4:01</span>
+				<span>{formatTime(currentTime)}</span>
+				<span>{formatTime(duration)}</span>
 			</div>
 		</div>
 	)
