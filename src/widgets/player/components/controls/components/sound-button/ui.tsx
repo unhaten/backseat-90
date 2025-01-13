@@ -1,3 +1,5 @@
+'use client'
+
 import { Button, Slider } from '@/components/ui'
 import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux'
 import { setVolume } from '@/widgets/player/model/player.slice'

@@ -5,6 +5,21 @@ export { SongPlaceholder } from './song-placeholder'
 export { Skeleton } from './skeleton'
 export { Toaster } from './sonner'
 export { Progress } from './progress'
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent } from './card'
+export {
+	Card,
+	CardHeader,
+	CardFooter,
+	CardTitle,
+	CardDescription,
+	CardContent
+} from './card'
 export { Input } from './input'
 export { Label } from './label'
+export {
+	Dialog,
+	DialogTrigger,
+	DialogContent,
+	DialogHeader,
+	DialogTitle,
+	DialogDescription
+} from './dialog'

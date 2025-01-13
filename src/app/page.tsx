@@ -1,12 +1,12 @@
-import { Button, Pattern } from '@/components/ui'
+import { Pattern } from '@/components/ui'
 import { Player } from '@/widgets/player'
+import { LogButton } from '@/widgets/player/components'
+import { Settings } from '@/widgets/settings'
 import { Turntable } from '@/widgets/turntable'
-import { Settings, User } from 'lucide-react'
 import Image from 'next/image'
-import Link from 'next/link'
 
 export default async function Home() {
-	const isLoggedIn = true
+	const isLoggedIn = false
 
 	return (
 		<>
@@ -28,26 +28,7 @@ export default async function Home() {
 						</h1>
 						<Turntable />
 						<Player />
-						{isLoggedIn ? (
-							<Button
-								className='absolute top-2 right-2 rounded-full'
-								variant={'outline'}
-								size='icon'
-								asChild
-							>
-								<Link href='/auth/signin'>
-									<User />
-								</Link>
-							</Button>
-						) : (
-							<Button
-								className='absolute top-2 right-2 rounded-full'
-								variant={'outline'}
-								size='icon'
-							>
-								<Settings />
-							</Button>
-						)}
+						{isLoggedIn ? <LogButton /> : <Settings />}
 					</div>
 				</div>
 			</div>
