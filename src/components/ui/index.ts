@@ -23,3 +23,6 @@ export {
 	DialogTitle,
 	DialogDescription
 } from './dialog'
+export { Separator } from './separator'
+export { Switch } from './switch'
+export { RadioGroup, RadioGroupItem } from './radio-group'

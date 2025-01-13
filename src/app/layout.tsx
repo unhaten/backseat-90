@@ -5,6 +5,7 @@ import '@/styles/normalize.css'
 import fonts from '@/lib/constants/fonts'
 import StoreProvider from '@/providers/store'
 import { Toaster } from '@/components/ui'
+import { ThemeProvider } from '@/providers/theme'
 
 export const metadata: Metadata = {
 	title: 'Backseat 90 - Listen to 90s Underground Rap',
@@ -26,13 +27,20 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang='en'>
+		<html lang='en' suppressHydrationWarning>
 			<body
 				className={`${fonts.roboto.variable} ${fonts.bebasNeue.variable} ${fonts.rockSalt.variable} antialiased`}
 			>
-				<StoreProvider>
-					<main>{children}</main>
-				</StoreProvider>
+				<ThemeProvider
+					attribute='class'
+					defaultTheme='system'
+					enableSystem
+					disableTransitionOnChange
+				>
+					<StoreProvider>
+						<main>{children}</main>
+					</StoreProvider>
+				</ThemeProvider>
 				<Toaster />
 			</body>
 		</html>

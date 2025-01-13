@@ -1,3 +1,5 @@
+'use client'
+
 import {
 	Button,
 	Dialog,
@@ -5,11 +7,23 @@ import {
 	DialogDescription,
 	DialogHeader,
 	DialogTitle,
-	DialogTrigger
+	DialogTrigger,
+	Label,
+	RadioGroup,
+	RadioGroupItem,
+	Separator
 } from '@/components/ui'
+import { DialogClose } from '@/components/ui/dialog'
 import { Settings as SettingsIcon } from 'lucide-react'
+import { useTheme } from 'next-themes'
 
 export const Settings = () => {
+	const { theme, setTheme } = useTheme()
+
+	const handleThemeChange = (value: string) => {
+		setTheme(value)
+	}
+
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
@@ -23,13 +37,54 @@ export const Settings = () => {
 			</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>Are you absolutely sure?</DialogTitle>
-					<DialogDescription>
-						This action cannot be undone. This will permanently
-						delete your account and remove your data from our
-						servers.
+					<DialogTitle className='text-center text-2xl'>
+						Settings
+					</DialogTitle>
+					<DialogDescription className='text-center text-xs'>
+						Customize your settings and take a look at another
+						options
 					</DialogDescription>
 				</DialogHeader>
+				<Separator className='' />
+				<div className='px-4'>
+					<div className='grid grid-cols-4 gap-2 place-items-center'>
+						<div className='col-span-3'>
+							<h3 className='font-medium text-lg'>Color theme</h3>
+							<p className='text-xs text-muted-foreground'>
+								Change the color theme of the app between dark
+								and light mode
+							</p>
+						</div>
+						<RadioGroup
+							defaultValue={theme}
+							onValueChange={handleThemeChange}
+						>
+							<div className='flex items-center space-x-2'>
+								<RadioGroupItem
+									value='system'
+									id='theme-system'
+								/>
+								<Label htmlFor='theme-system'>System</Label>
+							</div>
+							<div className='flex items-center space-x-2'>
+								<RadioGroupItem
+									value='light'
+									id='theme-light'
+								/>
+								<Label htmlFor='theme-light'>Light</Label>
+							</div>
+							<div className='flex items-center space-x-2'>
+								<RadioGroupItem value='dark' id='theme-dark' />
+								<Label htmlFor='theme-dark'>Dark</Label>
+							</div>
+						</RadioGroup>
+					</div>
+				</div>
+				<DialogClose asChild>
+					<Button className='w-fit' variant='outline'>
+						Save changes
+					</Button>
+				</DialogClose>
 			</DialogContent>
 		</Dialog>
 	)

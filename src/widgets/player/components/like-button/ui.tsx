@@ -36,7 +36,7 @@ export const LikeButton = ({ isLiked, setIsLiked }: Props) => {
 			<Heart
 				className={`${
 					isLiked ? 'fill-rose-500' : 'fill-primary'
-				} transition-colors`}
+				} transition-colors dark:stroke-white`}
 			/>
 		</Button>
 	)
