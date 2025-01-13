@@ -1,4 +1,4 @@
-import { Progress } from '@/components'
+import { Progress } from '@/components/ui'
 
 type Props = {
 	duration: number

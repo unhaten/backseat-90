@@ -1,4 +1,4 @@
-import { Button } from '@/components'
+import { Button } from '@/components/ui'
 import { Heart } from 'lucide-react'
 import { toast } from 'sonner'
 

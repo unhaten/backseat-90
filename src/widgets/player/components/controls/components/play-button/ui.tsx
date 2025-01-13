@@ -1,4 +1,4 @@
-import { Button } from '@/components'
+import { Button } from '@/components/ui'
 import { Pause, Play } from 'lucide-react'
 import { useAppDispatch } from '@/lib/hooks/redux'
 import { togglePlayer } from '@/widgets/player'

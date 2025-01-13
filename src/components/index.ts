@@ -1,7 +1,0 @@
-export { Pattern } from './ui/pattern'
-export { Button, buttonVariants } from './ui/button'
-export { Slider } from './ui/slider'
-export { SongPlaceholder } from './ui/song-placeholder'
-export { Skeleton } from './ui/skeleton'
-export { Toaster } from './ui/sonner'
-export { Progress } from './ui/progress'

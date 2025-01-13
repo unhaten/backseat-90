@@ -1,4 +1,4 @@
-import { Button, Slider } from '@/components'
+import { Button, Slider } from '@/components/ui'
 import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux'
 import { setVolume } from '@/widgets/player/model/player.slice'
 import { Volume, Volume1, Volume2, VolumeX } from 'lucide-react'
