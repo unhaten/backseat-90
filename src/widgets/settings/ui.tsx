@@ -37,7 +37,7 @@ export const Settings = () => {
 			</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle className='text-center text-2xl'>
+					<DialogTitle className='text-center text-2xl font-bebasNeue'>
 						Settings
 					</DialogTitle>
 					<DialogDescription className='text-center text-xs'>
@@ -49,7 +49,7 @@ export const Settings = () => {
 				<div className='px-4'>
 					<div className='grid grid-cols-4 gap-2 place-items-center'>
 						<div className='col-span-3'>
-							<h3 className='font-medium text-lg'>Color theme</h3>
+							<h3 className='text-lg font-rockSalt'>Color theme</h3>
 							<p className='text-xs text-muted-foreground'>
 								Change the color theme of the app between dark
 								and light mode
