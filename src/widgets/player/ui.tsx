@@ -67,7 +67,7 @@ export const Player = () => {
 				preload='auto'
 				onLoadedMetadata={handleLoad}
 			/>
-			<div className='flex items-center gap-4'>
+			<div className='flex items-center gap-4 mb-4'>
 				<SongImage thumbnail={currentTrack.thumbnail} />
 				<div className='w-full'>
 					<div className='flex justify-between items-center gap-2'>

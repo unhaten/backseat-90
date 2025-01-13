@@ -27,7 +27,7 @@ export const LikeButton = ({ isLiked, setIsLiked }: Props) => {
 
 	return (
 		<Button
-			className=''
+			className='shrink-0'
 			size='icon'
 			variant={'ghost'}
 			aria-label='Like'
