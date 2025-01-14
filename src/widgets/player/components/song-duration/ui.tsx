@@ -18,7 +18,7 @@ export const SongDuration = ({ duration, currentTime }: Props) => {
 	return (
 		<div className='mt-2'>
 			<Progress value={progress} className='h-0.5' />
-			<div className='flex justify-between text-sm mt-1'>
+			<div className='flex justify-between text-sm mt-1 font-light'>
 				<span>{formatTime(currentTime)}</span>
 				<span>{formatTime(duration)}</span>
 			</div>

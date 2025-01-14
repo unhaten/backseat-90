@@ -1,4 +1,5 @@
-import { Button, Card, Pattern } from '@/components/ui'
+import { Pattern } from '@/components'
+import { Button, Card } from '@/components/ui'
 import { Home } from 'lucide-react'
 import { Metadata } from 'next'
 import Link from 'next/link'

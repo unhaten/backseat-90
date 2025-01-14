@@ -1,5 +1,3 @@
-'use client'
-
 import {
 	Button,
 	Dialog,
@@ -8,22 +6,15 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
-	Label,
-	RadioGroup,
-	RadioGroupItem,
+	ScrollArea,
+	ScrollBar,
 	Separator
 } from '@/components/ui'
-import { DialogClose } from '@/components/ui/dialog'
+import { DialogClose, DialogFooter } from '@/components/ui/dialog'
 import { Settings as SettingsIcon } from 'lucide-react'
-import { useTheme } from 'next-themes'
+import { IconLinks, LanguageChange, ThemeColor } from './components'
 
 export const Settings = () => {
-	const { theme, setTheme } = useTheme()
-
-	const handleThemeChange = (value: string) => {
-		setTheme(value)
-	}
-
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
@@ -46,45 +37,24 @@ export const Settings = () => {
 					</DialogDescription>
 				</DialogHeader>
 				<Separator className='' />
-				<div className='px-4'>
-					<div className='grid grid-cols-4 gap-2 place-items-center'>
-						<div className='col-span-3'>
-							<h3 className='text-lg font-rockSalt'>Color theme</h3>
-							<p className='text-xs text-muted-foreground'>
-								Change the color theme of the app between dark
-								and light mode
-							</p>
-						</div>
-						<RadioGroup
-							defaultValue={theme}
-							onValueChange={handleThemeChange}
-						>
-							<div className='flex items-center space-x-2'>
-								<RadioGroupItem
-									value='system'
-									id='theme-system'
-								/>
-								<Label htmlFor='theme-system'>System</Label>
-							</div>
-							<div className='flex items-center space-x-2'>
-								<RadioGroupItem
-									value='light'
-									id='theme-light'
-								/>
-								<Label htmlFor='theme-light'>Light</Label>
-							</div>
-							<div className='flex items-center space-x-2'>
-								<RadioGroupItem value='dark' id='theme-dark' />
-								<Label htmlFor='theme-dark'>Dark</Label>
-							</div>
-						</RadioGroup>
-					</div>
-				</div>
-				<DialogClose asChild>
-					<Button className='w-fit' variant='outline'>
-						Save changes
-					</Button>
-				</DialogClose>
+				<ScrollArea className='px-4 max-h-72'>
+					<ThemeColor />
+					<LanguageChange />
+					<ScrollBar />
+				</ScrollArea>
+				<DialogFooter
+					className='-mt-3 pr-4'
+					style={{
+						justifyContent: 'space-between'
+					}}
+				>
+					<DialogClose asChild>
+						<Button className='w-fit' variant='outline'>
+							Save changes
+						</Button>
+					</DialogClose>
+					<IconLinks />
+				</DialogFooter>
 			</DialogContent>
 		</Dialog>
 	)

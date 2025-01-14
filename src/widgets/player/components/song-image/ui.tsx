@@ -1,4 +1,5 @@
-import { Skeleton, SongPlaceholder } from '@/components/ui'
+import { SongPlaceholder } from '@/components'
+import { Skeleton } from '@/components/ui'
 import Image from 'next/image'
 // import { useEffect, useRef, useState } from 'react'
 

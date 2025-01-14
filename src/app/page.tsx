@@ -1,4 +1,4 @@
-import { Pattern } from '@/components/ui'
+import { Pattern } from '@/components'
 import { Player } from '@/widgets/player'
 import { LogButton } from '@/widgets/player/components'
 import { Settings } from '@/widgets/settings'
