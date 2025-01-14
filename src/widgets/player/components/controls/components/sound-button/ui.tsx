@@ -84,7 +84,7 @@ export const SoundButton = ({}: Props) => {
 						key='slider'
 					>
 						<Slider
-							className='w-16 sm:w-20 cursor-grab'
+							className='w-16 md:w-20 cursor-grab'
 							defaultValue={[volume]}
 							value={[volume]}
 							max={100}

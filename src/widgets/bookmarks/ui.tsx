@@ -22,7 +22,7 @@ export const Bookmarks = () => {
 					<BookmarkIcon />
 				</Button>
 			</DrawerTrigger>
-			<DrawerContent className='h-full max-h-72 md:max-h-96'>
+			<DrawerContent className='h-full max-h-80 md:max-h-96'>
 				<DrawerHeader>
 					<DrawerTitle className='text-center text-2xl'>
 						Liked tracks

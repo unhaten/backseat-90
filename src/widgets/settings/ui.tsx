@@ -26,7 +26,11 @@ export const Settings = () => {
 					<SettingsIcon />
 				</Button>
 			</DialogTrigger>
-			<DialogContent>
+			<DialogContent
+				onInteractOutside={e => {
+					e.preventDefault()
+				}}
+			>
 				<DialogHeader>
 					<DialogTitle className='text-center text-2xl font-bebasNeue'>
 						Settings
