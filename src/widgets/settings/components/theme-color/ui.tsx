@@ -11,7 +11,7 @@ export const ThemeColor = () => {
 	}
 	return (
 		<SettingsContainer>
-			<div className='col-span-3 sm:col-span-4'>
+			<div className='col-span-3'>
 				<h3 className='text-md sm:text-lg font-rockSalt text-rose-500'>
 					Color theme
 				</h3>
