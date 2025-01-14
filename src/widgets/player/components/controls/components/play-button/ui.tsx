@@ -14,12 +14,13 @@ export const PlayButton = ({ isPlaying }: Props) => {
 	}
 
 	return (
-		<Button size='icon' className='shrink-0' aria-label='Toggle Radio' onClick={handleToggle}>
-			{isPlaying ? (
-				<Pause />
-			) : (
-				<Play />
-			)}
+		<Button
+			size='icon'
+			className='shrink-0 mx-auto'
+			aria-label='Toggle Radio'
+			onClick={handleToggle}
+		>
+			{isPlaying ? <Pause /> : <Play />}
 		</Button>
 	)
 }

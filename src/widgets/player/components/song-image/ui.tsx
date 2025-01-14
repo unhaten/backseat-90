@@ -17,7 +17,7 @@ export const SongImage = ({ thumbnail }: Props) => {
 	// 	imageRef.current.onload = () => setImageLoaded(true)
 	// }, [imageRef, thumbnail])
 
-	console.log(thumbnail)
+	// console.log(thumbnail)
 
 	return (
 		<>

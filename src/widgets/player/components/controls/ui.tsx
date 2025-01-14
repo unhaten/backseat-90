@@ -1,3 +1,4 @@
+import { Bookmarks } from '@/widgets/bookmarks'
 import { PlayButton, SoundButton } from './components'
 
 type Props = {
@@ -5,10 +6,10 @@ type Props = {
 }
 export const Controls = ({ isPlaying }: Props) => {
 	return (
-		<div className='flex justify-between items-center'>
+		<div className='grid grid-cols-3'>
 			<SoundButton />
 			<PlayButton isPlaying={isPlaying} />
-			<div className='basis-2/5' />
+			<Bookmarks />
 		</div>
 	)
 }
