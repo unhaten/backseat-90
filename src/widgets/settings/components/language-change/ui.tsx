@@ -11,8 +11,8 @@ export const LanguageChange = () => {
 	const language = 'en'
 	return (
 		<SettingsContainer>
-			<div className='col-span-3'>
-				<h3 className='text-lg font-rockSalt text-rose-500'>
+			<div className='col-span-3 sm:col-span-4'>
+				<h3 className='text-md sm:text-lg font-rockSalt text-rose-500'>
 					Language
 				</h3>
 				<p className='text-xs text-muted-foreground'>
@@ -21,7 +21,7 @@ export const LanguageChange = () => {
 				</p>
 			</div>
 			<Select>
-				<SelectTrigger className='w-20'>
+				<SelectTrigger className='w-20 ml-auto'>
 					<SelectValue
 						defaultValue={language}
 						placeholder={language}

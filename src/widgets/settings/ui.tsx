@@ -43,9 +43,10 @@ export const Settings = () => {
 					<ScrollBar />
 				</ScrollArea>
 				<DialogFooter
-					className='-mt-3 pr-4'
+					className='-mt-3'
 					style={{
-						justifyContent: 'space-between'
+						justifyContent: 'space-between',
+						flexDirection: 'row'
 					}}
 				>
 					<DialogClose asChild>

@@ -11,8 +11,8 @@ export const ThemeColor = () => {
 	}
 	return (
 		<SettingsContainer>
-			<div className='col-span-3'>
-				<h3 className='text-lg font-rockSalt text-rose-500'>
+			<div className='col-span-3 sm:col-span-4'>
+				<h3 className='text-md sm:text-lg font-rockSalt text-rose-500'>
 					Color theme
 				</h3>
 				<p className='text-xs text-muted-foreground'>
@@ -20,7 +20,11 @@ export const ThemeColor = () => {
 					system mode
 				</p>
 			</div>
-			<RadioGroup defaultValue={theme} onValueChange={handleThemeChange}>
+			<RadioGroup
+				className='ml-auto'
+				defaultValue={theme}
+				onValueChange={handleThemeChange}
+			>
 				<div className='flex items-center space-x-2'>
 					<RadioGroupItem value='system' id='theme-system' />
 					<Label htmlFor='theme-system'>System</Label>
