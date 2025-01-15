@@ -15,13 +15,10 @@ import {
 import { DialogClose, DialogFooter } from '@/components/ui/dialog'
 import { Settings as SettingsIcon } from 'lucide-react'
 import { IconLinks, LanguageChange, ThemeColor } from './components'
-import { useState } from 'react'
 
 export const Settings = () => {
-	const [open, setOpen] = useState(false)
-
 	return (
-		<Dialog open={open} onOpenChange={setOpen}>
+		<Dialog>
 			<DialogTrigger asChild>
 				<Button
 					className='absolute top-2 right-2 rounded-full'

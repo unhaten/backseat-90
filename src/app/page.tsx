@@ -10,7 +10,7 @@ export default async function Home() {
 
 	return (
 		<>
-			{/* //? Background GIF hex = 93c5fd */}
+			{/* //? main color hex = 93c5fd */}
 			{/* //* this div that covers entire app is for setting height of image and patter to full in horizontal and vertical direction either */}
 			<div className='relative min-h-svh'>
 				<Pattern />
