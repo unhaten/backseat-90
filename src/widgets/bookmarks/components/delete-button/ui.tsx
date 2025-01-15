@@ -53,10 +53,11 @@ export const DeleteButton = ({ thumbnail, author, title, id }: Props) => {
 					<SongImage thumbnail={thumbnail} />
 					<SongInfo title={title} author={author} />
 				</div>
-				<AlertDialogFooter className='grid grid-cols-2 gap-2'>
+				<AlertDialogFooter className='grid grid-cols-2 gap-3'>
 					<AlertDialogCancel className=''>Cancel</AlertDialogCancel>
 					<AlertDialogAction
-						className='bg-destructive hover:bg-destructive/80 text-white ml-0'
+						className='bg-destructive hover:bg-destructive/80 text-white'
+						style={{ margin: 0 }}
 						onClick={() => handleDelete(id)}
 					>
 						Delete
