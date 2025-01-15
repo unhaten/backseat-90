@@ -11,6 +11,7 @@ export const LikedList = () => {
 					title={item.title}
 					author={item.author}
 					likes={item.likes}
+					id={item.id}
 				/>
 			))}
 		</ul>

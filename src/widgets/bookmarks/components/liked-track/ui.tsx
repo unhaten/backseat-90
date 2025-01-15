@@ -1,15 +1,16 @@
-import { Button } from '@/components/ui'
 import { SongImage, SongInfo } from '@/widgets/player/components'
-import { Heart, Trash2 } from 'lucide-react'
+import { Heart } from 'lucide-react'
+import { DeleteButton } from '../delete-button/ui'
 
 type Props = {
 	thumbnail: string
 	title: string
 	author: string
 	likes: number
+	id: number
 }
 
-export const LikedTrack = ({ thumbnail, title, author, likes }: Props) => {
+export const LikedTrack = ({ thumbnail, title, author, likes, id }: Props) => {
 	return (
 		<li className='relative flex items-center gap-4 p-4 border-2 border-primary rounded-lg'>
 			<div className='w-16'>
@@ -18,13 +19,12 @@ export const LikedTrack = ({ thumbnail, title, author, likes }: Props) => {
 			<div>
 				<SongInfo title={title} author={author} />
 			</div>
-			<Button
-				size='icon'
-				variant='destructive'
-				className='absolute top-1 right-1 w-6 h-6 rounded-full'
-			>
-				<Trash2 className='p-1' />
-			</Button>
+			<DeleteButton
+				title={title}
+				author={author}
+				thumbnail={thumbnail}
+				id={id}
+			/>
 			<div className='absolute bottom-1 right-1 flex items-center'>
 				<p className='text-sm font-bebasNeue'>{likes}</p>
 				<Heart className='p-1 stroke-rose-500' />

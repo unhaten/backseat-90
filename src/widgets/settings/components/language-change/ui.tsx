@@ -1,3 +1,5 @@
+'use client'
+
 import { SettingsContainer } from '@/components'
 import {
 	Select,
@@ -6,9 +8,10 @@ import {
 	SelectTrigger,
 	SelectValue
 } from '@/components/ui'
+import { useState } from 'react'
 
 export const LanguageChange = () => {
-	const language = 'en'
+	const [language, setLanguage] = useState('en')
 	return (
 		<SettingsContainer>
 			<div className='col-span-3'>
@@ -20,12 +23,9 @@ export const LanguageChange = () => {
 					familiarity
 				</p>
 			</div>
-			<Select>
-				<SelectTrigger className='w-20 ml-auto'>
-					<SelectValue
-						defaultValue={language}
-						placeholder={language}
-					/>
+			<Select value={language} onValueChange={setLanguage}>
+				<SelectTrigger className='w-20 ml-auto mr-[1px]'>
+					<SelectValue placeholder={language} />
 				</SelectTrigger>
 				<SelectContent className=''>
 					<SelectItem value='ru'>ru</SelectItem>

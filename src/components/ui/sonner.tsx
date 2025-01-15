@@ -32,7 +32,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
 				success: <Heart className='h-4 w-4 text-green-500' />,
 				// info: <Info className='h-4 w-4 text-blue-500' />,
 				// warning: <HeartOff className='h-4 w-4 text-red-500' />
-				error: <HeartOff className='h-4 w-4 text-red-500' />,
+				error: <HeartOff className='h-4 w-4 text-red-500' />
 				// loading: (
 				// 	<Loader className='h-4 w-4 text-gray-500 animate-spin' />
 				// )

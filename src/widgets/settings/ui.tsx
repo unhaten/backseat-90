@@ -1,3 +1,5 @@
+'use client'
+
 import {
 	Button,
 	Dialog,
@@ -13,10 +15,13 @@ import {
 import { DialogClose, DialogFooter } from '@/components/ui/dialog'
 import { Settings as SettingsIcon } from 'lucide-react'
 import { IconLinks, LanguageChange, ThemeColor } from './components'
+import { useState } from 'react'
 
 export const Settings = () => {
+	const [open, setOpen] = useState(false)
+
 	return (
-		<Dialog>
+		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
 				<Button
 					className='absolute top-2 right-2 rounded-full'
@@ -27,9 +32,7 @@ export const Settings = () => {
 				</Button>
 			</DialogTrigger>
 			<DialogContent
-				onInteractOutside={e => {
-					e.preventDefault()
-				}}
+			//  onPointerDownOutside={e => e.preventDefault()}
 			>
 				<DialogHeader>
 					<DialogTitle className='text-center text-2xl font-bebasNeue'>
