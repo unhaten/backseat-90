@@ -6,7 +6,7 @@ import { Turntable } from '@/widgets/turntable'
 import Image from 'next/image'
 
 export default async function Home() {
-	const isLoggedIn = false
+	const isLoggedIn = true
 
 	return (
 		<>
@@ -28,7 +28,7 @@ export default async function Home() {
 						</h1>
 						<Turntable />
 						<Player />
-						{isLoggedIn ? <LogButton /> : <Settings />}
+						{isLoggedIn ? <Settings /> : <LogButton />}
 					</div>
 				</div>
 			</div>
