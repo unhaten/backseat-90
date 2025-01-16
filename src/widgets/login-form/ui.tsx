@@ -1,56 +1,77 @@
-import { Button } from '@/components/ui/button'
-import { CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+'use client'
+
 import Link from 'next/link'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import {
+	Form,
+	CardContent,
+	CardHeader,
+	CardTitle,
+	Button
+} from '@/components/ui'
+import { FormField } from '@/components'
 
 export const LoginForm = ({}) => {
+	const formSchema = z.object({
+		email: z
+			.string()
+			.min(1, {
+				message: 'Enter your email'
+			})
+			.email(),
+		password: z.string().min(1, {
+			message: 'Enter your password'
+		})
+	})
+
+	const form = useForm<z.infer<typeof formSchema>>({
+		resolver: zodResolver(formSchema),
+		defaultValues: {
+			email: '',
+			password: ''
+		}
+	})
+
+	// 2. Define a submit handler.
+	const onSubmit = async (values: z.infer<typeof formSchema>) => {
+		console.log(values)
+	}
+
 	return (
 		<>
 			<CardHeader>
 				<CardTitle className='text-2xl text-center'>Log in</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<form>
-					<div className='flex flex-col gap-6'>
-						<div className='grid gap-2'>
-							<Label htmlFor='email'>Email</Label>
-							<Input
-								id='email'
-								type='email'
-								// placeholder='m@example.com'
-								required
-							/>
-						</div>
-						<div className='grid gap-2'>
-							<div className='flex items-center'>
-								<Label htmlFor='password'>Password</Label>
-								<a
-									href='#'
-									className='ml-auto inline-block text-sm underline-offset-4 hover:underline'
-								>
-									Forgot your password?
-								</a>
-							</div>
-							<Input id='password' type='password' required />
-						</div>
-						<Button type='submit' className='w-full'>
-							Log in
+				<Form {...form}>
+					<form onSubmit={form.handleSubmit(onSubmit)}>
+						<FormField<z.infer<typeof formSchema>>
+							name='email'
+							placeholder='m@example.com'
+							label='Email'
+							type='email'
+						/>
+						<FormField<z.infer<typeof formSchema>>
+							name='password'
+							label='Password'
+							type='password'
+						/>
+						<Button className='w-full mt-6' type='submit'>
+							Log In
 						</Button>
-						{/* <Button variant='outline' className='w-full'>
-								Login with Google
-							</Button> */}
-					</div>
-					<div className='mt-4 text-center text-sm'>
-						Don&apos;t have an account?{' '}
-						<Link
-							href='./signup'
-							className='underline underline-offset-4'
-						>
-							Sign up
-						</Link>
-					</div>
-				</form>
+					</form>
+				</Form>
+				<div className='mt-4 text-center text-sm'>
+					Don&apos;t have an account?{' '}
+					<Link
+						href='./signup'
+						className='underline underline-offset-4'
+					>
+						Sign up
+					</Link>
+				</div>
 			</CardContent>
 		</>
 	)

@@ -6,26 +6,26 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import {
 	Form,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormControl,
-	FormDescription,
-	FormMessage,
-	Input,
 	CardContent,
 	CardHeader,
 	CardTitle,
 	Button
 } from '@/components/ui'
+import { FormField } from '@/components'
 
 export const SignUpForm = ({}) => {
 	const formSchema = z.object({
-		email: z.string().min(2, {
-			message: 'Username must be at least 2 characters.'
+		email: z
+			.string()
+			.min(2, {
+				message: 'Username must be at least 2 characters.'
+			})
+			.email(),
+		password: z.string().min(6, {
+			message: 'Password must be at least 6 characters.'
 		}),
-		password: z.string().min(2, {
-			message: 'Password must be at least 2 characters.'
+		repeatPassword: z.string().min(6, {
+			message: 'Password must be at least 6 characters.'
 		})
 	})
 
@@ -33,12 +33,13 @@ export const SignUpForm = ({}) => {
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			email: '',
-			password: ''
+			password: '',
+			repeatPassword: ''
 		}
 	})
 
 	// 2. Define a submit handler.
-	const onSubmit = (values: z.infer<typeof formSchema>) => {
+	const onSubmit = async (values: z.infer<typeof formSchema>) => {
 		console.log(values)
 	}
 
@@ -50,53 +51,26 @@ export const SignUpForm = ({}) => {
 			<CardContent>
 				<Form {...form}>
 					<form onSubmit={form.handleSubmit(onSubmit)}>
-						<FormField
-							control={form.control}
+						<FormField<z.infer<typeof formSchema>>
 							name='email'
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel htmlFor='email'>Email</FormLabel>
-									<FormControl>
-										<Input
-											placeholder='m@example.com'
-											// id='email'
-											// type='email'
-											// required
-											{...field}
-										/>
-									</FormControl>
-									<FormDescription>
-										Enter your email
-									</FormDescription>
-									<FormMessage />
-								</FormItem>
-							)}
+							placeholder='m@example.com'
+							label='Email'
+							description='Enter your email'
+							type='email'
 						/>
-						<FormField
-							control={form.control}
+						<FormField<z.infer<typeof formSchema>>
 							name='password'
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel htmlFor='password'>
-										Password
-									</FormLabel>
-									<FormControl>
-										<Input
-											placeholder='m@example.com'
-											// id='password'
-											// type='password'
-											// required
-											{...field}
-										/>
-									</FormControl>
-									<FormDescription>
-										Enter your email
-									</FormDescription>
-									<FormMessage />
-								</FormItem>
-							)}
+							label='Password'
+							description='Enter your password'
+							type='password'
 						/>
-						<Button className='w-full mt-4' type='submit'>
+						<FormField<z.infer<typeof formSchema>>
+							name='repeatPassword'
+							label='Repeat password'
+							description='Repeat your password'
+							type='password'
+						/>
+						<Button className='w-full mt-6' type='submit'>
 							Submit
 						</Button>
 					</form>

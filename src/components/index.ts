@@ -1,3 +1,4 @@
+export { FormField } from './form-field'
 export { Pattern } from './pattern'
 export { SongPlaceholder } from './song-placeholder'
 export { SettingsContainer } from './settings-container'
