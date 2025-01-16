@@ -14,7 +14,12 @@ import {
 } from '@/components/ui'
 import { DialogClose, DialogFooter } from '@/components/ui/dialog'
 import { Settings as SettingsIcon } from 'lucide-react'
-import { IconLinks, LanguageChange, ThemeColor } from './components'
+import {
+	IconLinks,
+	LanguageChange,
+	ResetPassword,
+	ThemeColor
+} from './components'
 
 export const Settings = () => {
 	return (
@@ -44,6 +49,7 @@ export const Settings = () => {
 				<ScrollArea className='px-4 max-h-72'>
 					<ThemeColor />
 					<LanguageChange />
+					{/* <ResetPassword /> */}
 					<ScrollBar />
 				</ScrollArea>
 				<DialogFooter
