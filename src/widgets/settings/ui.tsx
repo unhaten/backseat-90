@@ -17,7 +17,7 @@ import { Settings as SettingsIcon } from 'lucide-react'
 import {
 	IconLinks,
 	LanguageChange,
-	ResetPassword,
+	// ResetPassword,
 	ThemeColor
 } from './components'
 

@@ -10,7 +10,7 @@ import {
 	AlertDialogCancel,
 	AlertDialogAction
 } from '@/components/ui'
-import { SongImage, SongInfo } from '@/widgets/player/components'
+import { SongImage, SongInfo } from '@/entities/song/components'
 import { Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
 
@@ -18,13 +18,13 @@ type Props = {
 	thumbnail: string
 	author: string
 	title: string
-	id: number
+	id?: string
 }
 
-export const DeleteButton = ({ thumbnail, author, title, id }: Props) => {
-	const handleDelete = (id: number) => {
+export const DeleteButton = ({ thumbnail, author, title }: Props) => {
+	const handleDelete = (author: string, title: string) => {
 		toast.error('Deleted', {
-			description: `Track ${id} is removed from favorites`
+			description: `Track "${author} - ${title}" is removed from favorites`
 		})
 	}
 
@@ -50,7 +50,7 @@ export const DeleteButton = ({ thumbnail, author, title, id }: Props) => {
 					</AlertDialogDescription>
 				</AlertDialogHeader>
 				<div className='flex gap-2 items-center justify-center w-fit mx-auto border-2 border-primary rounded-lg p-4'>
-					<SongImage thumbnail={thumbnail} />
+					<SongImage thumbnail={thumbnail} forLikedSongs />
 					<SongInfo title={title} author={author} />
 				</div>
 				<AlertDialogFooter className='grid grid-cols-2 gap-3'>
@@ -58,7 +58,7 @@ export const DeleteButton = ({ thumbnail, author, title, id }: Props) => {
 					<AlertDialogAction
 						className='bg-destructive hover:bg-destructive/80 text-white'
 						style={{ margin: 0 }}
-						onClick={() => handleDelete(id)}
+						onClick={() => handleDelete(author, title)}
 					>
 						Delete
 					</AlertDialogAction>

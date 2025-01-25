@@ -1,12 +1,16 @@
 import { Pattern } from '@/components'
 import { Player } from '@/widgets/player'
-import { LogButton } from '@/widgets/player/components'
+import { ChangeImage, LogButton } from '@/widgets/player/components'
 import { Settings } from '@/widgets/settings'
 import { Turntable } from '@/widgets/turntable'
 import Image from 'next/image'
+// import { Suspense } from 'react'
 
 export default async function Home() {
-	const isLoggedIn = true
+	// const response = await fetch('http://localhost:3000/api/songs')
+	// const data = await response.json()
+
+	const isLoggedIn = false
 
 	return (
 		<>
@@ -29,6 +33,12 @@ export default async function Home() {
 						<Turntable />
 						<Player />
 						{isLoggedIn ? <Settings /> : <LogButton />}
+						<ChangeImage />
+						{/* <Suspense fallback={<div>Loading...</div>}>
+							<div>
+								{data.map((item: { id: string }) => item.id)}
+							</div>
+						</Suspense> */}
 					</div>
 				</div>
 			</div>

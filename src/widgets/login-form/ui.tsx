@@ -12,6 +12,7 @@ import {
 	Button
 } from '@/components/ui'
 import { FormField } from '@/components'
+import { toast } from 'sonner'
 
 export const LoginForm = ({}) => {
 	const formSchema = z.object({
@@ -36,7 +37,33 @@ export const LoginForm = ({}) => {
 
 	// 2. Define a submit handler.
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
-		console.log(values)
+		try {
+			const response = await fetch(
+				// FIXME: wrong endpoint
+				'http://localhost:3000/api/auth/login',
+				{
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(values)
+				}
+			)
+			if (!response.ok) {
+				toast.info('Something went wrong', {
+					description: response.statusText
+				})
+			}
+			const data = await response.json()
+			console.log(data)
+			// toast.info(data.error, {
+			// 	description: data.message
+			// })
+		} catch (err) {
+			toast.error('Something went wrong', {
+				description: `${err}`
+			})
+		}
 	}
 
 	return (
@@ -66,7 +93,7 @@ export const LoginForm = ({}) => {
 				<div className='mt-4 text-center text-sm'>
 					Don&apos;t have an account?{' '}
 					<Link
-						href='./signup'
+						href='./register'
 						className='underline underline-offset-4'
 					>
 						Sign up

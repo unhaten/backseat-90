@@ -6,6 +6,7 @@ import fonts from '@/lib/constants/fonts'
 import StoreProvider from '@/providers/store'
 import { Toaster } from '@/components/ui'
 import { ThemeProvider } from '@/providers/theme'
+import { QueryProvider } from '@/providers/query/ui'
 
 export const metadata: Metadata = {
 	title: 'Backseat 90 - Listen to 90s Underground Rap',
@@ -31,16 +32,18 @@ export default function RootLayout({
 			<body
 				className={`${fonts.roboto.variable} ${fonts.bebasNeue.variable} ${fonts.rockSalt.variable} antialiased`}
 			>
-				<ThemeProvider
-					attribute='class'
-					defaultTheme='system'
-					enableSystem
-					disableTransitionOnChange
-				>
-					<StoreProvider>
-						<main>{children}</main>
-					</StoreProvider>
-				</ThemeProvider>
+				<QueryProvider>
+					<ThemeProvider
+						attribute='class'
+						defaultTheme='system'
+						enableSystem
+						disableTransitionOnChange
+					>
+						<StoreProvider>
+							<main>{children}</main>
+						</StoreProvider>
+					</ThemeProvider>
+				</QueryProvider>
 				<Toaster />
 			</body>
 		</html>

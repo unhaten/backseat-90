@@ -78,7 +78,7 @@ export const SignUpForm = ({}) => {
 				<div className='mt-4 text-center text-sm'>
 					Already have an account?{' '}
 					<Link
-						href='./signin'
+						href='./login'
 						className='underline underline-offset-4'
 					>
 						Log in

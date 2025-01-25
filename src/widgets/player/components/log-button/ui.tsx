@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui"
-import { User } from "lucide-react"
-import Link from "next/link"
+import { Button } from '@/components/ui'
+import { User } from 'lucide-react'
+import Link from 'next/link'
 
 export const LogButton = () => {
 	return (
@@ -10,7 +10,7 @@ export const LogButton = () => {
 			size='icon'
 			asChild
 		>
-			<Link href='/auth/signin'>
+			<Link href='/auth/login'>
 				<User />
 			</Link>
 		</Button>

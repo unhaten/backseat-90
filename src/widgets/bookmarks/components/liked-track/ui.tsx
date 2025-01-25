@@ -1,20 +1,20 @@
-import { SongImage, SongInfo } from '@/widgets/player/components'
 import { Heart } from 'lucide-react'
 import { DeleteButton } from '../delete-button/ui'
+import { SongImage, SongInfo } from '@/entities/song/components'
 
 type Props = {
 	thumbnail: string
 	title: string
 	author: string
 	likes: number
-	id: number
+	id: string
 }
 
 export const LikedTrack = ({ thumbnail, title, author, likes, id }: Props) => {
 	return (
 		<li className='relative flex items-center gap-4 p-4 border-2 border-primary rounded-lg'>
 			<div className='w-16'>
-				<SongImage thumbnail={thumbnail} />
+				<SongImage thumbnail={thumbnail} forLikedSongs />
 			</div>
 			<div>
 				<SongInfo title={title} author={author} />
