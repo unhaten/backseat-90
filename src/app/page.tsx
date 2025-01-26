@@ -1,14 +1,21 @@
-import { Pattern } from '@/components'
+import { getImages } from '@/api/actions'
+import { ImageGenerator, Pattern } from '@/components'
 import { Player } from '@/widgets/player'
 import { ChangeImage, LogButton } from '@/widgets/player/components'
 import { Settings } from '@/widgets/settings'
 import { Turntable } from '@/widgets/turntable'
-import Image from 'next/image'
-// import { Suspense } from 'react'
+import {
+	dehydrate,
+	HydrationBoundary,
+	QueryClient
+} from '@tanstack/react-query'
 
 export default async function Home() {
-	// const response = await fetch('http://localhost:3000/api/songs')
-	// const data = await response.json()
+	const queryClient = new QueryClient()
+	await queryClient.prefetchQuery({
+		queryKey: ['image-generator'],
+		queryFn: getImages
+	})
 
 	const isLoggedIn = false
 
@@ -18,13 +25,9 @@ export default async function Home() {
 			{/* //* this div that covers entire app is for setting height of image and patter to full in horizontal and vertical direction either */}
 			<div className='relative min-h-svh'>
 				<Pattern />
-				<Image
-					className='absolute top-0 left-0 z-0 w-full h-full object-cover md:object-fill object-center'
-					src={'/gifwebp2.webp'}
-					alt='the gif'
-					unoptimized
-					fill
-				/>
+				<HydrationBoundary state={dehydrate(queryClient)}>
+					<ImageGenerator />
+				</HydrationBoundary>
 				<div className='relative flex items-center bg-background/30 justify-center min-h-svh w-screen sm:p-8'>
 					<div className='relative bg-rose-500/35 rounded-lg px-4 pb-4 md:px-8 w-80 md:w-96'>
 						<h1 className='font-rockSalt text-center text-2xl font-bold m-0 my-4'>
@@ -34,11 +37,6 @@ export default async function Home() {
 						<Player />
 						{isLoggedIn ? <Settings /> : <LogButton />}
 						<ChangeImage />
-						{/* <Suspense fallback={<div>Loading...</div>}>
-							<div>
-								{data.map((item: { id: string }) => item.id)}
-							</div>
-						</Suspense> */}
 					</div>
 				</div>
 			</div>

@@ -6,11 +6,11 @@ import { Skeleton } from '@/components/ui'
 import { ISong } from '@/entities/song'
 
 export const LikedList = () => {
-	const { data, error, isLoading } = useQuery({
+	const { data, isError, isLoading } = useQuery({
 		queryKey: ['liked-songs'],
 		queryFn: getLikedSongs
 	})
-	if (!error)
+	if (!isError)
 		return (
 			<ul className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 px-4 py-2'>
 				{isLoading &&

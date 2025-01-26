@@ -7,9 +7,11 @@ import { Volume, Volume1, Volume2, VolumeX } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useState } from 'react'
 
-type Props = object
+type Props = {
+	isDataLoading: boolean
+}
 
-export const SoundButton = ({}: Props) => {
+export const SoundButton = ({ isDataLoading }: Props) => {
 	const dispatch = useAppDispatch()
 	const volume = useAppSelector(state => state.player.volume)
 	const [isMuted, setIsMuted] = useState(false)
@@ -71,7 +73,12 @@ export const SoundButton = ({}: Props) => {
 
 	return (
 		<div className='flex items-center gap-2 basis-2/5'>
-			<Button className='shrink-0' size='icon' onClick={handleClick}>
+			<Button
+				className='shrink-0'
+				size='icon'
+				disabled={isDataLoading}
+				onClick={handleClick}
+			>
 				{volumeIcon}
 			</Button>
 			<AnimatePresence>

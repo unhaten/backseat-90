@@ -5,8 +5,9 @@ import { togglePlayer } from '@/widgets/player'
 
 type Props = {
 	isPlaying: boolean
+	isDataLoading: boolean
 }
-export const PlayButton = ({ isPlaying }: Props) => {
+export const PlayButton = ({ isPlaying, isDataLoading }: Props) => {
 	const dispatch = useAppDispatch()
 
 	const handleToggle = () => {
@@ -19,6 +20,7 @@ export const PlayButton = ({ isPlaying }: Props) => {
 			className='shrink-0 mx-auto'
 			aria-label='Toggle Radio'
 			onClick={handleToggle}
+			disabled={isDataLoading}
 		>
 			{isPlaying ? <Pause /> : <Play />}
 		</Button>

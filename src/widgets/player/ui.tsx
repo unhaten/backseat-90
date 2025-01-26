@@ -3,16 +3,25 @@
 import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Controls } from './components'
-import { tracks } from '@/lib/dummies/data'
 import { setDuration } from './model/player.slice'
 import { Song } from '@/entities/song'
+import { useQuery } from '@tanstack/react-query'
+import { connectToRadio } from '@/api/actions'
+import { PlayerLoader } from '@/components'
+
+const BASE_URL = 'http://localhost:8000/public/'
 
 export const Player = () => {
+	const { data, isLoading } = useQuery({
+		queryKey: ['player'],
+		queryFn: connectToRadio
+	})
+
 	const audioRef = useRef<HTMLAudioElement>(null)
 	const player = useAppSelector(state => state.player)
 	const dispatch = useAppDispatch()
 
-	const [currentTrack] = useState(tracks[1])
+	// const [currentTrack] = useState(data)
 
 	const [currentTime, setCurrentTime] = useState(0)
 	const [isLiked, setIsLiked] = useState(false)
@@ -56,20 +65,31 @@ export const Player = () => {
 
 	return (
 		<div>
-			<audio
-				ref={audioRef}
-				src={currentTrack.src}
-				preload='auto'
-				onLoadedMetadata={handleLoad}
-			/>
-			<Song
-				currentTrack={currentTrack}
-				isLiked={isLiked}
-				setIsLiked={setIsLiked}
-				currentTime={currentTime}
-				duration={player.duration}
-			/>
-			<Controls isPlaying={player.isPlaying} />
+			<>
+				{/* h = 82px mb-4 */}
+				{data && (
+					<>
+						<audio
+							ref={audioRef}
+							src={BASE_URL + data.file}
+							preload='auto'
+							onLoadedMetadata={handleLoad}
+						/>
+						<Song
+							currentTrack={data}
+							isLiked={isLiked}
+							setIsLiked={setIsLiked}
+							currentTime={currentTime}
+							duration={player.duration}
+						/>
+					</>
+				)}
+				{isLoading && <PlayerLoader />}
+				<Controls
+					isDataLoading={isLoading}
+					isPlaying={player.isPlaying}
+				/>
+			</>
 		</div>
 	)
 }

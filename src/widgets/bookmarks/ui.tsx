@@ -14,7 +14,7 @@ import {
 import { Bookmark as BookmarkIcon } from 'lucide-react'
 import { LikedList } from './components'
 
-export const Bookmarks = () => {
+export const Bookmarks = ({ isDataLoading }: { isDataLoading: boolean }) => {
 	return (
 		<Drawer>
 			<DrawerTrigger asChild>
@@ -34,7 +34,9 @@ export const Bookmarks = () => {
 				</ScrollArea>
 				<DrawerFooter>
 					<DrawerClose asChild>
-						<Button variant='outline'>Close</Button>
+						<Button variant='outline' disabled={isDataLoading}>
+							Close
+						</Button>
 					</DrawerClose>
 				</DrawerFooter>
 			</DrawerContent>
