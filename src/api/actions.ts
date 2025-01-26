@@ -1,39 +1,67 @@
 'use server'
 
+const BASE_URL = 'http://localhost:8000/api'
+
 export async function getLikedSongs() {
 	// FIXME: when error program breaks - needs to figure it out
 	try {
-		const response = await fetch('http://localhost:8000/api/songs')
+		const response = await fetch(`${BASE_URL}/songs`)
 		if (!response.ok) throw new Error(`HTTP Error: ${response.status}`)
 		const data = await response.json()
 		// await new Promise(resolve => setTimeout(resolve, 100000))
 		// console.log(data)
 		return data
 	} catch (error) {
-		return { error: error || 'Something went wrong' }
+		throw new Error(`Error: ${error}`)
 	}
 }
 
 export async function connectToRadio() {
 	try {
-		const response = await fetch('http://localhost:8000/api/songs/connect')
+		const response = await fetch(`${BASE_URL}/songs/connect`)
 		if (!response.ok) throw new Error(`HTTP Error: ${response.status}`)
 		const data = await response.json()
 		return data
 	} catch (error) {
-		return { error: error || 'Something went wrong' }
+		throw new Error(`Error: ${error}`)
 	}
 }
 
 export async function getImages() {
 	try {
-		const response = await fetch(
-			'http://localhost:8000/api/users/background'
-		)
+		const response = await fetch(`${BASE_URL}/users/background`)
 		if (!response.ok) throw new Error(`HTTP Error: ${response.status}`)
 		const text = await response.text()
 		return { background: text.trim() }
 	} catch (error) {
-		return { error: error || 'Something went wrong' }
+		throw new Error(`Error: ${error}`)
+	}
+}
+
+export async function login(values: { email: string; password: string }) {
+	try {
+		const response = await fetch(`${BASE_URL}/auth/login`, {
+			method: 'POST',
+			body: JSON.stringify(values),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
+		const data = await response.json()
+		if (response.status === 401) {
+			throw new Error(
+				Array.isArray(data.message)
+					? data.message.join(', ')
+					: data.message
+			)
+		}
+		if (!response.ok) {
+			throw new Error(
+				'Something went wrong. Please try again later or contact support.'
+			)
+		}
+		return data
+	} catch (error) {
+		throw new Error(`${error}`)
 	}
 }

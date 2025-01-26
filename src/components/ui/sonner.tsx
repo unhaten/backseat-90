@@ -25,7 +25,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
 					success:
 						'bg-green-100 text-green-600 border border-green-400',
 					warning:
-						'bg-yellow-100 text-yellow-800 border border-yellow-400'
+						'bg-yellow-100 text-yellow-600 border border-yellow-400'
 				}
 			}}
 			icons={{

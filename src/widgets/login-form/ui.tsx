@@ -12,9 +12,30 @@ import {
 	Button
 } from '@/components/ui'
 import { FormField } from '@/components'
+import { login } from '@/api/actions'
 import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
+import { useMutation } from '@tanstack/react-query'
 
 export const LoginForm = ({}) => {
+	const router = useRouter()
+
+	const mutation = useMutation({
+		mutationFn: (values: z.infer<typeof formSchema>) => {
+			return login(values)
+		},
+		onSuccess: data => {
+			toast.info('Logged in, redirecting...')
+			console.log(data)
+			router.push('/')
+		},
+		onError: error => {
+			toast.warning('Login failed', {
+				description: (error as Error).message
+			})
+		}
+	})
+
 	const formSchema = z.object({
 		email: z
 			.string()
@@ -37,33 +58,7 @@ export const LoginForm = ({}) => {
 
 	// 2. Define a submit handler.
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
-		try {
-			const response = await fetch(
-				// FIXME: wrong endpoint
-				'http://localhost:3000/api/auth/login',
-				{
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify(values)
-				}
-			)
-			if (!response.ok) {
-				toast.info('Something went wrong', {
-					description: response.statusText
-				})
-			}
-			const data = await response.json()
-			console.log(data)
-			// toast.info(data.error, {
-			// 	description: data.message
-			// })
-		} catch (err) {
-			toast.error('Something went wrong', {
-				description: `${err}`
-			})
-		}
+		await mutation.mutateAsync(values)
 	}
 
 	return (
@@ -85,7 +80,11 @@ export const LoginForm = ({}) => {
 							label='Password'
 							type='password'
 						/>
-						<Button className='w-full mt-6' type='submit'>
+						<Button
+							className='w-full mt-6'
+							type='submit'
+							disabled={mutation.isPending}
+						>
 							Log In
 						</Button>
 					</form>
