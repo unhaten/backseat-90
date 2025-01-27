@@ -11,36 +11,50 @@ import {
 	CardTitle,
 	Button
 } from '@/components/ui'
-import { FormField } from '@/components'
+import { FormField, PasswordFormField } from '@/components'
+import { useRouter } from 'next/navigation'
+import { useMutation } from '@tanstack/react-query'
+import { toast } from 'sonner'
+import { register } from '@/api/actions'
+import { formSchema } from './lib/schema'
 
 export const SignUpForm = ({}) => {
-	const formSchema = z.object({
-		email: z
-			.string()
-			.min(2, {
-				message: 'Username must be at least 2 characters.'
-			})
-			.email(),
-		password: z.string().min(6, {
-			message: 'Password must be at least 6 characters.'
-		}),
-		repeatPassword: z.string().min(6, {
-			message: 'Password must be at least 6 characters.'
-		})
-	})
+	const router = useRouter()
 
+	const mutation = useMutation({
+		mutationFn: (values: z.infer<typeof formSchema>) => {
+			return register(values)
+		},
+		onSuccess: data => {
+			if (!data.success) {
+				toast.warning('Registration failed', {
+					description: data.error
+				})
+				return
+			}
+			toast.info('Success!', {
+				description: 'You can log in now'
+			})
+			router.push('/auth/login')
+		},
+		onError: error => {
+			toast.warning('Registration failed', {
+				description: (error as Error).message
+			})
+		}
+	})
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			email: '',
 			password: '',
-			repeatPassword: ''
+			confirmPassword: ''
 		}
 	})
 
 	// 2. Define a submit handler.
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
-		console.log(values)
+		await mutation.mutateAsync(values)
 	}
 
 	return (
@@ -58,20 +72,22 @@ export const SignUpForm = ({}) => {
 							description='Enter your email'
 							type='email'
 						/>
-						<FormField<z.infer<typeof formSchema>>
+						<PasswordFormField<z.infer<typeof formSchema>>
 							name='password'
 							label='Password'
 							description='Enter your password'
-							type='password'
 						/>
-						<FormField<z.infer<typeof formSchema>>
-							name='repeatPassword'
+						<PasswordFormField<z.infer<typeof formSchema>>
+							name='confirmPassword'
 							label='Repeat password'
 							description='Repeat your password'
-							type='password'
 						/>
-						<Button className='w-full mt-6' type='submit'>
-							Submit
+						<Button
+							className='w-full mt-6'
+							type='submit'
+							disabled={mutation.isPending}
+						>
+							Sign Up
 						</Button>
 					</form>
 				</Form>

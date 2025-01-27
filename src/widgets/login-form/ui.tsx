@@ -11,7 +11,7 @@ import {
 	CardTitle,
 	Button
 } from '@/components/ui'
-import { FormField } from '@/components'
+import { FormField, PasswordFormField } from '@/components'
 import { login } from '@/api/actions'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
@@ -35,7 +35,6 @@ export const LoginForm = ({}) => {
 			router.push('/')
 		},
 		onError: error => {
-			console.log(error)
 			toast.warning('Login failed', {
 				description: (error as Error).message
 			})
@@ -46,7 +45,7 @@ export const LoginForm = ({}) => {
 		email: z
 			.string()
 			.min(1, {
-				message: 'Enter your email'
+				message: 'Enter is required'
 			})
 			.email(),
 		password: z.string().min(1, {
@@ -81,10 +80,9 @@ export const LoginForm = ({}) => {
 							label='Email'
 							type='email'
 						/>
-						<FormField<z.infer<typeof formSchema>>
+						<PasswordFormField<z.infer<typeof formSchema>>
 							name='password'
 							label='Password'
-							type='password'
 						/>
 						<Button
 							className='w-full mt-6'

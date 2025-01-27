@@ -15,7 +15,7 @@ export async function getLikedSongs() {
 		// console.log(data)
 		return data
 	} catch (error) {
-		throw new ServerActionError(`Error: ${error}`)
+		throw new ServerActionError((error as Error).message)
 	}
 }
 
@@ -27,7 +27,7 @@ export async function connectToRadio() {
 		const data = await response.json()
 		return data
 	} catch (error) {
-		throw new ServerActionError(`Error: ${error}`)
+		throw new ServerActionError((error as Error).message)
 	}
 }
 
@@ -39,7 +39,7 @@ export async function getImages() {
 		const text = await response.text()
 		return { background: text.trim() }
 	} catch (error) {
-		throw new ServerActionError(`Error: ${error}`)
+		throw new ServerActionError((error as Error).message)
 	}
 }
 
@@ -64,6 +64,35 @@ export const login = createServerAction(
 			if (!response.ok) {
 				throw new ServerActionError(
 					'Something went wrong. Please try again later or contact support.'
+				)
+			}
+			return data
+		} catch (error) {
+			throw new ServerActionError((error as Error).message)
+		}
+	}
+)
+
+export const register = createServerAction(
+	async (values: {
+		email: string
+		password: string
+		confirmPassword: string
+	}) => {
+		try {
+			const response = await fetch(`${BASE_URL}/auth/register`, {
+				method: 'POST',
+				body: JSON.stringify(values),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+			const data = await response.json()
+			if (!response.ok) {
+				throw new ServerActionError(
+					Array.isArray(data.message)
+						? data.message.join('... ')
+						: data.message
 				)
 			}
 			return data
