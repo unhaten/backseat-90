@@ -25,11 +25,17 @@ export const LoginForm = ({}) => {
 			return login(values)
 		},
 		onSuccess: data => {
+			if (!data.success) {
+				toast.warning('Login failed', {
+					description: data.error
+				})
+				return
+			}
 			toast.info('Logged in, redirecting...')
-			console.log(data)
 			router.push('/')
 		},
 		onError: error => {
+			console.log(error)
 			toast.warning('Login failed', {
 				description: (error as Error).message
 			})
