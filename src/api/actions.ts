@@ -1,6 +1,7 @@
 'use server'
 
 import { createServerAction, ServerActionError } from '@/lib/utils'
+import Cookies from 'js-cookie'
 
 const BASE_URL = 'http://localhost:8000/api'
 
@@ -15,6 +16,11 @@ export async function getLikedSongs() {
 		// console.log(data)
 		return data
 	} catch (error) {
+		if (error instanceof TypeError) {
+			throw new ServerActionError(
+				'Unable to connect to the server. Please check your network connection or try again later.'
+			)
+		}
 		throw new ServerActionError((error as Error).message)
 	}
 }
@@ -27,6 +33,11 @@ export async function connectToRadio() {
 		const data = await response.json()
 		return data
 	} catch (error) {
+		if (error instanceof TypeError) {
+			throw new ServerActionError(
+				'Unable to connect to the server. Please check your network connection or try again later.'
+			)
+		}
 		throw new ServerActionError((error as Error).message)
 	}
 }
@@ -39,6 +50,34 @@ export async function getImages() {
 		const text = await response.text()
 		return { background: text.trim() }
 	} catch (error) {
+		if (error instanceof TypeError) {
+			throw new ServerActionError(
+				'Unable to connect to the server. Please check your network connection or try again later.'
+			)
+		}
+		throw new ServerActionError((error as Error).message)
+	}
+}
+
+export async function getProfile() {
+	try {
+		const response = await fetch(`${BASE_URL}/users/profile`, {
+			// credentials: 'include'
+		})
+		if (response.status === 401) {
+			throw new ServerActionError(`You are not authorized`)
+		}
+		if (!response.ok)
+			throw new ServerActionError(`HTTP Error: ${response.status}`)
+		const data = await response.json()
+		console.log(data)
+		return data
+	} catch (error) {
+		if (error instanceof TypeError) {
+			throw new ServerActionError(
+				'Unable to connect to the server. Please check your network connection or try again later.'
+			)
+		}
 		throw new ServerActionError((error as Error).message)
 	}
 }
@@ -54,20 +93,22 @@ export const login = createServerAction(
 				}
 			})
 			const data = await response.json()
-			if (response.status === 401) {
+			if (!response.ok) {
 				throw new ServerActionError(
 					Array.isArray(data.message)
 						? data.message.join(', ')
 						: data.message
 				)
 			}
-			if (!response.ok) {
+			// Cookies.set('access_token', data.token)
+			// return data
+			return
+		} catch (error) {
+			if (error instanceof TypeError) {
 				throw new ServerActionError(
-					'Something went wrong. Please try again later or contact support.'
+					'Unable to connect to the server. Please check your network connection or try again later.'
 				)
 			}
-			return data
-		} catch (error) {
 			throw new ServerActionError((error as Error).message)
 		}
 	}
@@ -97,6 +138,11 @@ export const register = createServerAction(
 			}
 			return data
 		} catch (error) {
+			if (error instanceof TypeError) {
+				throw new ServerActionError(
+					'Unable to connect to the server. Please check your network connection or try again later.'
+				)
+			}
 			throw new ServerActionError((error as Error).message)
 		}
 	}

@@ -41,10 +41,10 @@ export default function RootLayout({
 					>
 						<StoreProvider>
 							<main>{children}</main>
+							<Toaster />
 						</StoreProvider>
 					</ThemeProvider>
 				</QueryProvider>
-				<Toaster />
 			</body>
 		</html>
 	)

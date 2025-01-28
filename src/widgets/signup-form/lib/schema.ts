@@ -21,10 +21,10 @@ export const formSchema = z
 			})
 			.refine(password => /[0-9]/.test(password), {
 				message: 'Password must contain at least one digit'
-			})
-			.refine(password => /[!@#$%^&*]/.test(password), {
-				message: 'Password must contain at least one special character'
 			}),
+		// .refine(password => /[!@#$%^&*]/.test(password), {
+		// 	message: 'Password must contain at least one special character'
+		// })
 		confirmPassword: z.string().min(1, {
 			message: 'This field should not be empty'
 		})
