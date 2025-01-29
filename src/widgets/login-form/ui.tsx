@@ -32,7 +32,7 @@ export const LoginForm = ({}) => {
 				return
 			}
 			toast.info('Logged in, redirecting...')
-			router.push('/')
+			// router.push('/')
 		},
 		onError: error => {
 			toast.warning('Login failed', {

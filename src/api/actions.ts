@@ -1,4 +1,4 @@
-'use server'
+// 'use server'
 
 import { createServerAction, ServerActionError } from '@/lib/utils'
 import Cookies from 'js-cookie'
@@ -62,7 +62,7 @@ export async function getImages() {
 export async function getProfile() {
 	try {
 		const response = await fetch(`${BASE_URL}/users/profile`, {
-			// credentials: 'include'
+			credentials: 'include'
 		})
 		if (response.status === 401) {
 			throw new ServerActionError(`You are not authorized`)
@@ -90,7 +90,8 @@ export const login = createServerAction(
 				body: JSON.stringify(values),
 				headers: {
 					'Content-Type': 'application/json'
-				}
+				},
+				credentials: 'include'
 			})
 			const data = await response.json()
 			if (!response.ok) {
