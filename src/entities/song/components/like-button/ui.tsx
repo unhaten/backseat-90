@@ -1,4 +1,6 @@
+import { getProfile } from '@/api/actions'
 import { Button } from '@/components/ui'
+import { useQuery } from '@tanstack/react-query'
 import { Heart } from 'lucide-react'
 import { toast } from 'sonner'
 
@@ -8,6 +10,11 @@ type Props = {
 }
 
 export const LikeButton = ({ isLiked, setIsLiked }: Props) => {
+	const { data } = useQuery({
+		queryKey: ['profile'],
+		queryFn: getProfile
+	})
+
 	const handleClick = () => {
 		if (!isLiked) {
 			toast.success('Like', {
@@ -32,6 +39,7 @@ export const LikeButton = ({ isLiked, setIsLiked }: Props) => {
 			variant={'ghost'}
 			aria-label='Like'
 			onClick={handleClick}
+			disabled={!data?.success}
 		>
 			<Heart
 				className={`${

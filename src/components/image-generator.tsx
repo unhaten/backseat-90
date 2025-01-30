@@ -1,6 +1,6 @@
 'use client'
 
-import { getImages } from '@/api/actions'
+import { getImages } from '@/api/server-actions'
 import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 
@@ -14,7 +14,8 @@ export const ImageGenerator = () => {
 		refetchOnMount: false,
 		refetchOnWindowFocus: false
 	})
-
+	// TODO: make an animation between image changes
+	// TODO: disable button while pending
 	return (
 		data?.background && (
 			<Image

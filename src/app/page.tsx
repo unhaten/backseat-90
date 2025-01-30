@@ -1,8 +1,8 @@
-import { getImages } from '@/api/actions'
+import { getImages } from '@/api/server-actions'
 import { ImageGenerator, Pattern } from '@/components'
 import { Player } from '@/widgets/player'
-import { ChangeImage, LogButton } from '@/widgets/player/components'
-import { Settings } from '@/widgets/settings'
+import { ChangeImage } from '@/widgets/player/components'
+import { Profile } from '@/widgets/profile'
 import { Turntable } from '@/widgets/turntable'
 import {
 	dehydrate,
@@ -16,8 +16,6 @@ export default async function Home() {
 		queryKey: ['image-generator'],
 		queryFn: getImages
 	})
-
-	const isLoggedIn = false
 
 	return (
 		<>
@@ -35,7 +33,7 @@ export default async function Home() {
 						</h1>
 						<Turntable />
 						<Player />
-						{isLoggedIn ? <Settings /> : <LogButton />}
+						<Profile />
 						<ChangeImage />
 					</div>
 				</div>

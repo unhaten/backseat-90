@@ -8,17 +8,28 @@ import {
 	DrawerTitle,
 	DrawerTrigger,
 	ScrollArea,
-	ScrollBar
-	// DrawerDescription
+	ScrollBar,
+	DrawerDescription
 } from '@/components/ui'
 import { Bookmark as BookmarkIcon } from 'lucide-react'
 import { LikedList } from './components'
+import { useQuery } from '@tanstack/react-query'
+import { getProfile } from '@/api/actions'
 
-export const Bookmarks = ({ isDataLoading }: { isDataLoading: boolean }) => {
+export const Bookmarks = ({}) => {
+	const { data, isPending } = useQuery({
+		queryKey: ['profile'],
+		queryFn: getProfile
+	})
+
 	return (
 		<Drawer>
 			<DrawerTrigger asChild>
-				<Button size='icon' className='shrink-0 ml-auto'>
+				<Button
+					size='icon'
+					className='shrink-0 ml-auto'
+					disabled={isPending || !data?.success}
+				>
 					<BookmarkIcon />
 				</Button>
 			</DrawerTrigger>
@@ -27,6 +38,9 @@ export const Bookmarks = ({ isDataLoading }: { isDataLoading: boolean }) => {
 					<DrawerTitle className='text-center text-2xl'>
 						Liked tracks
 					</DrawerTitle>
+					<DrawerDescription className='text-center'>
+						Here are all tracks that you liked
+					</DrawerDescription>
 				</DrawerHeader>
 				<ScrollArea className=''>
 					<LikedList />
@@ -34,9 +48,7 @@ export const Bookmarks = ({ isDataLoading }: { isDataLoading: boolean }) => {
 				</ScrollArea>
 				<DrawerFooter>
 					<DrawerClose asChild>
-						<Button variant='outline' disabled={isDataLoading}>
-							Close
-						</Button>
+						<Button variant='outline'>Close</Button>
 					</DrawerClose>
 				</DrawerFooter>
 			</DrawerContent>

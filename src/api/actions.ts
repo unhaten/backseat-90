@@ -1,7 +1,4 @@
-// 'use server'
-
 import { createServerAction, ServerActionError } from '@/lib/utils'
-import Cookies from 'js-cookie'
 
 const BASE_URL = 'http://localhost:8000/api'
 
@@ -25,41 +22,7 @@ export async function getLikedSongs() {
 	}
 }
 
-export async function connectToRadio() {
-	try {
-		const response = await fetch(`${BASE_URL}/songs/connect`)
-		if (!response.ok)
-			throw new ServerActionError(`HTTP Error: ${response.status}`)
-		const data = await response.json()
-		return data
-	} catch (error) {
-		if (error instanceof TypeError) {
-			throw new ServerActionError(
-				'Unable to connect to the server. Please check your network connection or try again later.'
-			)
-		}
-		throw new ServerActionError((error as Error).message)
-	}
-}
-
-export async function getImages() {
-	try {
-		const response = await fetch(`${BASE_URL}/users/background`)
-		if (!response.ok)
-			throw new ServerActionError(`HTTP Error: ${response.status}`)
-		const text = await response.text()
-		return { background: text.trim() }
-	} catch (error) {
-		if (error instanceof TypeError) {
-			throw new ServerActionError(
-				'Unable to connect to the server. Please check your network connection or try again later.'
-			)
-		}
-		throw new ServerActionError((error as Error).message)
-	}
-}
-
-export async function getProfile() {
+export const getProfile = createServerAction(async () => {
 	try {
 		const response = await fetch(`${BASE_URL}/users/profile`, {
 			credentials: 'include'
@@ -70,7 +33,6 @@ export async function getProfile() {
 		if (!response.ok)
 			throw new ServerActionError(`HTTP Error: ${response.status}`)
 		const data = await response.json()
-		console.log(data)
 		return data
 	} catch (error) {
 		if (error instanceof TypeError) {
@@ -80,7 +42,7 @@ export async function getProfile() {
 		}
 		throw new ServerActionError((error as Error).message)
 	}
-}
+})
 
 export const login = createServerAction(
 	async (values: { email: string; password: string }) => {
@@ -148,3 +110,22 @@ export const register = createServerAction(
 		}
 	}
 )
+
+export const logout = createServerAction(async () => {
+	try {
+		const response = await fetch(`${BASE_URL}/auth/logout`, {
+			credentials: 'include'
+		})
+		if (!response.ok) {
+			throw new ServerActionError(`HTTP Error: ${response.status}`)
+		}
+		return
+	} catch (error) {
+		if (error instanceof TypeError) {
+			throw new ServerActionError(
+				'Unable to connect to the server. Please check your network connection or try again later.'
+			)
+		}
+		throw new ServerActionError((error as Error).message)
+	}
+})

@@ -6,16 +6,21 @@ import { Controls } from './components'
 import { setDuration } from './model/player.slice'
 import { Song } from '@/entities/song'
 import { useQuery } from '@tanstack/react-query'
-import { connectToRadio } from '@/api/actions'
+import { connectToRadio } from '@/api/server-actions'
 import { PlayerLoader } from '@/components'
+import { toast } from 'sonner'
 
 const BASE_URL = 'http://localhost:8000/public/'
 
 export const Player = () => {
-	const { data, isLoading } = useQuery({
+	const { data, isLoading, error } = useQuery({
 		queryKey: ['player'],
 		queryFn: connectToRadio
 	})
+
+	if (error) {
+		toast.warning('Error', { description: error.message })
+	}
 
 	const audioRef = useRef<HTMLAudioElement>(null)
 	const player = useAppSelector(state => state.player)
@@ -85,10 +90,14 @@ export const Player = () => {
 					</>
 				)}
 				{isLoading && <PlayerLoader />}
-				<Controls
-					isDataLoading={isLoading}
-					isPlaying={player.isPlaying}
-				/>
+				{error ? (
+					<></>
+				) : (
+					<Controls
+						isDataLoading={isLoading}
+						isPlaying={player.isPlaying}
+					/>
+				)}
 			</>
 		</div>
 	)

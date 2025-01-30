@@ -17,13 +17,17 @@ import { Settings as SettingsIcon } from 'lucide-react'
 import {
 	IconLinks,
 	LanguageChange,
+	LogOut,
 	// ResetPassword,
 	ThemeColor
 } from './components'
+import { useState } from 'react'
 
 export const Settings = () => {
+	const [isOpen, setIsOpen] = useState(false)
+
 	return (
-		<Dialog>
+		<Dialog open={isOpen} onOpenChange={setIsOpen}>
 			<DialogTrigger asChild>
 				<Button
 					className='absolute top-2 right-2 rounded-full'
@@ -64,7 +68,10 @@ export const Settings = () => {
 							Save changes
 						</Button>
 					</DialogClose>
-					<IconLinks />
+					<div className='flex items-center gap-2'>
+						<IconLinks />
+						<LogOut setIsOpen={setIsOpen} />
+					</div>
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>
