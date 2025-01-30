@@ -15,10 +15,11 @@ import { FormField, PasswordFormField } from '@/components'
 import { login } from '@/api/actions'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export const LoginForm = ({}) => {
 	const router = useRouter()
+	const queryClient = useQueryClient()
 
 	const mutation = useMutation({
 		mutationFn: (values: z.infer<typeof formSchema>) => {
@@ -31,7 +32,11 @@ export const LoginForm = ({}) => {
 				})
 				return
 			}
-			toast.info('Logged in, redirecting...')
+			queryClient.setQueryData(['profile'], data)
+
+			toast.info(
+				`Welcome, ${data.value.name ? data.value.name : 'user'}!`
+			)
 			router.push('/')
 		},
 		onError: error => {

@@ -63,9 +63,7 @@ export const login = createServerAction(
 						: data.message
 				)
 			}
-			// Cookies.set('access_token', data.token)
-			// return data
-			return
+			return data
 		} catch (error) {
 			if (error instanceof TypeError) {
 				throw new ServerActionError(
