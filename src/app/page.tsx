@@ -1,7 +1,8 @@
 import { getImages } from '@/api/server-actions'
-import { ImageGenerator, Pattern } from '@/components'
+import { Pattern } from '@/components'
+import { BackgroundImage } from '@/widgets/background-image'
+import { ChangeImage } from '@/widgets/background-image/components'
 import { Player } from '@/widgets/player'
-import { ChangeImage } from '@/widgets/player/components'
 import { Profile } from '@/widgets/profile'
 import { Turntable } from '@/widgets/turntable'
 import {
@@ -14,7 +15,7 @@ export default async function Home() {
 	const queryClient = new QueryClient()
 	await queryClient.prefetchQuery({
 		queryKey: ['image-generator'],
-		queryFn: getImages
+		queryFn: () => getImages(0)
 	})
 
 	return (
@@ -24,7 +25,7 @@ export default async function Home() {
 			<div className='relative min-h-svh'>
 				<Pattern />
 				<HydrationBoundary state={dehydrate(queryClient)}>
-					<ImageGenerator />
+					<BackgroundImage />
 				</HydrationBoundary>
 				<div className='relative flex items-center bg-background/30 justify-center min-h-svh w-screen sm:p-8'>
 					<div className='relative bg-rose-500/35 rounded-lg px-4 pb-4 md:px-8 w-80 md:w-96'>

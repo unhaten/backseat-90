@@ -16,7 +16,9 @@ export const SongImage = ({ thumbnail, forLikedSongs }: Props) => {
 					<Image
 						src={BASE_URL + thumbnail}
 						fill
+						sizes='100%'
 						alt='track img'
+						priority
 						className='rounded-lg z-[1]'
 					/>
 				)}

@@ -1,10 +1,10 @@
 'use server'
 
-import { ServerActionError } from '@/lib/utils'
+import { createServerAction, ServerActionError } from '@/lib/utils'
 
 const BASE_URL = 'http://localhost:8000/api'
 
-export async function connectToRadio() {
+export const connectToRadio = createServerAction(async () => {
 	try {
 		const response = await fetch(`${BASE_URL}/songs/connect`)
 		if (!response.ok)
@@ -19,15 +19,19 @@ export async function connectToRadio() {
 		}
 		throw new ServerActionError((error as Error).message)
 	}
-}
+})
 
-export async function getImages() {
+export async function getImages(imageID?: number) {
 	try {
-		const response = await fetch(`${BASE_URL}/users/background`)
+		const response = await fetch(
+			`${BASE_URL}/users/background${
+				imageID ? `?image-id=${imageID}` : ''
+			}`
+		)
 		if (!response.ok)
 			throw new ServerActionError(`HTTP Error: ${response.status}`)
-		const text = await response.text()
-		return { background: text.trim() }
+		const data = await response.json()
+		return { background: data.background, imageId: data.imageId }
 	} catch (error) {
 		if (error instanceof TypeError) {
 			throw new ServerActionError(

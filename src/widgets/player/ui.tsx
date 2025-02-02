@@ -18,10 +18,6 @@ export const Player = () => {
 		queryFn: connectToRadio
 	})
 
-	if (error) {
-		toast.warning('Error', { description: error.message })
-	}
-
 	const audioRef = useRef<HTMLAudioElement>(null)
 	const player = useAppSelector(state => state.player)
 	const dispatch = useAppDispatch()
@@ -36,6 +32,12 @@ export const Player = () => {
 		const seconds = audioRef.current?.duration
 		if (seconds) dispatch(setDuration(seconds))
 	}, [dispatch])
+
+	useEffect(() => {
+		if (data && !data.success) {
+			toast.warning('Error', { description: data.error })
+		}
+	}, [data])
 
 	useEffect(() => {
 		if (!audioRef.current) return
@@ -76,12 +78,15 @@ export const Player = () => {
 					<>
 						<audio
 							ref={audioRef}
-							src={BASE_URL + data.file}
+							src={
+								BASE_URL +
+								(data?.success ? data.value.file : null)
+							}
 							preload='auto'
 							onLoadedMetadata={handleLoad}
 						/>
 						<Song
-							currentTrack={data}
+							currentTrack={data?.success ? data.value : null}
 							isLiked={isLiked}
 							setIsLiked={setIsLiked}
 							currentTime={currentTime}
