@@ -21,7 +21,7 @@ export const connectToRadio = createServerAction(async () => {
 	}
 })
 
-export async function getImages(imageID?: number) {
+export const getImages = createServerAction(async (imageID?: number) => {
 	try {
 		const response = await fetch(
 			`${BASE_URL}/users/background${
@@ -40,4 +40,4 @@ export async function getImages(imageID?: number) {
 		}
 		throw new ServerActionError((error as Error).message)
 	}
-}
+})

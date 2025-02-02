@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import { useEffect } from 'react'
 import { setImage } from './model/image.slice'
+import { toast } from 'sonner'
 
 const BASE_URL = 'http://localhost:8000/public/'
 
@@ -22,8 +23,15 @@ export const BackgroundImage = () => {
 	})
 
 	useEffect(() => {
-		if (data?.imageId && data.imageId !== image.imageId) {
-			dispatch(setImage(data.imageId))
+		if (
+			data?.success &&
+			data?.value.imageId &&
+			data.value.imageId !== image.imageId
+		) {
+			dispatch(setImage(data.value.imageId))
+		}
+		if (!data?.success) {
+			toast.warning('Error', { description: data?.error })
 		}
 	}, [data, image.imageId, dispatch])
 
@@ -40,10 +48,11 @@ export const BackgroundImage = () => {
 			/>
 		)
 	return (
-		data?.background && (
+		data?.success &&
+		data?.value.background && (
 			<Image
 				className='absolute top-0 left-0 z-0 w-full h-full object-cover md:object-fill object-center'
-				src={BASE_URL + data.background}
+				src={BASE_URL + data.value.background}
 				alt='the gif'
 				unoptimized
 				fill

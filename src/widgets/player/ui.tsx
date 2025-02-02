@@ -13,7 +13,7 @@ import { toast } from 'sonner'
 const BASE_URL = 'http://localhost:8000/public/'
 
 export const Player = () => {
-	const { data, isLoading, error } = useQuery({
+	const { data, isLoading } = useQuery({
 		queryKey: ['player'],
 		queryFn: connectToRadio
 	})
@@ -74,19 +74,16 @@ export const Player = () => {
 		<div>
 			<>
 				{/* h = 82px mb-4 */}
-				{data && (
+				{data?.success && (
 					<>
 						<audio
 							ref={audioRef}
-							src={
-								BASE_URL +
-								(data?.success ? data.value.file : null)
-							}
+							src={BASE_URL + (data?.success && data.value.file)}
 							preload='auto'
 							onLoadedMetadata={handleLoad}
 						/>
 						<Song
-							currentTrack={data?.success ? data.value : null}
+							currentTrack={data?.success && data.value}
 							isLiked={isLiked}
 							setIsLiked={setIsLiked}
 							currentTime={currentTime}
@@ -95,7 +92,7 @@ export const Player = () => {
 					</>
 				)}
 				{isLoading && <PlayerLoader />}
-				{error ? (
+				{!data?.success ? (
 					<></>
 				) : (
 					<Controls
