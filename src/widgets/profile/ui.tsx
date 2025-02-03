@@ -9,7 +9,8 @@ import { Hourglass } from 'lucide-react'
 export const Profile = () => {
 	const { data, isPending } = useQuery({
 		queryKey: ['profile'],
-		queryFn: getProfile
+		queryFn: getProfile,
+		staleTime: 1000 * 60 * 5 // 5 minutes
 	})
 
 	const isLoggedIn = data !== null && data?.success

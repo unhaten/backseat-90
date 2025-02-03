@@ -1,5 +1,4 @@
 import { getImages } from '@/api/server-actions'
-import { Pattern } from '@/components'
 import { BackgroundImage } from '@/widgets/background-image'
 import { ChangeImage } from '@/widgets/background-image/components'
 import { Player } from '@/widgets/player'
@@ -23,7 +22,7 @@ export default async function Home() {
 			{/* //? main color hex = 93c5fd */}
 			{/* //* this div that covers entire app is for setting height of image and patter to full in horizontal and vertical direction either */}
 			<div className='relative min-h-svh'>
-				<Pattern />
+				{/* <Pattern /> */}
 				<HydrationBoundary state={dehydrate(queryClient)}>
 					<BackgroundImage />
 				</HydrationBoundary>

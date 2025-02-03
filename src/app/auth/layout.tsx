@@ -1,4 +1,3 @@
-import { Pattern } from '@/components'
 import { Button, Card } from '@/components/ui'
 import { Home } from 'lucide-react'
 import { Metadata } from 'next'
@@ -25,7 +24,7 @@ export default function AuthLayout({
 }>) {
 	return (
 		<div className='relative flex min-h-svh w-full items-center justify-center p-6 md:p-10'>
-			<Pattern />
+			{/* <Pattern /> */}
 			<div className='absolute top-0 left-0 z-[1] bg-background/70 w-full h-full' />
 			<div className='relative w-full max-w-sm z-[2]'>
 				<Card className='rounded-lg'>

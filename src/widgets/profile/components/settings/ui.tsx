@@ -18,6 +18,7 @@ import {
 	IconLinks,
 	LanguageChange,
 	LogOut,
+	NameChange,
 	// ResetPassword,
 	ThemeColor
 } from './components'
@@ -53,6 +54,7 @@ export const Settings = () => {
 				<ScrollArea className='px-4 max-h-72'>
 					<ThemeColor />
 					<LanguageChange />
+					<NameChange />
 					{/* <ResetPassword /> */}
 					<ScrollBar />
 				</ScrollArea>
