@@ -25,9 +25,9 @@ export const LanguageChange = () => {
 						<SelectValue placeholder={language} />
 					</SelectTrigger>
 					<SelectContent className=''>
-						<SelectItem value='ru'>ru</SelectItem>
-						<SelectItem value='en'>en</SelectItem>
-						<SelectItem value='de'>de</SelectItem>
+						<SelectItem value='ru'>RU</SelectItem>
+						<SelectItem value='en'>EN</SelectItem>
+						<SelectItem value='de'>DE</SelectItem>
 					</SelectContent>
 				</Select>
 			</div>

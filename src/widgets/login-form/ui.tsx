@@ -26,23 +26,21 @@ export const LoginForm = ({}) => {
 			return login(values)
 		},
 		onSuccess: data => {
-			if (!data.success) {
-				toast.warning('Login failed', {
-					description: data.error
-				})
-				return
-			}
+			// if (data.error) {
+			// 	toast.warning('Login failed', {
+			// 		description: data.error
+			// 	})
+			// 	return
+			// }
 			queryClient.setQueryData(['profile'], data)
-
-			toast.info(
-				`Welcome, ${data.value.name ? data.value.name : 'user'}!`
-			)
+			toast.info(`Welcome, ${data.name ? data.name : 'user'}!`)
 			router.push('/')
 		},
 		onError: error => {
 			toast.warning('Login failed', {
-				description: (error as Error).message
+				description: error.message
 			})
+			return
 		}
 	})
 
