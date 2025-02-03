@@ -3,27 +3,22 @@ import { createServerAction, ServerActionError } from '@/lib/utils'
 const BASE_URL = 'http://localhost:8000/api'
 
 export const getLikedSongs = async () => {
-	// FIXME: when error program breaks - needs to figure it out
 	try {
 		const response = await fetch(`${BASE_URL}/songs`)
 		if (!response.ok)
 			throw new ServerActionError(`HTTP Error: ${response.status}`)
 		const data = await response.json()
-		// await new Promise(resolve => setTimeout(resolve, 100000))
-		// console.log(data)
 		return data
 	} catch (err) {
 		if (err instanceof TypeError) {
-			return {
-				error: 'Unable to connect to the server. Please check your network connection or try again later.'
-			}
+			throw new Error(
+				'Unable to connect to the server. Please check your network connection or try again later.'
+			)
 		}
 		if (err instanceof Error) {
-			return {
-				error: err.message
-			}
+			throw err
 		}
-		return { error: (err as Error).message }
+		throw new Error('Something went wrong')
 	}
 }
 
@@ -40,16 +35,14 @@ export const getProfile = async () => {
 		return data
 	} catch (err) {
 		if (err instanceof TypeError) {
-			return {
-				error: 'Unable to connect to the server. Please check your network connection or try again later.'
-			}
+			throw new Error(
+				'Unable to connect to the server. Please check your network connection or try again later.'
+			)
 		}
 		if (err instanceof Error) {
-			return {
-				error: err.message
-			}
+			throw err
 		}
-		return { error: (err as Error).message }
+		throw new Error('Something went wrong')
 	}
 }
 
@@ -109,23 +102,26 @@ export const register = createServerAction(
 			}
 			return data
 		} catch (err) {
-			// if (error instanceof TypeError) {
-			// 	throw new ServerActionError(
-			// 		'Unable to connect to the server. Please check your network connection or try again later.'
-			// 	)
+			// if (err instanceof TypeError) {
+			// 	return {
+			// 		error: 'Unable to connect to the server. Please check your network connection or try again later.'
+			// 	}
 			// }
-			// throw new ServerActionError((error as Error).message)
+			// if (err instanceof Error) {
+			// 	return {
+			// 		error: err.message
+			// 	}
+			// }
+			// return { error: (err as Error).message }
 			if (err instanceof TypeError) {
-				return {
-					error: 'Unable to connect to the server. Please check your network connection or try again later.'
-				}
+				throw new Error(
+					'Unable to connect to the server. Please check your network connection or try again later.'
+				)
 			}
 			if (err instanceof Error) {
-				return {
-					error: err.message
-				}
+				throw err
 			}
-			return { error: (err as Error).message }
+			throw new Error('Something went wrong')
 		}
 	}
 )
@@ -141,15 +137,13 @@ export const logout = createServerAction(async () => {
 		return
 	} catch (err) {
 		if (err instanceof TypeError) {
-			return {
-				error: 'Unable to connect to the server. Please check your network connection or try again later.'
-			}
+			throw new Error(
+				'Unable to connect to the server. Please check your network connection or try again later.'
+			)
 		}
 		if (err instanceof Error) {
-			return {
-				error: err.message
-			}
+			throw err
 		}
-		return { error: (err as Error).message }
+		throw new Error('Something went wrong')
 	}
 })

@@ -10,10 +10,10 @@ export const Profile = () => {
 	const { data, isPending } = useQuery({
 		queryKey: ['profile'],
 		queryFn: getProfile,
-		staleTime: 1000 * 60 * 5 // 5 minutes
+		staleTime: 1000 * 60 * 5, // 5 minutes
+		refetchOnWindowFocus: false
 	})
 
-	const isLoggedIn = data !== null && data?.success
 	if (isPending)
 		return (
 			<Button
@@ -25,5 +25,5 @@ export const Profile = () => {
 			</Button>
 		)
 
-	return <>{isLoggedIn ? <Settings /> : <LogButton />}</>
+	return <>{data ? <Settings /> : <LogButton />}</>
 }

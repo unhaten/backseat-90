@@ -26,12 +26,6 @@ export const LoginForm = ({}) => {
 			return login(values)
 		},
 		onSuccess: data => {
-			// if (data.error) {
-			// 	toast.warning('Login failed', {
-			// 		description: data.error
-			// 	})
-			// 	return
-			// }
 			queryClient.setQueryData(['profile'], data)
 			toast.info(`Welcome, ${data.name ? data.name : 'user'}!`)
 			router.push('/')
@@ -40,7 +34,6 @@ export const LoginForm = ({}) => {
 			toast.warning('Login failed', {
 				description: error.message
 			})
-			return
 		}
 	})
 
