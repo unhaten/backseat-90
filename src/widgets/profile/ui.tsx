@@ -7,11 +7,14 @@ import { Button } from '@/components/ui'
 import { Hourglass } from 'lucide-react'
 
 export const Profile = () => {
-	const { data, isPending } = useQuery({
+	const { isPending, isSuccess } = useQuery({
 		queryKey: ['profile'],
 		queryFn: getProfile,
-		staleTime: 1000 * 60 * 5, // 5 minutes
-		refetchOnWindowFocus: false
+		staleTime: 1000 * 60 * 5,
+		refetchOnWindowFocus: false,
+		retry: false,
+		refetchInterval: 1000 * 60 * 2,
+		refetchIntervalInBackground: true
 	})
 
 	if (isPending)
@@ -25,5 +28,5 @@ export const Profile = () => {
 			</Button>
 		)
 
-	return <>{data ? <Settings /> : <LogButton />}</>
+	return <>{isSuccess ? <Settings /> : <LogButton />}</>
 }

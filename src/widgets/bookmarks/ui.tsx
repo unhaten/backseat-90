@@ -13,14 +13,10 @@ import {
 } from '@/components/ui'
 import { Bookmark as BookmarkIcon } from 'lucide-react'
 import { LikedList } from './components'
-import { useQuery } from '@tanstack/react-query'
-import { getProfile } from '@/api/actions'
+import { useProfileNoRetry } from '@/lib/hooks/react-query'
 
 export const Bookmarks = ({}) => {
-	const { data, isPending } = useQuery({
-		queryKey: ['profile'],
-		queryFn: getProfile
-	})
+	const { isSuccess } = useProfileNoRetry()
 
 	return (
 		<Drawer>
@@ -28,7 +24,7 @@ export const Bookmarks = ({}) => {
 				<Button
 					size='icon'
 					className='shrink-0 ml-auto'
-					disabled={isPending || !data?.success}
+					disabled={!isSuccess}
 				>
 					<BookmarkIcon />
 				</Button>
