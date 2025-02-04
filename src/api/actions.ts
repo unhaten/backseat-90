@@ -1,4 +1,5 @@
 import { createServerAction, ServerActionError } from '@/lib/utils'
+import { UserProfile } from '@/widgets/profile/model/user.type'
 
 const BASE_URL = 'http://localhost:8000/api'
 
@@ -22,13 +23,17 @@ export const getLikedSongs = async () => {
 	}
 }
 
-export const getProfile = async () => {
+export const getProfile = async (): Promise<UserProfile> => {
 	try {
 		const response = await fetch(`${BASE_URL}/users/profile`, {
 			credentials: 'include'
 		})
 		if (response.status === 401) {
-			throw new Error(`You are not authorized`)
+			const refreshed = await refreshAccessToken()
+			if (!refreshed) {
+				throw new Error(`You are not authorized`)
+			}
+			return getProfile()
 		}
 		if (!response.ok) throw new Error(`HTTP Error: ${response.status}`)
 		const data = await response.json()
@@ -43,6 +48,27 @@ export const getProfile = async () => {
 			throw err
 		}
 		throw new Error('Something went wrong')
+	}
+}
+
+export const refreshAccessToken = async () => {
+	try {
+		const response = await fetch(`${BASE_URL}/auth/refresh`, {
+			method: 'POST',
+			credentials: 'include'
+		})
+
+		if (!response.ok) {
+			// console.error('Failed to refresh token, logging out...')
+			logout()
+			return false
+		}
+
+		return true
+	} catch (err) {
+		console.error('Error refreshing token:', err)
+		logout()
+		return false
 	}
 }
 
