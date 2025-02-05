@@ -1,6 +1,6 @@
 import { SettingsContainer, SettingsDescription } from '@/components'
-import { Button } from '@/components/ui'
 import { useProfileNoRetry } from '@/lib/hooks/react-query'
+import { NameChangeDialog } from './components/name-change-dialog'
 
 export const NameChange = () => {
 	const { data } = useProfileNoRetry()
@@ -13,9 +13,7 @@ export const NameChange = () => {
 			/>
 			<div className='col-span-2 sm:col-span-1 text-center'>
 				<p className='font-semibold text-xs'>{data?.name || 'User'}</p>
-				<Button className='w-full h-6 mt-1' variant='secondary'>
-					Edit
-				</Button>
+				<NameChangeDialog name={data?.name || 'User'} />
 			</div>
 		</SettingsContainer>
 	)

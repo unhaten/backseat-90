@@ -14,7 +14,7 @@ export const LogOut = ({ setIsOpen }: Props) => {
 	const handleClick = async () => {
 		setIsOpen(false)
 		await logout()
-		queryClient.setQueryData(['profile'], null)
+		queryClient.setQueryData(['profile'], false)
 
 		queryClient.invalidateQueries({
 			queryKey: ['profile']
