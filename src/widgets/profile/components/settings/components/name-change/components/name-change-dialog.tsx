@@ -1,3 +1,4 @@
+import { Avatar, AvatarFallback } from '@/components/ui'
 import { Button } from '@/components/ui/button'
 import {
 	Dialog,
@@ -16,16 +17,29 @@ type Props = {
 }
 
 export const NameChangeDialog = ({ name }: Props) => {
+	const formatName = (name: string) => {
+		const words = name.trim().split(/\s+/)
+		if (words.length > 1) {
+			return words[0][0].toUpperCase() + words[1][0].toUpperCase()
+		}
+
+		if (name.length <= 4) return name.toUpperCase()
+
+		return name.slice(0, 2).toUpperCase() + name.slice(-2).toUpperCase()
+	}
+
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button className='w-full h-6 mt-1' variant='secondary'>
-					Edit
-				</Button>
+				<Avatar className='cursor-pointer'>
+					<AvatarFallback className='text-sm bg-secondary font-medium hover:bg-secondary/80 transition-colors'>
+						{formatName(name)}
+					</AvatarFallback>
+				</Avatar>
 			</DialogTrigger>
 			<DialogContent className='sm:max-w-[425px]'>
 				<DialogHeader>
-					<DialogTitle>Edit profile</DialogTitle>
+					<DialogTitle>Edit name</DialogTitle>
 					<DialogDescription>Change your name here</DialogDescription>
 				</DialogHeader>
 				<div className='grid gap-4 py-4'>

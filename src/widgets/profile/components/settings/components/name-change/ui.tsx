@@ -12,7 +12,7 @@ export const NameChange = () => {
 				settingDescription='Enter your name to share your liked songs with other users (it is not necessary)'
 			/>
 			<div className='col-span-2 sm:col-span-1 text-center'>
-				<p className='font-semibold text-xs'>{data?.name || 'User'}</p>
+				{/* <p className='font-semibold text-xs'>{data?.name || 'User'}</p> */}
 				<NameChangeDialog name={data?.name || 'User'} />
 			</div>
 		</SettingsContainer>

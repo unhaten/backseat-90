@@ -19,6 +19,7 @@ import {
 	LanguageChange,
 	LogOut,
 	NameChange,
+	ResetPassword,
 	// ResetPassword,
 	ThemeColor
 } from './components'
@@ -39,6 +40,7 @@ export const Settings = () => {
 				</Button>
 			</DialogTrigger>
 			<DialogContent
+			// FIXME: //! when clicking on phone outside of dialog with select-language it closes dialog, not select
 			//  onPointerDownOutside={e => e.preventDefault()}
 			>
 				<DialogHeader>
@@ -55,11 +57,11 @@ export const Settings = () => {
 					<ThemeColor />
 					<LanguageChange />
 					<NameChange />
-					{/* <ResetPassword /> */}
+					<ResetPassword />
 					<ScrollBar />
 				</ScrollArea>
 				<DialogFooter
-					className='-mt-3'
+					className='mt-0.5'
 					style={{
 						justifyContent: 'space-between',
 						flexDirection: 'row'

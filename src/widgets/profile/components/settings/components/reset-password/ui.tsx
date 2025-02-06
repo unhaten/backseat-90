@@ -1,16 +1,17 @@
-import { SettingsContainer } from '@/components'
+import { SettingsContainer, SettingsDescription } from '@/components'
+import { Button } from '@/components/ui'
 
 export function ResetPassword() {
 	return (
 		<SettingsContainer>
-			<div className='col-span-3'>
-				<h3 className='text-md sm:text-lg font-rockSalt text-rose-500 mb-1'>
+			<SettingsDescription
+				settingName='Reset password'
+				settingDescription='Reset your current password if you do not like your previous one'
+			/>
+			<div className='col-span-2 sm:col-span-1'>
+				<Button className='py-6 text-xs whitespace-break-spaces'>
 					Reset password
-				</h3>
-				<p className='text-xs text-muted-foreground'>
-					Reset your current password if you do not like your previous
-					one
-				</p>
+				</Button>
 			</div>
 		</SettingsContainer>
 	)
