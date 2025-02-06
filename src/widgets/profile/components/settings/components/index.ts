@@ -1,6 +1,6 @@
 export { ThemeColor } from './theme-color/ui'
 export { LanguageChange } from './language-change/ui'
 export { IconLinks } from './icon-links/ui'
-export { ResetPassword } from './reset-password/ui'
+export { ChangePassword } from './change-password/ui'
 export { LogOut } from './logout/ui'
 export { NameChange } from './name-change/ui'

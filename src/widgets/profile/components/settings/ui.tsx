@@ -15,12 +15,11 @@ import {
 import { DialogClose, DialogFooter } from '@/components/ui/dialog'
 import { Settings as SettingsIcon } from 'lucide-react'
 import {
+	ChangePassword,
 	IconLinks,
 	LanguageChange,
 	LogOut,
 	NameChange,
-	ResetPassword,
-	// ResetPassword,
 	ThemeColor
 } from './components'
 import { useState } from 'react'
@@ -57,7 +56,7 @@ export const Settings = () => {
 					<ThemeColor />
 					<LanguageChange />
 					<NameChange />
-					<ResetPassword />
+					<ChangePassword />
 					<ScrollBar />
 				</ScrollArea>
 				<DialogFooter

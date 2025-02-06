@@ -55,7 +55,7 @@ export const NameChangeDialog = ({ name }: Props) => {
 					</div>
 				</div>
 				<DialogFooter>
-					<Button type='submit'>Save changes</Button>
+					<Button type='submit'>Submit name</Button>
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>
