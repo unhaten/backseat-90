@@ -49,7 +49,7 @@ export const DeleteButton = ({ thumbnail, author, title }: Props) => {
 						delete this track from your favorites.
 					</AlertDialogDescription>
 				</AlertDialogHeader>
-				<div className='flex gap-2 items-center justify-center w-fit mx-auto border-2 border-primary rounded-lg p-4'>
+				<div className='flex gap-3 items-center justify-center w-fit mx-auto'>
 					<SongImage thumbnail={thumbnail} forLikedSongs />
 					<SongInfo title={title} author={author} />
 				</div>

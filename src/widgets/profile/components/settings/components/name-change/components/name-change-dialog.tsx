@@ -1,62 +1,107 @@
-import { Avatar, AvatarFallback } from '@/components/ui'
-import { Button } from '@/components/ui/button'
 import {
+	Avatar,
+	AvatarFallback,
+	Form,
 	Dialog,
 	DialogContent,
 	DialogDescription,
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-	DialogTrigger
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+	DialogTrigger,
+	Button,
+	Input,
+	FormItem,
+	FormLabel,
+	FormControl,
+	FormMessage,
+	FormField
+} from '@/components/ui'
+import { formatName } from '@/widgets/profile/model/profile.helpers'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
 type Props = {
 	name: string
 }
 
 export const NameChangeDialog = ({ name }: Props) => {
-	const formatName = (name: string) => {
-		const words = name.trim().split(/\s+/)
-		if (words.length > 1) {
-			return words[0][0].toUpperCase() + words[1][0].toUpperCase()
+	const formattedName = formatName(name)
+
+	const formSchema = z.object({
+		username: z
+			.string()
+			.min(1, {
+				message: 'This field is required'
+			})
+			.max(20, {
+				message: 'Nickname should be less than 20 characters long'
+			})
+	})
+
+	const form = useForm<z.infer<typeof formSchema>>({
+		resolver: zodResolver(formSchema),
+		defaultValues: {
+			username: name
 		}
+	})
 
-		if (name.length <= 4) return name.toUpperCase()
-
-		return name.slice(0, 2).toUpperCase() + name.slice(-2).toUpperCase()
+	const onSubmit = async (values: z.infer<typeof formSchema>) => {
+		// await mutation.mutateAsync(values)
+		console.log(values)
 	}
 
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Avatar className='cursor-pointer'>
+				<Avatar className='cursor-pointer size-12'>
 					<AvatarFallback className='text-sm bg-secondary font-medium hover:bg-secondary/80 transition-colors'>
-						{formatName(name)}
+						{formattedName}
 					</AvatarFallback>
 				</Avatar>
 			</DialogTrigger>
 			<DialogContent className='sm:max-w-[425px]'>
-				<DialogHeader>
-					<DialogTitle>Edit name</DialogTitle>
-					<DialogDescription>Change your name here</DialogDescription>
-				</DialogHeader>
-				<div className='grid gap-4 py-4'>
-					<div className='grid grid-cols-4 items-center gap-4'>
-						<Label htmlFor='name' className='text-right'>
-							Name
-						</Label>
-						<Input
-							id='name'
-							defaultValue={name}
-							className='col-span-3'
+				<Form {...form}>
+					<form onSubmit={form.handleSubmit(onSubmit)}>
+						<DialogHeader>
+							<DialogTitle>Edit name</DialogTitle>
+							<DialogDescription>
+								Change your name here
+							</DialogDescription>
+						</DialogHeader>
+						<FormField
+							control={form.control}
+							name='username'
+							render={({ field }) => (
+								<FormItem className='mt-9 mb-5'>
+									<div className='grid items-center grid-cols-4 gap-4'>
+										<FormLabel
+											htmlFor='username'
+											className='text-center'
+										>
+											Nickname
+										</FormLabel>
+										<FormControl>
+											<Input
+												className='col-span-3'
+												id='username'
+												type='text'
+												{...field}
+											/>
+										</FormControl>
+									</div>
+									<div className='w-full h-3 pt-2 text-center'>
+										<FormMessage className='' />
+									</div>
+								</FormItem>
+							)}
 						/>
-					</div>
-				</div>
-				<DialogFooter>
-					<Button type='submit'>Submit name</Button>
-				</DialogFooter>
+						<DialogFooter>
+							<Button type='submit'>Submit name</Button>
+						</DialogFooter>
+					</form>
+				</Form>
 			</DialogContent>
 		</Dialog>
 	)

@@ -30,3 +30,19 @@ export function createServerAction<Return, Args extends unknown[] = []>(
 		}
 	}
 }
+
+// interface CustomError extends Error {
+// 	message: string
+// }
+
+export function handleErrors(error: unknown): never {
+	if (error instanceof TypeError) {
+		throw new Error(
+			'Unable to connect to the server. Please check your network connection or try again later.'
+		)
+	}
+	if (error instanceof Error) {
+		throw error
+	}
+	throw new Error('Something went wrong')
+}
