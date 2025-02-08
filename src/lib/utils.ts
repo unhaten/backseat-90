@@ -46,3 +46,20 @@ export function handleErrors(error: unknown): never {
 	}
 	throw new Error('Something went wrong')
 }
+
+interface ErrorResponse {
+	error: string
+	message: string | string[]
+	statusCode: number
+}
+
+export function handleResponseErrorArray(
+	response: Response,
+	data: ErrorResponse
+): void {
+	if (!response.ok) {
+		throw new Error(
+			Array.isArray(data.message) ? data.message.join(', ') : data.message
+		)
+	}
+}

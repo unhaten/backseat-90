@@ -1,3 +1,4 @@
+import { changeName } from '@/api/actions'
 import {
 	Avatar,
 	AvatarFallback,
@@ -19,7 +20,9 @@ import {
 } from '@/components/ui'
 import { formatName } from '@/widgets/profile/model/profile.helpers'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
 type Props = {
@@ -27,6 +30,21 @@ type Props = {
 }
 
 export const NameChangeDialog = ({ name }: Props) => {
+	const mutation = useMutation({
+		mutationKey: ['profile'],
+		mutationFn: (values: z.infer<typeof formSchema>) => {
+			return changeName(values)
+		},
+		onSuccess: data => {
+			toast.info(data.message)
+		},
+		onError: error => {
+			toast.warning('Error while changing name', {
+				description: error.message
+			})
+		}
+	})
+
 	const formattedName = formatName(name)
 
 	const formSchema = z.object({
@@ -48,8 +66,7 @@ export const NameChangeDialog = ({ name }: Props) => {
 	})
 
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
-		// await mutation.mutateAsync(values)
-		console.log(values)
+		await mutation.mutateAsync(values)
 	}
 
 	return (

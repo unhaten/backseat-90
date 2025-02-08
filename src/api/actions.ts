@@ -1,4 +1,4 @@
-import { handleErrors } from '@/lib/utils'
+import { handleErrors, handleResponseErrorArray } from '@/lib/utils'
 import { UserProfile } from '@/widgets/profile/model/user.type'
 
 const BASE_URL = 'http://localhost:8000/api'
@@ -66,13 +66,8 @@ export const login = async (values: { email: string; password: string }) => {
 			credentials: 'include'
 		})
 		const data = await response.json()
-		if (!response.ok) {
-			throw new Error(
-				Array.isArray(data.message)
-					? data.message.join(', ')
-					: data.message
-			)
-		}
+		handleResponseErrorArray(response, data)
+
 		return data
 	} catch (err) {
 		handleErrors(err)
@@ -93,13 +88,7 @@ export const register = async (values: {
 			}
 		})
 		const data = await response.json()
-		if (!response.ok) {
-			throw new Error(
-				Array.isArray(data.message)
-					? data.message.join('... ')
-					: data.message
-			)
-		}
+		handleResponseErrorArray(response, data)
 		return data
 	} catch (err) {
 		// if (err instanceof TypeError) {
@@ -131,8 +120,19 @@ export const logout = async () => {
 	}
 }
 
-export const changeName = async () => {
+export const changeName = async (values: { username: string }) => {
 	try {
+		const response = await fetch(`${BASE_URL}/users/change-name`, {
+			method: 'POST',
+			body: JSON.stringify({ name: values.username }),
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			credentials: 'include'
+		})
+		const data = await response.json()
+		handleResponseErrorArray(response, data)
+		return data
 	} catch (error) {
 		handleErrors(error)
 	}
