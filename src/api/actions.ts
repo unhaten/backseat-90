@@ -142,3 +142,13 @@ export const changeName = async (values: { username: string }) => {
 		handleErrors(error)
 	}
 }
+
+export const changePassword = async (values: {
+	currentPassword: string
+	newPassword: string
+}) => {
+	try {
+	} catch (error) {
+		handleErrors(error)
+	}
+}
