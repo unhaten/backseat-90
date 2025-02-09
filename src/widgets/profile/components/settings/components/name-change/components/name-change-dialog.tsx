@@ -20,7 +20,7 @@ import {
 } from '@/components/ui'
 import { formatName } from '@/widgets/profile/model/profile.helpers'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -30,12 +30,17 @@ type Props = {
 }
 
 export const NameChangeDialog = ({ name }: Props) => {
+	const queryClient = useQueryClient()
+
 	const mutation = useMutation({
 		mutationKey: ['profile'],
 		mutationFn: (values: z.infer<typeof formSchema>) => {
 			return changeName(values)
 		},
-		onSuccess: data => {
+		onSuccess: async data => {
+			await queryClient.invalidateQueries({
+				queryKey: ['profile']
+			})
 			toast.info(data.message)
 		},
 		onError: error => {
@@ -115,7 +120,9 @@ export const NameChangeDialog = ({ name }: Props) => {
 							)}
 						/>
 						<DialogFooter>
-							<Button type='submit'>Submit name</Button>
+							<Button type='submit' disabled={mutation.isPending}>
+								Submit name
+							</Button>
 						</DialogFooter>
 					</form>
 				</Form>

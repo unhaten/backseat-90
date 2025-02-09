@@ -1,5 +1,4 @@
 import { handleErrors, handleResponseErrorArray } from '@/lib/utils'
-import { UserProfile } from '@/widgets/profile/model/user.type'
 
 const BASE_URL = 'http://localhost:8000/api'
 
@@ -12,6 +11,12 @@ export const getLikedSongs = async () => {
 	} catch (err) {
 		handleErrors(err)
 	}
+}
+
+interface UserProfile {
+	// id: string
+	name: string
+	// email: string
 }
 
 export const getProfile = async (): Promise<UserProfile> => {
