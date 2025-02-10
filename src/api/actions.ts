@@ -148,6 +148,17 @@ export const changePassword = async (values: {
 	newPassword: string
 }) => {
 	try {
+		const response = await fetch(`${BASE_URL}/auth/change-password`, {
+			method: 'POST',
+			body: JSON.stringify(values),
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			credentials: 'include'
+		})
+		const data = await response.json()
+		handleResponseErrorArray(response, data)
+		return data
 	} catch (error) {
 		handleErrors(error)
 	}

@@ -5,7 +5,6 @@ import {
 	Button,
 	Form,
 	Sheet,
-	SheetClose,
 	SheetContent,
 	SheetDescription,
 	SheetFooter,
@@ -16,7 +15,6 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { KeyRound } from 'lucide-react'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -28,10 +26,11 @@ export function ChangePassword() {
 			return changePassword(values)
 		},
 		onSuccess: async data => {
+			form.reset()
 			toast.info(data.message)
 		},
 		onError: error => {
-			toast.warning('Error while changing name', {
+			toast.warning('Error while changing password', {
 				description: error.message
 			})
 		}
@@ -84,8 +83,6 @@ export function ChangePassword() {
 		await mutation.mutateAsync(values)
 	}
 
-	const [isOpen, setIsOpen] = useState(false)
-
 	return (
 		<SettingsContainer>
 			<SettingsDescription
@@ -124,12 +121,13 @@ export function ChangePassword() {
 									name='newPassword'
 									label='New password'
 								/>
-								<SheetFooter className='mt-1'>
-									<SheetClose asChild>
-										<Button type='submit'>
-											Change password
-										</Button>
-									</SheetClose>
+								<SheetFooter className='mt-3'>
+									<Button
+										type='submit'
+										disabled={mutation.isPending}
+									>
+										Change password
+									</Button>
 								</SheetFooter>
 							</form>
 						</Form>
