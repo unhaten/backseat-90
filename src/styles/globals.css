@@ -73,3 +73,8 @@ body {
 		@apply bg-background text-foreground;
 	}
 }
+
+/* //TODO: how to make it appear in hints? */
+.skeleton-button {
+	@apply h-9 w-9 bg-primary/50;
+}

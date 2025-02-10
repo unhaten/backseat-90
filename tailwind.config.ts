@@ -5,7 +5,7 @@ import tailwindcssAnimate from 'tailwindcss-animate'
 
 export default {
 	darkMode: ['class'],
-	content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
+	content: ['./src/**/*.{js,ts,jsx,tsx,mdx}', './src/styles/globals.css'],
 	theme: {
 		extend: {
 			fontFamily: {
