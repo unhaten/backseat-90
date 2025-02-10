@@ -12,7 +12,7 @@ export const LikedList = () => {
 	})
 	if (!isError)
 		return (
-			<ul className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 px-4 py-2'>
+			<ul className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4 py-2'>
 				{isLoading &&
 					[1, 2, 3, 4].map(item => (
 						<Skeleton
