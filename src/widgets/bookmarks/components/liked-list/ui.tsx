@@ -10,8 +10,8 @@ export const LikedList = () => {
 		queryKey: ['liked-songs'],
 		queryFn: getLikedSongs
 	})
-	if (!isError)
-		return (
+	return (
+		<>
 			<ul className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4 py-2'>
 				{isLoading &&
 					[1, 2, 3, 4].map(item => (
@@ -21,7 +21,8 @@ export const LikedList = () => {
 						/>
 					))}
 				{data &&
-					data.map((item: ISong) => (
+					data.likedSongs.length > 0 &&
+					data.likedSongs.map((item: ISong) => (
 						<LikedTrack
 							key={item.id}
 							thumbnail={item.thumbnail}
@@ -32,5 +33,16 @@ export const LikedList = () => {
 						/>
 					))}
 			</ul>
-		)
+			{data && data.likedSongs.length === 0 && (
+				<div className='flex items-center justify-center font-rockSalt text-xl'>
+					<p>You do not have liked songs yet</p>
+				</div>
+			)}
+			{isError && (
+				<div className='flex items-center justify-center font-rockSalt text-xl'>
+					<p>Something went wrong...</p>
+				</div>
+			)}
+		</>
+	)
 }

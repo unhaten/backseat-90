@@ -4,7 +4,9 @@ const BASE_URL = 'http://localhost:8000/api'
 
 export const getLikedSongs = async () => {
 	try {
-		const response = await fetch(`${BASE_URL}/songs`)
+		const response = await fetch(`${BASE_URL}/songs/bookmarks`, {
+			credentials: 'include'
+		})
 		if (!response.ok) throw new Error(`HTTP Error: ${response.status}`)
 		const data = await response.json()
 		return data
@@ -151,6 +153,24 @@ export const changePassword = async (values: {
 		const response = await fetch(`${BASE_URL}/auth/change-password`, {
 			method: 'POST',
 			body: JSON.stringify(values),
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			credentials: 'include'
+		})
+		const data = await response.json()
+		handleResponseErrorArray(response, data)
+		return data
+	} catch (error) {
+		handleErrors(error)
+	}
+}
+
+export const toggleLike = async (id: number) => {
+	try {
+		const response = await fetch(`${BASE_URL}/songs/bookmarks`, {
+			method: 'POST',
+			body: JSON.stringify(id),
 			headers: {
 				'Content-Type': 'application/json'
 			},
