@@ -1,9 +1,8 @@
-import { toggleLike } from '@/api/actions'
+import { checkIfSongIsLiked, toggleLike } from '@/api/actions'
 import { Button } from '@/components/ui'
-import { useIfSongIsLikedNoRetry } from '@/lib/hooks/react-query'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { Heart } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
 
 type Props = {
@@ -11,8 +10,14 @@ type Props = {
 }
 
 export const LikeButton = ({ songId }: Props) => {
-	const { isSuccess, data } = useIfSongIsLikedNoRetry(songId)
+	const { isSuccess, data } = useQuery({
+		queryKey: ['liked-songs', songId],
+		queryFn: () => checkIfSongIsLiked(songId),
+		retry: false
+	})
 	const [isLiked, setIsLiked] = useState(false)
+	const [isThrottled, setIsThrottled] = useState(false)
+	const throttleTimer = useRef<NodeJS.Timeout | null>(null)
 
 	const mutation = useMutation({
 		mutationKey: ['is-liked'],
@@ -21,7 +26,9 @@ export const LikeButton = ({ songId }: Props) => {
 	})
 
 	const handleClick = async () => {
+		if (isThrottled) return
 		setIsLiked((prev: boolean) => !prev)
+		setIsThrottled(true)
 
 		await mutation.mutate(songId)
 		if (!isLiked) {
@@ -37,6 +44,10 @@ export const LikeButton = ({ songId }: Props) => {
 				description: 'This track is removed from favorites'
 			})
 		}
+
+		throttleTimer.current = setTimeout(() => {
+			setIsThrottled(false)
+		}, 500)
 	}
 
 	useEffect(() => {
@@ -52,7 +63,7 @@ export const LikeButton = ({ songId }: Props) => {
 			variant={'ghost'}
 			aria-label='Like'
 			onClick={handleClick}
-			disabled={!isSuccess}
+			disabled={!isSuccess || isThrottled}
 		>
 			<Heart
 				className={`${
