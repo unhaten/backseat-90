@@ -27,6 +27,9 @@ export const LoginForm = ({}) => {
 		},
 		onSuccess: data => {
 			queryClient.setQueryData(['profile'], data)
+			queryClient.refetchQueries({
+				queryKey: ['is-liked']
+			})
 			toast.info(`Welcome, ${data.name ? data.name : 'user'}!`)
 			router.push('/')
 		},

@@ -14,11 +14,16 @@ export const LogOut = ({ setIsOpen }: Props) => {
 	const handleClick = async () => {
 		setIsOpen(false)
 		await logout()
-		queryClient.setQueryData(['profile'], false)
+		// queryClient.setQueryData(['profile'], false)
 
 		queryClient.invalidateQueries({
 			queryKey: ['profile']
 		})
+		queryClient.invalidateQueries({
+			queryKey: ['liked-songs']
+		})
+
+		// queryClient.clear()
 
 		toast('Logged out, see you soon!')
 	}

@@ -1,6 +1,7 @@
 import { checkIfSongIsLiked, toggleLike } from '@/api/actions'
 import { Button } from '@/components/ui'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useProfileNoRetry } from '@/lib/hooks/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Heart } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
@@ -10,19 +11,33 @@ type Props = {
 }
 
 export const LikeButton = ({ songId }: Props) => {
+	const queryClient = useQueryClient()
+
 	const { isSuccess, data } = useQuery({
-		queryKey: ['liked-songs', songId],
+		queryKey: ['liked-songs', 'profile', songId],
 		queryFn: () => checkIfSongIsLiked(songId),
 		retry: false
 	})
+
+	console.log(data)
+
+	const { isSuccess: isAuthorized } = useProfileNoRetry()
+
 	const [isLiked, setIsLiked] = useState(false)
 	const [isThrottled, setIsThrottled] = useState(false)
 	const throttleTimer = useRef<NodeJS.Timeout | null>(null)
 
 	const mutation = useMutation({
-		mutationKey: ['is-liked'],
+		mutationKey: ['is-liked', 'liked-songs'],
 		mutationFn: (songId: number) => toggleLike(songId),
-		onSuccess: () => {}
+		onSuccess: () => {
+			queryClient.invalidateQueries({
+				queryKey: ['liked-songs']
+			})
+			queryClient.refetchQueries({
+				queryKey: ['liked-songs']
+			})
+		}
 	})
 
 	const handleClick = async () => {
@@ -30,7 +45,7 @@ export const LikeButton = ({ songId }: Props) => {
 		setIsLiked((prev: boolean) => !prev)
 		setIsThrottled(true)
 
-		await mutation.mutate(songId)
+		await mutation.mutateAsync(songId)
 		if (!isLiked) {
 			toast.success('Like', {
 				description: 'This track is added to favorites'
@@ -56,6 +71,17 @@ export const LikeButton = ({ songId }: Props) => {
 		}
 	}, [data])
 
+	useEffect(() => {
+		if (isAuthorized) {
+			queryClient.invalidateQueries({
+				queryKey: ['liked-songs', 'profile', songId]
+			})
+			queryClient.refetchQueries({
+				queryKey: ['liked-songs', 'profile', songId]
+			})
+		}
+	}, [isAuthorized, queryClient, songId])
+
 	return (
 		<Button
 			className='shrink-0'
@@ -63,7 +89,7 @@ export const LikeButton = ({ songId }: Props) => {
 			variant={'ghost'}
 			aria-label='Like'
 			onClick={handleClick}
-			disabled={!isSuccess || isThrottled}
+			disabled={!isSuccess || isThrottled || !isAuthorized}
 		>
 			<Heart
 				className={`${
