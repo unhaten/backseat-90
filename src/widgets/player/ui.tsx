@@ -25,7 +25,6 @@ export const Player = () => {
 	// const [currentTrack] = useState(data)
 
 	const [currentTime, setCurrentTime] = useState(0)
-	const [isLiked, setIsLiked] = useState(false)
 
 	const handleLoad = useCallback(() => {
 		if (!audioRef.current) return
@@ -84,8 +83,6 @@ export const Player = () => {
 						/>
 						<Song
 							currentTrack={data?.success && data.value}
-							isLiked={isLiked}
-							setIsLiked={setIsLiked}
 							currentTime={currentTime}
 							duration={player.duration}
 						/>

@@ -3,19 +3,11 @@ import { ISong } from './types/type'
 
 type Props = {
 	currentTrack: ISong
-	isLiked: boolean
-	setIsLiked(arg0: boolean): void
 	currentTime: number
 	duration: number
 }
 
-export const Song = ({
-	currentTrack,
-	isLiked,
-	setIsLiked,
-	currentTime,
-	duration
-}: Props) => {
+export const Song = ({ currentTrack, currentTime, duration }: Props) => {
 	return (
 		<div className='flex items-center gap-4 mb-4'>
 			<SongImage thumbnail={currentTrack.thumbnail} />
@@ -25,7 +17,7 @@ export const Song = ({
 						title={currentTrack.title}
 						author={currentTrack.author}
 					/>
-					<LikeButton isLiked={isLiked} setIsLiked={setIsLiked} />
+					<LikeButton songId={currentTrack.id} />
 				</div>
 				<SongDuration duration={duration} currentTime={currentTime} />
 			</div>

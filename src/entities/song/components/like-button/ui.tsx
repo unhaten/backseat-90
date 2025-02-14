@@ -1,31 +1,29 @@
 import { toggleLike } from '@/api/actions'
 import { Button } from '@/components/ui'
-import { useProfileNoRetry } from '@/lib/hooks/react-query'
+import { useIfSongIsLikedNoRetry } from '@/lib/hooks/react-query'
 import { useMutation } from '@tanstack/react-query'
 import { Heart } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
 type Props = {
-	isLiked: boolean
-	setIsLiked: (isLiked: boolean) => void
+	songId: number
 }
 
-export const LikeButton = ({ isLiked, setIsLiked }: Props) => {
-	const { isSuccess } = useProfileNoRetry()
+export const LikeButton = ({ songId }: Props) => {
+	const { isSuccess, data } = useIfSongIsLikedNoRetry(songId)
+	const [isLiked, setIsLiked] = useState(false)
 
 	const mutation = useMutation({
-		mutationKey: ['profile', 'liked-songs'],
-		mutationFn: (songId: number) => {
-			return toggleLike(songId)
-		},
-		onSuccess: data => {
-			console.log(data)
-		}
+		mutationKey: ['is-liked'],
+		mutationFn: (songId: number) => toggleLike(songId),
+		onSuccess: () => {}
 	})
 
-	const handleClick = () => {
-		mutation.mutate(1)
+	const handleClick = async () => {
+		setIsLiked((prev: boolean) => !prev)
 
+		await mutation.mutate(songId)
 		if (!isLiked) {
 			toast.success('Like', {
 				description: 'This track is added to favorites'
@@ -39,8 +37,13 @@ export const LikeButton = ({ isLiked, setIsLiked }: Props) => {
 				description: 'This track is removed from favorites'
 			})
 		}
-		setIsLiked(!isLiked)
 	}
+
+	useEffect(() => {
+		if (data !== undefined) {
+			setIsLiked(data)
+		}
+	}, [data])
 
 	return (
 		<Button
@@ -54,7 +57,7 @@ export const LikeButton = ({ isLiked, setIsLiked }: Props) => {
 			<Heart
 				className={`${
 					isLiked ? 'fill-rose-500' : 'fill-primary'
-				} transition-colors dark:stroke-black`}
+				} dark:stroke-black`}
 			/>
 		</Button>
 	)

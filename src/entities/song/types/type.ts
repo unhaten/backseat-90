@@ -1,5 +1,5 @@
 export interface ISong {
-	id: string
+	id: number
 	thumbnail: string
 	title: string
 	author: string

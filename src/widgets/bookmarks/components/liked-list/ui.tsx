@@ -10,6 +10,7 @@ export const LikedList = () => {
 		queryKey: ['liked-songs'],
 		queryFn: getLikedSongs
 	})
+	console.log(data)
 	return (
 		<>
 			<ul className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4 py-2'>
@@ -20,7 +21,7 @@ export const LikedList = () => {
 							key={item}
 						/>
 					))}
-				{data &&
+				{/* {data &&
 					data.likedSongs.length > 0 &&
 					data.likedSongs.map((item: ISong) => (
 						<LikedTrack
@@ -31,9 +32,9 @@ export const LikedList = () => {
 							likes={item.likes}
 							id={item.id}
 						/>
-					))}
+					))} */}
 			</ul>
-			{data && data.likedSongs.length === 0 && (
+			{/* {data && data.likedSongs.length === 0 && (
 				<div className='flex items-center justify-center font-rockSalt text-xl'>
 					<p>You do not have liked songs yet</p>
 				</div>
@@ -42,7 +43,7 @@ export const LikedList = () => {
 				<div className='flex items-center justify-center font-rockSalt text-xl'>
 					<p>Something went wrong...</p>
 				</div>
-			)}
+			)} */}
 		</>
 	)
 }

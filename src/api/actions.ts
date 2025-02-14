@@ -2,19 +2,6 @@ import { handleErrors, handleResponseErrorArray } from '@/lib/utils'
 
 const BASE_URL = 'http://localhost:8000/api'
 
-export const getLikedSongs = async () => {
-	try {
-		const response = await fetch(`${BASE_URL}/songs/bookmarks`, {
-			credentials: 'include'
-		})
-		if (!response.ok) throw new Error(`HTTP Error: ${response.status}`)
-		const data = await response.json()
-		return data
-	} catch (err) {
-		handleErrors(err)
-	}
-}
-
 interface UserProfile {
 	// id: string
 	name: string
@@ -47,13 +34,11 @@ export const refreshAccessToken = async () => {
 			method: 'POST',
 			credentials: 'include'
 		})
-
 		if (!response.ok) {
-			// console.error('Failed to refresh token, logging out...')
+			//* console.error('Failed to refresh token, logging out...')
 			logout()
 			return false
 		}
-
 		return true
 	} catch (err) {
 		console.error('Error refreshing token:', err)
@@ -166,11 +151,42 @@ export const changePassword = async (values: {
 	}
 }
 
-export const toggleLike = async (id: number) => {
+export const getLikedSongs = async () => {
+	try {
+		const response = await fetch(`${BASE_URL}/songs/bookmarks`, {
+			credentials: 'include'
+		})
+		if (!response.ok) throw new Error(`HTTP Error: ${response.status}`)
+		const data = await response.json()
+		return data
+	} catch (err) {
+		handleErrors(err)
+	}
+}
+
+export const checkIfSongIsLiked = async (songId: number) => {
+	try {
+		const response = await fetch(`${BASE_URL}/songs/is-liked`, {
+			method: 'POST',
+			body: JSON.stringify({ id: songId }),
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			credentials: 'include'
+		})
+		const data = await response.json()
+		handleResponseErrorArray(response, data)
+		return data
+	} catch (err) {
+		handleErrors(err)
+	}
+}
+
+export const toggleLike = async (songId: number) => {
 	try {
 		const response = await fetch(`${BASE_URL}/songs/bookmarks`, {
 			method: 'POST',
-			body: JSON.stringify(id),
+			body: JSON.stringify({ id: songId }),
 			headers: {
 				'Content-Type': 'application/json'
 			},

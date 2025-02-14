@@ -18,7 +18,7 @@ type Props = {
 	thumbnail: string
 	author: string
 	title: string
-	id?: string
+	id?: number
 }
 
 export const DeleteButton = ({ thumbnail, author, title }: Props) => {
