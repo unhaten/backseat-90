@@ -1,3 +1,4 @@
+import { removeFromBookmarks } from '@/api/actions'
 import {
 	Button,
 	AlertDialogHeader,
@@ -10,7 +11,10 @@ import {
 	AlertDialogCancel,
 	AlertDialogAction
 } from '@/components/ui'
+import { setLike } from '@/entities/song'
 import { SongImage, SongInfo } from '@/entities/song/components'
+import { useAppDispatch } from '@/lib/hooks/redux'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
 
@@ -18,11 +22,29 @@ type Props = {
 	thumbnail: string
 	author: string
 	title: string
-	id?: number
+	id: number
 }
 
-export const DeleteButton = ({ thumbnail, author, title }: Props) => {
-	const handleDelete = (author: string, title: string) => {
+export const DeleteButton = ({ thumbnail, author, title, id }: Props) => {
+	const queryClient = useQueryClient()
+	const dispatch = useAppDispatch()
+
+	const mutation = useMutation({
+		mutationKey: ['is-liked', 'bookmarks'],
+		mutationFn: (songId: number) => removeFromBookmarks(songId),
+		onSuccess: () => {
+			dispatch(setLike(false))
+			queryClient.invalidateQueries({
+				queryKey: ['is-liked']
+			})
+			queryClient.refetchQueries({
+				queryKey: ['bookmarks']
+			})
+		}
+	})
+
+	const handleDelete = async (songId: number) => {
+		await mutation.mutateAsync(songId)
 		toast.error('Deleted', {
 			description: `Track "${author} - ${title}" is removed from favorites`
 		})
@@ -58,7 +80,7 @@ export const DeleteButton = ({ thumbnail, author, title }: Props) => {
 					<AlertDialogAction
 						className='bg-destructive hover:bg-destructive/80 text-white'
 						style={{ margin: 0 }}
-						onClick={() => handleDelete(author, title)}
+						onClick={() => handleDelete(id)}
 					>
 						Delete
 					</AlertDialogAction>

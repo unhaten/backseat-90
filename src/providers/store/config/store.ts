@@ -1,10 +1,12 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { playerReducer } from '@/widgets/player'
 import { imageReducer } from '@/widgets/background-image'
+import { songReducer } from '@/entities/song'
 
 const rootReducer = combineReducers({
 	player: playerReducer,
-	image: imageReducer
+	image: imageReducer,
+	song: songReducer
 })
 
 export const setupStore = () => {

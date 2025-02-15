@@ -182,10 +182,28 @@ export const checkIfSongIsLiked = async (songId: number) => {
 	}
 }
 
-export const toggleLike = async (songId: number) => {
+export const addToBookmarks = async (songId: number) => {
 	try {
 		const response = await fetch(`${BASE_URL}/songs/bookmarks`, {
 			method: 'POST',
+			body: JSON.stringify({ id: songId }),
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			credentials: 'include'
+		})
+		const data = await response.json()
+		handleResponseErrorArray(response, data)
+		return data
+	} catch (error) {
+		handleErrors(error)
+	}
+}
+
+export const removeFromBookmarks = async (songId: number) => {
+	try {
+		const response = await fetch(`${BASE_URL}/songs/bookmarks`, {
+			method: 'DELETE',
 			body: JSON.stringify({ id: songId }),
 			headers: {
 				'Content-Type': 'application/json'

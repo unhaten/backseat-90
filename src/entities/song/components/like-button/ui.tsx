@@ -1,10 +1,12 @@
-import { checkIfSongIsLiked, toggleLike } from '@/api/actions'
+import { checkIfSongIsLiked, addToBookmarks } from '@/api/actions'
 import { Button } from '@/components/ui'
 import { useProfileNoRetry } from '@/lib/hooks/react-query'
+import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Heart } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { toast } from 'sonner'
+import { setLike, toggleLike } from '@/entities/song/model/song.slice'
 
 type Props = {
 	songId: number
@@ -12,6 +14,9 @@ type Props = {
 
 export const LikeButton = ({ songId }: Props) => {
 	const queryClient = useQueryClient()
+	const dispatch = useAppDispatch()
+
+	const isLiked = useAppSelector(state => state.song.isLiked)
 
 	const { isPending, isError, data } = useQuery({
 		queryKey: ['is-liked'],
@@ -21,11 +26,9 @@ export const LikeButton = ({ songId }: Props) => {
 
 	const { isSuccess: isAuthorized } = useProfileNoRetry()
 
-	const [isLiked, setIsLiked] = useState(false)
-
 	const mutation = useMutation({
 		mutationKey: ['is-liked', 'bookmarks'],
-		mutationFn: (songId: number) => toggleLike(songId),
+		mutationFn: (songId: number) => addToBookmarks(songId),
 		onSuccess: () => {
 			queryClient.invalidateQueries({
 				queryKey: ['bookmarks']
@@ -37,7 +40,8 @@ export const LikeButton = ({ songId }: Props) => {
 	})
 
 	const handleClick = async () => {
-		setIsLiked(prev => !prev)
+		// setIsLiked(prev => !prev)
+		dispatch(toggleLike())
 		// setIsLiked((prev: boolean) => !prev)
 
 		await mutation.mutateAsync(songId)
@@ -58,15 +62,15 @@ export const LikeButton = ({ songId }: Props) => {
 
 	useEffect(() => {
 		if (data !== undefined) {
-			setIsLiked(data)
+			dispatch(setLike(data))
 		}
-	}, [data])
+	}, [data, dispatch])
 
 	useEffect(() => {
 		if (!isAuthorized) {
-			setIsLiked(false)
+			dispatch(setLike(false))
 		}
-	}, [isAuthorized])
+	}, [isAuthorized, dispatch])
 
 	// useEffect(() => {
 	// 	if (isAuthorized) {
