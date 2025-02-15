@@ -10,7 +10,7 @@ export const useProfileNoRetry = () =>
 
 // export const useIfSongIsLikedNoRetry = (songId: number) =>
 // 	useQuery({
-// 		queryKey: ['liked-songs', songId],
+// 		queryKey: ['bookmarks', songId],
 // 		queryFn: () => checkIfSongIsLiked(songId),
 // 		retry: false
 // 	})

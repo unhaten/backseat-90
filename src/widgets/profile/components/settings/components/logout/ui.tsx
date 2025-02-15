@@ -20,7 +20,7 @@ export const LogOut = ({ setIsOpen }: Props) => {
 			queryKey: ['profile']
 		})
 		queryClient.invalidateQueries({
-			queryKey: ['liked-songs']
+			queryKey: ['bookmarks']
 		})
 
 		// queryClient.clear()

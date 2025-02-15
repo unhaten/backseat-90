@@ -30,6 +30,9 @@ export const LoginForm = ({}) => {
 			queryClient.refetchQueries({
 				queryKey: ['is-liked']
 			})
+			queryClient.refetchQueries({
+				queryKey: ['bookmarks']
+			})
 			toast.info(`Welcome, ${data.name ? data.name : 'user'}!`)
 			router.push('/')
 		},

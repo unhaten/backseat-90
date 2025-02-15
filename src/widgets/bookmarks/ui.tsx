@@ -16,7 +16,7 @@ import { LikedList } from './components'
 import { useProfileNoRetry } from '@/lib/hooks/react-query'
 
 export const Bookmarks = ({}) => {
-	const { isSuccess } = useProfileNoRetry()
+	const { isSuccess: isAuthorized } = useProfileNoRetry()
 
 	return (
 		<Drawer>
@@ -24,7 +24,7 @@ export const Bookmarks = ({}) => {
 				<Button
 					size='icon'
 					className='shrink-0 ml-auto'
-					disabled={!isSuccess}
+					disabled={!isAuthorized}
 				>
 					<BookmarkIcon />
 				</Button>

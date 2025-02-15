@@ -3,7 +3,7 @@ import { Button } from '@/components/ui'
 import { useProfileNoRetry } from '@/lib/hooks/react-query'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Heart } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
 type Props = {
@@ -13,37 +13,32 @@ type Props = {
 export const LikeButton = ({ songId }: Props) => {
 	const queryClient = useQueryClient()
 
-	const { isSuccess, data } = useQuery({
-		queryKey: ['liked-songs', 'profile', songId],
+	const { isPending, isError, data } = useQuery({
+		queryKey: ['is-liked'],
 		queryFn: () => checkIfSongIsLiked(songId),
 		retry: false
 	})
 
-	console.log(data)
-
 	const { isSuccess: isAuthorized } = useProfileNoRetry()
 
 	const [isLiked, setIsLiked] = useState(false)
-	const [isThrottled, setIsThrottled] = useState(false)
-	const throttleTimer = useRef<NodeJS.Timeout | null>(null)
 
 	const mutation = useMutation({
-		mutationKey: ['is-liked', 'liked-songs'],
+		mutationKey: ['is-liked', 'bookmarks'],
 		mutationFn: (songId: number) => toggleLike(songId),
 		onSuccess: () => {
 			queryClient.invalidateQueries({
-				queryKey: ['liked-songs']
+				queryKey: ['bookmarks']
 			})
 			queryClient.refetchQueries({
-				queryKey: ['liked-songs']
+				queryKey: ['bookmarks']
 			})
 		}
 	})
 
 	const handleClick = async () => {
-		if (isThrottled) return
-		setIsLiked((prev: boolean) => !prev)
-		setIsThrottled(true)
+		setIsLiked(prev => !prev)
+		// setIsLiked((prev: boolean) => !prev)
 
 		await mutation.mutateAsync(songId)
 		if (!isLiked) {
@@ -59,10 +54,6 @@ export const LikeButton = ({ songId }: Props) => {
 				description: 'This track is removed from favorites'
 			})
 		}
-
-		throttleTimer.current = setTimeout(() => {
-			setIsThrottled(false)
-		}, 500)
 	}
 
 	useEffect(() => {
@@ -72,15 +63,21 @@ export const LikeButton = ({ songId }: Props) => {
 	}, [data])
 
 	useEffect(() => {
-		if (isAuthorized) {
-			queryClient.invalidateQueries({
-				queryKey: ['liked-songs', 'profile', songId]
-			})
-			queryClient.refetchQueries({
-				queryKey: ['liked-songs', 'profile', songId]
-			})
+		if (!isAuthorized) {
+			setIsLiked(false)
 		}
-	}, [isAuthorized, queryClient, songId])
+	}, [isAuthorized])
+
+	// useEffect(() => {
+	// 	if (isAuthorized) {
+	// 		queryClient.invalidateQueries({
+	// 			queryKey: ['bookmarks', 'profile', songId]
+	// 		})
+	// 		queryClient.refetchQueries({
+	// 			queryKey: ['bookmarks', 'profile', songId]
+	// 		})
+	// 	}
+	// }, [isAuthorized, queryClient, songId])
 
 	return (
 		<Button
@@ -89,7 +86,9 @@ export const LikeButton = ({ songId }: Props) => {
 			variant={'ghost'}
 			aria-label='Like'
 			onClick={handleClick}
-			disabled={!isSuccess || isThrottled || !isAuthorized}
+			disabled={
+				isPending || isError || mutation.isPending || !isAuthorized
+			}
 		>
 			<Heart
 				className={`${
