@@ -37,6 +37,7 @@ export const DeleteButton = ({ thumbnail, author, title, id }: Props) => {
 			queryClient.invalidateQueries({
 				queryKey: ['is-liked']
 			})
+			// TODO: instead of refetch just remove this song in order not to make another request to server + better ux
 			queryClient.refetchQueries({
 				queryKey: ['bookmarks']
 			})

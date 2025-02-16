@@ -5,7 +5,8 @@ export const useProfileNoRetry = () =>
 	useQuery({
 		queryKey: ['profile'],
 		queryFn: getProfile,
-		retry: false
+		retry: false,
+		refetchOnWindowFocus: true
 	})
 
 // export const useIfSongIsLikedNoRetry = (songId: number) =>

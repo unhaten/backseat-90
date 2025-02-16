@@ -11,7 +11,7 @@ export const LikedList = () => {
 		queryFn: getLikedSongs,
 		staleTime: 1000 * 60, // Cache for 1 minute
 		refetchOnMount: false, // Prevent refetch on mount
-		refetchOnWindowFocus: true, // Refresh if user comes back to the tab
+		refetchOnWindowFocus: false, // Refresh if user comes back to the tab
 		refetchInterval: 1000 * 60 * 2 // Auto-refresh every 2 minutes
 	})
 	return (
