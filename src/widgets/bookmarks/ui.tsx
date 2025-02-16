@@ -15,6 +15,7 @@ import { Bookmark as BookmarkIcon } from 'lucide-react'
 import { LikedList } from './components'
 import { useProfileNoRetry } from '@/lib/hooks/react-query'
 import { useTranslations } from 'next-intl'
+import { HeaderText } from '@/components'
 
 export const Bookmarks = ({}) => {
 	const t = useTranslations('HomePage')
@@ -33,8 +34,8 @@ export const Bookmarks = ({}) => {
 			</DrawerTrigger>
 			<DrawerContent className='h-full max-h-80 md:max-h-96'>
 				<DrawerHeader>
-					<DrawerTitle className='text-center text-2xl font-bebasNeue'>
-						{t('liked-tracks')}
+					<DrawerTitle className='text-center text-2xl'>
+						<HeaderText text={t('liked-tracks')} />
 					</DrawerTitle>
 					<DrawerDescription className='text-center'>
 						{t('liked-tracks-description')}

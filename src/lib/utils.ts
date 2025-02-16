@@ -63,3 +63,8 @@ export function handleResponseErrorArray(
 		)
 	}
 }
+
+// Function to detect if the text contains Cyrillic characters
+export const containsCyrillic = (text: string) => {
+	return /[\u0400-\u04FF\u0500-\u052F]/.test(text) // Matches Cyrillic Unicode range
+}

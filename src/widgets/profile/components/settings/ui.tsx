@@ -24,6 +24,7 @@ import {
 } from './components'
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { HeaderText } from '@/components'
 
 export const Settings = () => {
 	const t = useTranslations('HomePage')
@@ -46,7 +47,7 @@ export const Settings = () => {
 			>
 				<DialogHeader>
 					<DialogTitle className='text-center text-2xl font-bebasNeue'>
-						{t('settings')}
+						<HeaderText text={t('settings')} />
 					</DialogTitle>
 					<DialogDescription className='text-center text-xs'>
 						{t('setting-description')}

@@ -1,4 +1,5 @@
 import { removeFromBookmarks } from '@/api/actions'
+import { HeaderText } from '@/components'
 import {
 	Button,
 	AlertDialogHeader,
@@ -70,7 +71,7 @@ export const DeleteButton = ({ thumbnail, author, title, id }: Props) => {
 			<AlertDialogContent className='max-w-96'>
 				<AlertDialogHeader>
 					<AlertDialogTitle className='text-2xl font-bebasNeue text-center text-rose-500'>
-						{t('delete-track')}
+						<HeaderText text={t('delete-track')} />
 					</AlertDialogTitle>
 					<AlertDialogDescription>
 						{t('delete-track-description')}

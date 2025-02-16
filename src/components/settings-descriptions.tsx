@@ -1,3 +1,5 @@
+import { StylishText } from './stylish-text'
+
 type Props = {
 	settingName: string
 	settingDescription: string
@@ -11,11 +13,11 @@ export const SettingsDescription = ({
 }: Props) => {
 	return (
 		<div className={`col-span-${colSpan}`}>
-			<h3 className='text-md sm:text-lg font-rockSalt text-rose-500 mb-1'>
-				{settingName}
+			<h3 className='text-md sm:text-lg text-rose-500 mb-1'>
+				<StylishText text={settingName} />
 			</h3>
 			<p className='text-xs text-muted-foreground'>
-				{settingDescription}
+				<span>{settingDescription}</span>
 			</p>
 		</div>
 	)

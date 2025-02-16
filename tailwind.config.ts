@@ -11,7 +11,9 @@ export default {
 			fontFamily: {
 				roboto: ['var(--font-roboto)'],
 				bebasNeue: ['var(--font-bebasNeue)'],
-				rockSalt: ['var(--font-rockSalt)']
+				rockSalt: ['var(--font-rockSalt)'],
+				badScript: ['var(--font-badScript)'],
+				alumni: ['var(--font-alumni)']
 			},
 			colors: {
 				background: 'hsl(var(--background))',

@@ -39,7 +39,7 @@ export default async function LocaleLayout({
 	return (
 		<html lang={locale} suppressHydrationWarning>
 			<body
-				className={`${fonts.roboto.variable} ${fonts.bebasNeue.variable} ${fonts.rockSalt.variable} antialiased`}
+				className={`${fonts.roboto.variable} ${fonts.bebasNeue.variable} ${fonts.rockSalt.variable} ${fonts.badScript.variable} ${fonts.alumni.variable} antialiased`}
 			>
 				<NextIntlClientProvider messages={messages}>
 					{children}

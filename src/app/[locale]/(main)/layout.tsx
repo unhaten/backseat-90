@@ -1,6 +1,3 @@
-import '@/styles/globals.css'
-import '@/styles/fonts.css'
-import '@/styles/normalize.css'
 import StoreProvider from '@/providers/store'
 import { Toaster } from '@/components/ui'
 import { ThemeProvider } from '@/providers/theme'
