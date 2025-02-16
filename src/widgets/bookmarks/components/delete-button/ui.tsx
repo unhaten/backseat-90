@@ -81,8 +81,8 @@ export const DeleteButton = ({ thumbnail, author, title, id }: Props) => {
 					<SongImage thumbnail={thumbnail} forLikedSongs />
 					<SongInfo title={title} author={author} />
 				</div>
-				<AlertDialogFooter className='grid grid-cols-2 gap-3'>
-					<AlertDialogCancel className=''>
+				<AlertDialogFooter className='grid grid-cols-2 gap-3 items-center'>
+					<AlertDialogCancel className='' style={{ margin: 0 }}>
 						{t('cancel')}
 					</AlertDialogCancel>
 					<AlertDialogAction

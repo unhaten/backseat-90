@@ -13,6 +13,7 @@ type Props = {
 export const LikedTrack = ({ thumbnail, title, author, likes, id }: Props) => {
 	return (
 		<li className='relative flex items-center gap-4 p-4 border-2 border-primary rounded-lg'>
+			{/* // TODO: make text to shrink if it has too many symbols or animation of running string */}
 			<div className='w-16'>
 				<SongImage thumbnail={thumbnail} forLikedSongs />
 			</div>
