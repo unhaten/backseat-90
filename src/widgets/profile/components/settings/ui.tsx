@@ -23,8 +23,10 @@ import {
 	ThemeColor
 } from './components'
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 
 export const Settings = () => {
+	const t = useTranslations('HomePage')
 	const [isOpen, setIsOpen] = useState(false)
 
 	return (
@@ -44,7 +46,7 @@ export const Settings = () => {
 			>
 				<DialogHeader>
 					<DialogTitle className='text-center text-2xl font-bebasNeue'>
-						Settings
+						{t('settings')}
 					</DialogTitle>
 					<DialogDescription className='text-center text-xs'>
 						Customize your settings and take a look at another

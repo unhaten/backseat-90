@@ -31,7 +31,7 @@ export const Bookmarks = ({}) => {
 			</DrawerTrigger>
 			<DrawerContent className='h-full max-h-80 md:max-h-96'>
 				<DrawerHeader>
-					<DrawerTitle className='text-center text-2xl'>
+					<DrawerTitle className='text-center text-2xl font-bebasNeue'>
 						Liked tracks
 					</DrawerTitle>
 					<DrawerDescription className='text-center'>
