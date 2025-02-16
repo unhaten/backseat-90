@@ -21,6 +21,7 @@ import {
 import { formatName } from '@/widgets/profile/model/profile.helpers'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -30,6 +31,8 @@ type Props = {
 }
 
 export const NameChangeDialog = ({ name }: Props) => {
+	const t = useTranslations('HomePage')
+
 	const queryClient = useQueryClient()
 
 	const mutation = useMutation({
@@ -41,10 +44,10 @@ export const NameChangeDialog = ({ name }: Props) => {
 			await queryClient.invalidateQueries({
 				queryKey: ['profile']
 			})
-			toast.info(data.message)
+			toast.info(`${t('edit-name-success')}, ${data.name}!`)
 		},
 		onError: error => {
-			toast.warning('Error while changing name', {
+			toast.warning(t('edit-name-error'), {
 				description: error.message
 			})
 		}
@@ -56,10 +59,10 @@ export const NameChangeDialog = ({ name }: Props) => {
 		username: z
 			.string()
 			.min(1, {
-				message: 'This field is required'
+				message: t('required-field')
 			})
 			.max(20, {
-				message: 'Nickname should be less than 20 characters long'
+				message: t('nickname-length')
 			})
 	})
 
@@ -87,9 +90,9 @@ export const NameChangeDialog = ({ name }: Props) => {
 				<Form {...form}>
 					<form onSubmit={form.handleSubmit(onSubmit)}>
 						<DialogHeader>
-							<DialogTitle>Edit name</DialogTitle>
+							<DialogTitle>{t('edit-name')}</DialogTitle>
 							<DialogDescription>
-								Change your name here
+								{t('edit-name-description')}
 							</DialogDescription>
 						</DialogHeader>
 						<FormField
@@ -102,7 +105,7 @@ export const NameChangeDialog = ({ name }: Props) => {
 											htmlFor='username'
 											className='text-center'
 										>
-											Nickname
+											{t('nickname')}
 										</FormLabel>
 										<FormControl>
 											<Input
@@ -121,7 +124,7 @@ export const NameChangeDialog = ({ name }: Props) => {
 						/>
 						<DialogFooter>
 							<Button type='submit' disabled={mutation.isPending}>
-								Submit name
+								{t('submit-name')}
 							</Button>
 						</DialogFooter>
 					</form>

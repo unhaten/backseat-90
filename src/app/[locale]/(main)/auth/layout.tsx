@@ -1,7 +1,6 @@
-import { Button, Card } from '@/components/ui'
-import { Home } from 'lucide-react'
+import { HomeButton } from '@/components'
+import { Card } from '@/components/ui'
 import { Metadata } from 'next'
-import Link from 'next/link'
 
 export const metadata: Metadata = {
 	title: 'Backseat 90 - Auth',
@@ -28,16 +27,7 @@ export default function AuthLayout({
 			<div className='absolute top-0 left-0 z-[1] bg-background/70 w-full h-full' />
 			<div className='relative w-full max-w-sm z-[2]'>
 				<Card className='rounded-lg'>
-					<Button
-						className='absolute top-2 left-2 rounded-full'
-						variant='ghost'
-						size='icon'
-						asChild
-					>
-						<Link href={'/'}>
-							<Home />
-						</Link>
-					</Button>
+					<HomeButton />
 					{children}
 				</Card>
 			</div>

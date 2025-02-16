@@ -4,8 +4,11 @@ import { useQuery } from '@tanstack/react-query'
 import { getLikedSongs } from '@/api/actions'
 import { Skeleton } from '@/components/ui'
 import { ISong } from '@/entities/song'
+import { useTranslations } from 'next-intl'
 
 export const LikedList = () => {
+	const t = useTranslations('HomePage')
+
 	const { data, isError, isLoading, isRefetching, isSuccess } = useQuery({
 		queryKey: ['bookmarks'],
 		queryFn: getLikedSongs,
@@ -39,12 +42,12 @@ export const LikedList = () => {
 			</ul>
 			{isSuccess && data.length === 0 && (
 				<div className='flex items-center justify-center font-rockSalt text-xl'>
-					<p>You do not have liked songs yet</p>
+					<p>{t('no-tracks')}</p>
 				</div>
 			)}
 			{isError && (
 				<div className='flex items-center justify-center font-rockSalt text-xl'>
-					<p>Something went wrong...</p>
+					<p>{t('something-wrong')}</p>
 				</div>
 			)}
 		</>

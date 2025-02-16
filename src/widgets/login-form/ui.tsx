@@ -16,8 +16,11 @@ import { login } from '@/api/actions'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useTranslations } from 'next-intl'
 
 export const LoginForm = ({}) => {
+	const t = useTranslations('Login')
+
 	const router = useRouter()
 	const queryClient = useQueryClient()
 
@@ -26,6 +29,10 @@ export const LoginForm = ({}) => {
 			return login(values)
 		},
 		onSuccess: data => {
+			const currentPath = window.location.pathname
+			const pathParts = currentPath.split('/')
+			const currentLanguage = pathParts[1] || 'en'
+
 			queryClient.setQueryData(['profile'], data)
 			queryClient.refetchQueries({
 				queryKey: ['is-liked']
@@ -33,11 +40,16 @@ export const LoginForm = ({}) => {
 			queryClient.refetchQueries({
 				queryKey: ['bookmarks']
 			})
-			toast.info(`Welcome, ${data.name ? data.name : 'user'}!`)
-			router.push('/')
+			toast.info(
+				`${t('login-greet')}, ${
+					data.name ? data.name : `${t('login-user')}`
+				}!`
+			)
+
+			router.push(`/${currentLanguage}`)
 		},
 		onError: error => {
-			toast.warning('Login failed', {
+			toast.warning(t('login-error'), {
 				description: error.message
 			})
 		}
@@ -47,11 +59,11 @@ export const LoginForm = ({}) => {
 		email: z
 			.string()
 			.min(1, {
-				message: 'Enter is required'
+				message: t('email-required')
 			})
 			.email(),
 		password: z.string().min(1, {
-			message: 'Enter your password'
+			message: t('password-required')
 		})
 	})
 
@@ -71,7 +83,9 @@ export const LoginForm = ({}) => {
 	return (
 		<>
 			<CardHeader>
-				<CardTitle className='text-2xl text-center'>Log in</CardTitle>
+				<CardTitle className='text-2xl text-center'>
+					{t('login')}
+				</CardTitle>
 			</CardHeader>
 			<CardContent>
 				<Form {...form}>
@@ -79,29 +93,30 @@ export const LoginForm = ({}) => {
 						<FormField<z.infer<typeof formSchema>>
 							name='email'
 							placeholder='m@example.com'
-							label='Email'
+							label={t('email')}
 							type='email'
 						/>
 						<PasswordFormField<z.infer<typeof formSchema>>
 							name='password'
-							label='Password'
+							label={t('password')}
 						/>
 						<Button
 							className='w-full mt-6'
 							type='submit'
 							disabled={mutation.isPending}
 						>
-							Log In
+							{t('login')}
 						</Button>
 					</form>
 				</Form>
 				<div className='mt-4 text-center text-sm'>
-					Don&apos;t have an account?{' '}
+					{t('have-not-account')}
 					<Link
 						href='./register'
 						className='underline underline-offset-4'
 					>
-						Sign up
+						{' '}
+						{t('sign-up')}
 					</Link>
 				</div>
 			</CardContent>

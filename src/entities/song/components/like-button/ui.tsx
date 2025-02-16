@@ -7,12 +7,15 @@ import { Heart } from 'lucide-react'
 import { useEffect } from 'react'
 import { toast } from 'sonner'
 import { setLike, toggleLike } from '@/entities/song/model/song.slice'
+import { useTranslations } from 'next-intl'
 
 type Props = {
 	songId: number
 }
 
 export const LikeButton = ({ songId }: Props) => {
+	const t = useTranslations('HomePage')
+
 	const queryClient = useQueryClient()
 	const dispatch = useAppDispatch()
 
@@ -46,16 +49,16 @@ export const LikeButton = ({ songId }: Props) => {
 
 		await mutation.mutateAsync(songId)
 		if (!isLiked) {
-			toast.success('Like', {
-				description: 'This track is added to favorites'
+			toast.success(t('like'), {
+				description: t('like-description')
 				// action: {
 				// 	label: 'Undo',
 				// 	onClick: () => setIsLiked(!isLiked)
 				// }
 			})
 		} else {
-			toast.error('Dislike', {
-				description: 'This track is removed from favorites'
+			toast.error(t('dislike'), {
+				description: t('dislike-description')
 			})
 		}
 	}

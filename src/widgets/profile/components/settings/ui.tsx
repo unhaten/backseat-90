@@ -49,8 +49,7 @@ export const Settings = () => {
 						{t('settings')}
 					</DialogTitle>
 					<DialogDescription className='text-center text-xs'>
-						Customize your settings and take a look at another
-						options
+						{t('setting-description')}
 					</DialogDescription>
 				</DialogHeader>
 				<Separator className='' />
@@ -70,7 +69,7 @@ export const Settings = () => {
 				>
 					<DialogClose asChild>
 						<Button className='w-fit' variant='outline'>
-							Save changes
+							{t('save-changes')}
 						</Button>
 					</DialogClose>
 					<div className='flex items-center gap-2'>

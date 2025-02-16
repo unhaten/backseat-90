@@ -15,22 +15,25 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { KeyRound } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
 export function ChangePassword() {
+	const t = useTranslations('HomePage')
+
 	const mutation = useMutation({
 		mutationKey: ['profile'],
 		mutationFn: (values: z.infer<typeof formSchema>) => {
 			return changePassword(values)
 		},
-		onSuccess: async data => {
+		onSuccess: async () => {
 			form.reset()
-			toast.info(data.message)
+			toast.info(t('change-password-success'))
 		},
 		onError: error => {
-			toast.warning('Error while changing password', {
+			toast.warning(t('change-password-error'), {
 				description: error.message
 			})
 		}
@@ -39,23 +42,21 @@ export function ChangePassword() {
 	const formSchema = z
 		.object({
 			currentPassword: z.string().min(1, {
-				message: 'This field should not be empty'
+				message: t('not-empty-field')
 			}),
 			newPassword: z
 				.string()
 				.min(6, {
-					message: 'Password must be at least 6 characters'
+					message: t('six-characters')
 				})
 				.refine(password => /[A-Z]/.test(password), {
-					message:
-						'Password must contain at least one uppercase letter'
+					message: t('uppercase')
 				})
 				.refine(password => /[a-z]/.test(password), {
-					message:
-						'Password must contain at least one lowercase letter'
+					message: t('lowercase')
 				})
 				.refine(password => /[0-9]/.test(password), {
-					message: 'Password must contain at least one digit'
+					message: t('digit')
 				})
 			// .refine(password => /[!@#$%^&*]/.test(password), {
 			// 	message: 'Password must contain at least one special character'
@@ -66,7 +67,7 @@ export function ChangePassword() {
 				return values.currentPassword !== values.newPassword
 			},
 			{
-				message: 'Passwords must not match',
+				message: t('must-not-match'),
 				path: ['newPassword']
 			}
 		)
@@ -86,8 +87,8 @@ export function ChangePassword() {
 	return (
 		<SettingsContainer>
 			<SettingsDescription
-				settingName='Change password'
-				settingDescription='Change your current password if you do not like your previous one'
+				settingName={t('change-password')}
+				settingDescription={t('change-password-description')}
 			/>
 			<div className='col-span-2 sm:col-span-1'>
 				<Sheet
@@ -98,7 +99,7 @@ export function ChangePassword() {
 							className=''
 							// onClick={() => setIsOpen(prev => !prev)}
 						>
-							Edit <KeyRound />
+							{t('edit')} <KeyRound />
 						</Button>
 					</SheetTrigger>
 					<SheetContent side='left'>
@@ -106,27 +107,26 @@ export function ChangePassword() {
 							<form onSubmit={form.handleSubmit(onSubmit)}>
 								<SheetHeader>
 									<SheetTitle>
-										Change your password
+										{t('change-your-password')}
 									</SheetTitle>
 									<SheetDescription>
-										Make changes to your current password
-										here. Click save when you are done.
+										{t('change-your-password-description')}
 									</SheetDescription>
 								</SheetHeader>
 								<PasswordFormFieldWithSideInput
 									name='currentPassword'
-									label='Current password'
+									label={t('current-password')}
 								/>
 								<PasswordFormFieldWithSideInput
 									name='newPassword'
-									label='New password'
+									label={t('new-password')}
 								/>
 								<SheetFooter className='mt-3'>
 									<Button
 										type='submit'
 										disabled={mutation.isPending}
 									>
-										Change password
+										{t('change-password-lowercase')}
 									</Button>
 								</SheetFooter>
 							</form>

@@ -1,40 +1,45 @@
+import { useTranslations } from 'next-intl'
 import { z } from 'zod'
 
-export const formSchema = z
-	.object({
-		email: z
-			.string()
-			.min(1, {
-				message: 'Email is required'
+export const useFormSchema = () => {
+	const t = useTranslations('Register')
+
+	return z
+		.object({
+			email: z
+				.string()
+				.min(1, {
+					message: t('email-required')
+				})
+				.email(),
+			password: z
+				.string()
+				.min(6, {
+					message: t('six-characters')
+				})
+				.refine(password => /[A-Z]/.test(password), {
+					message: t('uppercase')
+				})
+				.refine(password => /[a-z]/.test(password), {
+					message: t('lowercase')
+				})
+				.refine(password => /[0-9]/.test(password), {
+					message: t('digit')
+				}),
+			// .refine(password => /[!@#$%^&*]/.test(password), {
+			// 	message: 'Password must contain at least one special character'
+			// })
+			confirmPassword: z.string().min(1, {
+				message: t('not-empty')
 			})
-			.email(),
-		password: z
-			.string()
-			.min(6, {
-				message: 'Password must be at least 6 characters'
-			})
-			.refine(password => /[A-Z]/.test(password), {
-				message: 'Password must contain at least one uppercase letter'
-			})
-			.refine(password => /[a-z]/.test(password), {
-				message: 'Password must contain at least one lowercase letter'
-			})
-			.refine(password => /[0-9]/.test(password), {
-				message: 'Password must contain at least one digit'
-			}),
-		// .refine(password => /[!@#$%^&*]/.test(password), {
-		// 	message: 'Password must contain at least one special character'
-		// })
-		confirmPassword: z.string().min(1, {
-			message: 'This field should not be empty'
 		})
-	})
-	.refine(
-		values => {
-			return values.password === values.confirmPassword
-		},
-		{
-			message: 'Passwords must match',
-			path: ['confirmPassword']
-		}
-	)
+		.refine(
+			values => {
+				return values.password === values.confirmPassword
+			},
+			{
+				message: t('must-match'),
+				path: ['confirmPassword']
+			}
+		)
+}

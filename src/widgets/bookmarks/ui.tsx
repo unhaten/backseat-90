@@ -14,8 +14,10 @@ import {
 import { Bookmark as BookmarkIcon } from 'lucide-react'
 import { LikedList } from './components'
 import { useProfileNoRetry } from '@/lib/hooks/react-query'
+import { useTranslations } from 'next-intl'
 
 export const Bookmarks = ({}) => {
+	const t = useTranslations('HomePage')
 	const { isSuccess: isAuthorized } = useProfileNoRetry()
 
 	return (
@@ -32,10 +34,10 @@ export const Bookmarks = ({}) => {
 			<DrawerContent className='h-full max-h-80 md:max-h-96'>
 				<DrawerHeader>
 					<DrawerTitle className='text-center text-2xl font-bebasNeue'>
-						Liked tracks
+						{t('liked-tracks')}
 					</DrawerTitle>
 					<DrawerDescription className='text-center'>
-						Here are all tracks that you liked
+						{t('liked-tracks-description')}
 					</DrawerDescription>
 				</DrawerHeader>
 				<ScrollArea className=''>
@@ -44,7 +46,7 @@ export const Bookmarks = ({}) => {
 				</ScrollArea>
 				<DrawerFooter>
 					<DrawerClose asChild>
-						<Button variant='outline'>Close</Button>
+						<Button variant='outline'>{t('close')}</Button>
 					</DrawerClose>
 				</DrawerFooter>
 			</DrawerContent>

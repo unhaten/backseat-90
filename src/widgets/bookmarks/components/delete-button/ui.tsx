@@ -16,6 +16,7 @@ import { SongImage, SongInfo } from '@/entities/song/components'
 import { useAppDispatch } from '@/lib/hooks/redux'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Trash2 } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { toast } from 'sonner'
 
 type Props = {
@@ -26,6 +27,8 @@ type Props = {
 }
 
 export const DeleteButton = ({ thumbnail, author, title, id }: Props) => {
+	const t = useTranslations('HomePage')
+
 	const queryClient = useQueryClient()
 	const dispatch = useAppDispatch()
 
@@ -46,8 +49,10 @@ export const DeleteButton = ({ thumbnail, author, title, id }: Props) => {
 
 	const handleDelete = async (songId: number) => {
 		await mutation.mutateAsync(songId)
-		toast.error('Deleted', {
-			description: `Track "${author} - ${title}" is removed from favorites`
+		toast.error(t('deleted'), {
+			description: `${t('track-word')} "${author} - ${title}"${t(
+				'track-word-ext'
+			)}`
 		})
 	}
 
@@ -65,11 +70,10 @@ export const DeleteButton = ({ thumbnail, author, title, id }: Props) => {
 			<AlertDialogContent className='max-w-96'>
 				<AlertDialogHeader>
 					<AlertDialogTitle className='text-2xl font-bebasNeue text-center text-rose-500'>
-						Delete track?
+						{t('delete-track')}
 					</AlertDialogTitle>
 					<AlertDialogDescription>
-						This action cannot be undone. This will permanently
-						delete this track from your favorites.
+						{t('delete-track-description')}
 					</AlertDialogDescription>
 				</AlertDialogHeader>
 				<div className='flex gap-3 items-center justify-center w-fit mx-auto'>
@@ -77,13 +81,15 @@ export const DeleteButton = ({ thumbnail, author, title, id }: Props) => {
 					<SongInfo title={title} author={author} />
 				</div>
 				<AlertDialogFooter className='grid grid-cols-2 gap-3'>
-					<AlertDialogCancel className=''>Cancel</AlertDialogCancel>
+					<AlertDialogCancel className=''>
+						{t('cancel')}
+					</AlertDialogCancel>
 					<AlertDialogAction
 						className='bg-destructive hover:bg-destructive/80 text-white'
 						style={{ margin: 0 }}
 						onClick={() => handleDelete(id)}
 					>
-						Delete
+						{t('delete')}
 					</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>
