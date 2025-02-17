@@ -68,7 +68,7 @@ export const NameChangeDialog = ({ name }: Props) => {
 
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
-		// TODO: sometimes name shows incorrect (after rerenders and other stuff)
+		// FIXME: //! sometimes name shows incorrect (after rerenders and other stuff)
 		defaultValues: {
 			username: name
 		}

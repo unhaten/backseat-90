@@ -5,8 +5,9 @@ import { useIsFetching, useQueryClient } from '@tanstack/react-query'
 import { ImagePlay } from 'lucide-react'
 
 export const ChangeImage = () => {
-	// TODO: make an animation between image changes
 	const queryClient = useQueryClient()
+
+	//* this sets isFetching to true so we can play loading animation
 	const isFetching = useIsFetching({ queryKey: ['image-generator'] }) > 0
 
 	const handleClick = () => {

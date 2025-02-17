@@ -10,6 +10,7 @@ export function middleware(req: NextRequest) {
 	const accessToken = req.cookies.get('access_token')?.value
 
 	// Extract the locale from the URL (e.g., /en, /de, , etc.)
+	// TODO: make a feature: get locale language of user's browser
 	const localeMatch = pathname.match(/^\/(de|en|ru)(\/|$)/)
 	const locale = localeMatch ? localeMatch[1] : null // Locale or null if not found
 

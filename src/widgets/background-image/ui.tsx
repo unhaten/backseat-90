@@ -35,8 +35,6 @@ export const BackgroundImage = () => {
 		}
 	}, [data, image.imageId, dispatch])
 
-	// TODO: make an animation between image changes
-	// TODO: disable button while pending
 	if (isRefetching)
 		return (
 			<Image

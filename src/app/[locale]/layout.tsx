@@ -8,6 +8,7 @@ import { routing } from '@/i18n/routing'
 import { getMessages } from 'next-intl/server'
 import { NextIntlClientProvider } from 'next-intl'
 
+// TODO: make metadata with different languages
 export const metadata: Metadata = {
 	title: 'Backseat 90 - Listen to 90s Underground Rap',
 	description: "Sit back and relax with 90's underground rap songs",
