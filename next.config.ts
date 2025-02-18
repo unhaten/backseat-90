@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
 			{
 				protocol: 'http',
 				hostname: 'localhost',
-				port: '8000'
+				port: '2000'
 				// pathname: '/account123/**',
 				// search: ''
 			}

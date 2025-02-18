@@ -8,7 +8,7 @@ import { useEffect } from 'react'
 import { setImage } from './model/image.slice'
 import { toast } from 'sonner'
 
-const BASE_URL = 'http://localhost:8000/public/'
+const BASE_URL = 'http://localhost:2000/public/'
 
 export const BackgroundImage = () => {
 	const dispatch = useAppDispatch()

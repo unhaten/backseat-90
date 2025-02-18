@@ -6,7 +6,7 @@ type Props = {
 	forLikedSongs?: boolean
 }
 
-const BASE_URL = 'http://localhost:8000/public/'
+const BASE_URL = 'http://localhost:2000/public/'
 
 export const SongImage = ({ thumbnail, forLikedSongs }: Props) => {
 	return (

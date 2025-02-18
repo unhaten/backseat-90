@@ -1,6 +1,6 @@
 import { handleErrors, handleResponseErrorArray } from '@/lib/utils'
 
-const BASE_URL = 'http://localhost:8000/api'
+const BASE_URL = 'http://localhost:2000/api'
 
 interface UserProfile {
 	// id: string

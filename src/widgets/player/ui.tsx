@@ -10,7 +10,7 @@ import { connectToRadio } from '@/api/server-actions'
 import { PlayerLoader } from '@/components'
 import { toast } from 'sonner'
 
-const BASE_URL = 'http://localhost:8000/public/'
+const BASE_URL = 'http://localhost:2000/public/'
 
 export const Player = () => {
 	const { data, isLoading } = useQuery({

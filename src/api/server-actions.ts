@@ -2,7 +2,7 @@
 
 import { createServerAction, ServerActionError } from '@/lib/utils'
 
-const BASE_URL = 'http://localhost:8000/api'
+const BASE_URL = 'http://localhost:2000/api'
 
 export const connectToRadio = createServerAction(async () => {
 	try {
