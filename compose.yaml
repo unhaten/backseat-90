@@ -1,5 +1,5 @@
 services:
-    backseat-90:
+    frontend:
         container_name: development
         build:
             context: .
@@ -7,12 +7,11 @@ services:
         ports:
             - '3000:3000'
         volumes:
-            # - .:/home/frontend:delegated
-            - .:/home/frontend
-            - /home/frontend/node_modules
-            - /home/frontend/.next
+            - .:/usr/src/app/frontend
+            - /usr/src/app/frontend/node_modules
+            - /usr/src/app/frontend/.next
         environment:
             - NODE_ENV=development
-            - CHOKIDAR_USEPOLLING=true
             - WATCHPACK_POLLING=true
+            - NEXT_TELEMETRY_DISABLED=1
         command: ['npm', 'run', 'dev']

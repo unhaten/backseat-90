@@ -1,13 +1,15 @@
-FROM node:20-alpine
+FROM node:18-alpine AS base
 
-WORKDIR /home/frontend
+WORKDIR /usr/src/app/frontend
 
-COPY package*.json ./
+RUN apk add --no-cache libc6-compat
 
-RUN npm install
+COPY package.json package-lock.json ./
+
+RUN npm ci --legacy-peer-deps
 
 COPY . .
 
 EXPOSE 3000
 
-CMD [ "npm", "run", "dev" ]
+CMD ["npm", "run", "dev"]
