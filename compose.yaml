@@ -1,6 +1,7 @@
 services:
-    frontend:
-        container_name: development
+    client:
+        container_name: frontend-development
+        image: backseat-90-frontend-development
         build:
             context: .
             dockerfile: Dockerfile
