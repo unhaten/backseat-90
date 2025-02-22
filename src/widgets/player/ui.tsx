@@ -9,8 +9,7 @@ import { useQuery } from '@tanstack/react-query'
 import { connectToRadio } from '@/api/server-actions'
 import { PlayerLoader } from '@/components'
 import { toast } from 'sonner'
-
-const BASE_URL = 'http://localhost:2000/public/'
+import { API_PUBLIC_URL } from '@/lib/config'
 
 export const Player = () => {
 	const { data, isLoading } = useQuery({
@@ -77,7 +76,10 @@ export const Player = () => {
 					<>
 						<audio
 							ref={audioRef}
-							src={BASE_URL + (data?.success && data.value.file)}
+							src={
+								API_PUBLIC_URL +
+								(data?.success && data.value.file)
+							}
 							preload='auto'
 							onLoadedMetadata={handleLoad}
 						/>

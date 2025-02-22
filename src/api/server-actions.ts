@@ -1,12 +1,11 @@
 'use server'
 
+import { API_BASE_URL } from '@/lib/config'
 import { createServerAction, ServerActionError } from '@/lib/utils'
-
-const BASE_URL = 'http://localhost:2000/api'
 
 export const connectToRadio = createServerAction(async () => {
 	try {
-		const response = await fetch(`${BASE_URL}/songs/connect`)
+		const response = await fetch(`${API_BASE_URL}/api/songs/connect`)
 		if (!response.ok)
 			throw new ServerActionError(`HTTP Error: ${response.status}`)
 		const data = await response.json()
@@ -24,7 +23,7 @@ export const connectToRadio = createServerAction(async () => {
 export const getImages = createServerAction(async (imageID?: number) => {
 	try {
 		const response = await fetch(
-			`${BASE_URL}/users/background${
+			`${API_BASE_URL}/api/users/background${
 				imageID ? `?image-id=${imageID}` : ''
 			}`
 		)

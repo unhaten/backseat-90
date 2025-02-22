@@ -1,7 +1,5 @@
+import { API_BASE_URL } from '@/lib/config'
 import { handleErrors, handleResponseErrorArray } from '@/lib/utils'
-
-const BASE_URL = 'http://localhost:2000/api'
-
 interface UserProfile {
 	// id: string
 	name: string
@@ -10,7 +8,7 @@ interface UserProfile {
 
 export const getProfile = async (): Promise<UserProfile> => {
 	try {
-		const response = await fetch(`${BASE_URL}/users/profile`, {
+		const response = await fetch(`${API_BASE_URL}/api/users/profile`, {
 			credentials: 'include'
 		})
 		if (response.status === 401) {
@@ -30,7 +28,7 @@ export const getProfile = async (): Promise<UserProfile> => {
 
 export const refreshAccessToken = async () => {
 	try {
-		const response = await fetch(`${BASE_URL}/auth/refresh`, {
+		const response = await fetch(`${API_BASE_URL}/api/auth/refresh`, {
 			method: 'POST',
 			credentials: 'include'
 		})
@@ -49,7 +47,7 @@ export const refreshAccessToken = async () => {
 
 export const login = async (values: { email: string; password: string }) => {
 	try {
-		const response = await fetch(`${BASE_URL}/auth/login`, {
+		const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
 			method: 'POST',
 			body: JSON.stringify(values),
 			headers: {
@@ -72,7 +70,7 @@ export const register = async (values: {
 	confirmPassword: string
 }) => {
 	try {
-		const response = await fetch(`${BASE_URL}/auth/register`, {
+		const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
 			method: 'POST',
 			body: JSON.stringify(values),
 			headers: {
@@ -100,7 +98,7 @@ export const register = async (values: {
 
 export const logout = async () => {
 	try {
-		const response = await fetch(`${BASE_URL}/auth/logout`, {
+		const response = await fetch(`${API_BASE_URL}/api/auth/logout`, {
 			credentials: 'include'
 		})
 		if (!response.ok) {
@@ -114,7 +112,7 @@ export const logout = async () => {
 
 export const changeName = async (values: { username: string }) => {
 	try {
-		const response = await fetch(`${BASE_URL}/users/change-name`, {
+		const response = await fetch(`${API_BASE_URL}/api/users/change-name`, {
 			method: 'POST',
 			body: JSON.stringify({ name: values.username }),
 			headers: {
@@ -135,14 +133,17 @@ export const changePassword = async (values: {
 	newPassword: string
 }) => {
 	try {
-		const response = await fetch(`${BASE_URL}/auth/change-password`, {
-			method: 'POST',
-			body: JSON.stringify(values),
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			credentials: 'include'
-		})
+		const response = await fetch(
+			`${API_BASE_URL}/api/auth/change-password`,
+			{
+				method: 'POST',
+				body: JSON.stringify(values),
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				credentials: 'include'
+			}
+		)
 		const data = await response.json()
 		handleResponseErrorArray(response, data)
 		return data
@@ -153,7 +154,7 @@ export const changePassword = async (values: {
 
 export const getLikedSongs = async () => {
 	try {
-		const response = await fetch(`${BASE_URL}/songs/bookmarks`, {
+		const response = await fetch(`${API_BASE_URL}/api/songs/bookmarks`, {
 			credentials: 'include'
 		})
 		if (!response.ok) throw new Error(`HTTP Error: ${response.status}`)
@@ -166,7 +167,7 @@ export const getLikedSongs = async () => {
 
 export const checkIfSongIsLiked = async (songId: number) => {
 	try {
-		const response = await fetch(`${BASE_URL}/songs/is-liked`, {
+		const response = await fetch(`${API_BASE_URL}/api/songs/is-liked`, {
 			method: 'POST',
 			body: JSON.stringify({ id: songId }),
 			headers: {
@@ -184,7 +185,7 @@ export const checkIfSongIsLiked = async (songId: number) => {
 
 export const addToBookmarks = async (songId: number) => {
 	try {
-		const response = await fetch(`${BASE_URL}/songs/bookmarks`, {
+		const response = await fetch(`${API_BASE_URL}/api/songs/bookmarks`, {
 			method: 'POST',
 			body: JSON.stringify({ id: songId }),
 			headers: {
@@ -202,7 +203,7 @@ export const addToBookmarks = async (songId: number) => {
 
 export const removeFromBookmarks = async (songId: number) => {
 	try {
-		const response = await fetch(`${BASE_URL}/songs/bookmarks`, {
+		const response = await fetch(`${API_BASE_URL}/api/songs/bookmarks`, {
 			method: 'DELETE',
 			body: JSON.stringify({ id: songId }),
 			headers: {
