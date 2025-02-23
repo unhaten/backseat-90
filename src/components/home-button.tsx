@@ -3,11 +3,17 @@
 import { Home } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from './ui'
+import { useEffect, useState } from 'react'
 
 export const HomeButton = () => {
-	const currentPath = window.location.pathname
-	const pathParts = currentPath.split('/')
-	const currentLanguage = pathParts[1] || 'en'
+	const [currentLanguage, setCurrentLanguage] = useState('')
+
+	useEffect(() => {
+		const currentPath = window.location.pathname
+		const pathParts = currentPath.split('/')
+		const currentLanguage = pathParts[1] || 'en'
+		setCurrentLanguage(currentLanguage)
+	}, [])
 
 	return (
 		<Button

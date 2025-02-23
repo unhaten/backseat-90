@@ -1,8 +1,8 @@
 FROM node:20-alpine AS base
 
-WORKDIR /usr/src/app/frontend
+WORKDIR /usr/src/app/client
 
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache libc6-compat curl
 
 COPY package.json package-lock.json ./
 
