@@ -17,8 +17,6 @@ export const Player = () => {
 		queryFn: connectToRadio
 	})
 
-	console.log(data)
-
 	const audioRef = useRef<HTMLAudioElement>(null)
 	const player = useAppSelector(state => state.player)
 	const dispatch = useAppDispatch()
