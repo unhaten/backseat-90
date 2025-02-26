@@ -36,6 +36,7 @@ export function createServerAction<Return, Args extends unknown[] = []>(
 // }
 
 export function handleErrors(error: unknown): never {
+	console.error(error)
 	if (error instanceof TypeError) {
 		throw new Error(
 			'Unable to connect to the server. Please check your network connection or try again later.'
