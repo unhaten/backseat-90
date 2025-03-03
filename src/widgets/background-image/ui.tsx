@@ -7,7 +7,7 @@ import Image from 'next/image'
 import { useEffect } from 'react'
 import { setImage } from './model/image.slice'
 import { toast } from 'sonner'
-import { API_SERVER_URL } from '@/lib/config'
+import { API_PUBLIC_URL } from '@/lib/config'
 
 export const BackgroundImage = () => {
 	const dispatch = useAppDispatch()
@@ -49,7 +49,8 @@ export const BackgroundImage = () => {
 		data?.value.background && (
 			<Image
 				className='absolute top-0 left-0 z-0 w-full h-full object-cover md:object-fill object-center'
-				src={API_SERVER_URL + data.value.background}
+				// src={API_SERVER_URL + data.value.background}
+				src={API_PUBLIC_URL + data.value.background}
 				alt='the gif'
 				unoptimized
 				fill
