@@ -165,7 +165,7 @@ export const getLikedSongs = async () => {
 	}
 }
 
-export const checkIfSongIsLiked = async (songId: number) => {
+export const checkIfSongIsLiked = async (songId: string) => {
 	try {
 		const response = await fetch(`${API_BASE_URL}/api/songs/is-liked`, {
 			method: 'POST',
@@ -183,7 +183,7 @@ export const checkIfSongIsLiked = async (songId: number) => {
 	}
 }
 
-export const addToBookmarks = async (songId: number) => {
+export const addToBookmarks = async (songId: string) => {
 	try {
 		const response = await fetch(`${API_BASE_URL}/api/songs/bookmarks`, {
 			method: 'POST',
@@ -201,7 +201,7 @@ export const addToBookmarks = async (songId: number) => {
 	}
 }
 
-export const removeFromBookmarks = async (songId: number) => {
+export const removeFromBookmarks = async (songId: string) => {
 	try {
 		const response = await fetch(`${API_BASE_URL}/api/songs/bookmarks`, {
 			method: 'DELETE',

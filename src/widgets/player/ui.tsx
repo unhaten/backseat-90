@@ -1,9 +1,8 @@
 'use client'
 
-import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useAppSelector } from '@/lib/hooks/redux'
+import { useEffect, useRef, useState } from 'react'
 import { Controls } from './components'
-import { setDuration } from './model/player.slice'
 import { Song } from '@/entities/song'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { connectToRadio } from '@/api/server-actions'
@@ -19,18 +18,18 @@ export const Player = () => {
 
 	const audioRef = useRef<HTMLAudioElement>(null)
 	const player = useAppSelector(state => state.player)
-	const dispatch = useAppDispatch()
 	const queryClient = useQueryClient()
 
 	const [currentTime, setCurrentTime] = useState(0)
 
-	const handleLoad = useCallback(() => {
-		if (!audioRef.current) return
+	// const handleLoad = useCallback(() => {
+	// 	if (!audioRef.current) return
 
-		audioRef.current.onloadedmetadata = () => {
-			dispatch(setDuration(audioRef.current?.duration || 0))
-		}
-	}, [dispatch])
+	// 	audioRef.current.onloadedmetadata = () => {
+	// 		dispatch(setDuration(audioRef.current?.duration || 0))
+	// 	}
+	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
+	// }, [])
 
 	useEffect(() => {
 		if (data && !data.success) {
@@ -57,8 +56,8 @@ export const Player = () => {
 	useEffect(() => {
 		if (!audioRef.current) return
 		audioRef.current.load() //* forcing because mobile browsers does not preload music smh
-		handleLoad()
-	}, [audioRef, handleLoad])
+		// handleLoad()
+	}, [audioRef])
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -78,6 +77,7 @@ export const Player = () => {
 			})
 			queryClient.invalidateQueries({ queryKey: ['player'] })
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	return (
@@ -93,14 +93,13 @@ export const Player = () => {
 							// 	(data?.success && data.value.file)
 							// }
 							preload='auto'
-							onLoadedMetadata={handleLoad}
+							// onLoadedMetadata={handleLoad}
 							// src='http://localhost/listen/main_station/radio.mp3'
-							src={data?.success ? data.value.success : undefined}
+							src={data?.success ? data.value.url : undefined}
 						/>
 						<Song
-							currentTrack={data?.success && data.value}
+							currentSong={data?.success && data.value.song}
 							currentTime={currentTime}
-							duration={player.duration}
 						/>
 					</>
 				)}

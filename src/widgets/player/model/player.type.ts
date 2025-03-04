@@ -6,7 +6,7 @@ export interface IPlayer {
 	secondaryColor: string
 	volume: number
 	listeningUsers: number
-	duration: number
+	// duration: number
 }
 
 export interface StationData {

@@ -10,7 +10,7 @@ import { setLike, toggleLike } from '@/entities/song/model/song.slice'
 import { useTranslations } from 'next-intl'
 
 type Props = {
-	songId: number
+	songId: string
 }
 
 export const LikeButton = ({ songId }: Props) => {
@@ -31,7 +31,7 @@ export const LikeButton = ({ songId }: Props) => {
 
 	const mutation = useMutation({
 		mutationKey: ['is-liked', 'bookmarks'],
-		mutationFn: (songId: number) => addToBookmarks(songId),
+		mutationFn: (songId: string) => addToBookmarks(songId),
 		onSuccess: () => {
 			queryClient.invalidateQueries({
 				queryKey: ['bookmarks']

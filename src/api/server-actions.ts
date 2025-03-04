@@ -1,23 +1,18 @@
 'use server'
 
 import { API_BASE_URL } from '@/lib/config'
-import {
-	createServerAction,
-	ServerActionError,
-	ServerActionResult
-} from '@/lib/utils'
+import { createServerAction, ServerActionError } from '@/lib/utils'
 import { StationData } from '@/widgets/player/model/player.type'
 
-export const connectToRadio = createServerAction<
-	ServerActionResult<StationData>
->(async () => {
+export const connectToRadio = createServerAction<StationData>(async () => {
 	try {
 		const response = await fetch(`${API_BASE_URL}/api/songs/connect`)
 		if (!response.ok)
 			throw new ServerActionError(`HTTP Error: ${response.status}`)
 
 		const data: StationData = await response.json()
-		return { success: true, value: data }
+		return data
+		// return { success: true, value: data }
 	} catch (error) {
 		if (error instanceof TypeError) {
 			throw new ServerActionError(
