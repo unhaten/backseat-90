@@ -5,11 +5,11 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Controls } from './components'
 import { setDuration } from './model/player.slice'
 import { Song } from '@/entities/song'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { connectToRadio } from '@/api/server-actions'
 import { PlayerLoader } from '@/components'
 import { toast } from 'sonner'
-import { API_PUBLIC_URL } from '@/lib/config'
+// import { API_PUBLIC_URL } from '@/lib/config'
 
 export const Player = () => {
 	const { data, isLoading } = useQuery({
@@ -20,15 +20,16 @@ export const Player = () => {
 	const audioRef = useRef<HTMLAudioElement>(null)
 	const player = useAppSelector(state => state.player)
 	const dispatch = useAppDispatch()
-
-	// const [currentTrack] = useState(data)
+	const queryClient = useQueryClient()
 
 	const [currentTime, setCurrentTime] = useState(0)
 
 	const handleLoad = useCallback(() => {
 		if (!audioRef.current) return
-		const seconds = audioRef.current?.duration
-		if (seconds) dispatch(setDuration(seconds))
+
+		audioRef.current.onloadedmetadata = () => {
+			dispatch(setDuration(audioRef.current?.duration || 0))
+		}
 	}, [dispatch])
 
 	useEffect(() => {
@@ -68,6 +69,17 @@ export const Player = () => {
 		return () => clearInterval(interval)
 	}, [])
 
+	useEffect(() => {
+		if (!audioRef.current) return
+		audioRef.current.onerror = () => {
+			console.warn('Stream error, retrying...')
+			toast.warning('Stream Disconnected', {
+				description: 'Trying to reconnect...'
+			})
+			queryClient.invalidateQueries({ queryKey: ['player'] })
+		}
+	}, [])
+
 	return (
 		<div>
 			<>
@@ -76,12 +88,14 @@ export const Player = () => {
 					<>
 						<audio
 							ref={audioRef}
-							src={
-								API_PUBLIC_URL +
-								(data?.success && data.value.file)
-							}
+							// src={
+							// 	API_PUBLIC_URL +
+							// 	(data?.success && data.value.file)
+							// }
 							preload='auto'
 							onLoadedMetadata={handleLoad}
+							// src='http://localhost/listen/main_station/radio.mp3'
+							src={data?.success ? data.value.success : undefined}
 						/>
 						<Song
 							currentTrack={data?.success && data.value}
