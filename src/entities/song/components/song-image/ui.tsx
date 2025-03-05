@@ -1,5 +1,5 @@
 import { SongPlaceholder } from '@/components'
-import { API_PUBLIC_URL } from '@/lib/config'
+// import { API_PUBLIC_URL } from '@/lib/config'
 import Image from 'next/image'
 
 type Props = {
@@ -13,7 +13,8 @@ export const SongImage = ({ thumbnail, forLikedSongs }: Props) => {
 			<div className='relative min-w-16 min-h-16 rounded-lg'>
 				{thumbnail && (
 					<Image
-						src={API_PUBLIC_URL + thumbnail}
+						// src={API_PUBLIC_URL + thumbnail}
+						src={thumbnail}
 						fill
 						sizes='100%'
 						alt='track img'

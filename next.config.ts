@@ -15,12 +15,11 @@ const nextConfig: NextConfig = {
 				protocol: 'http',
 				hostname: 'localhost',
 				port: '2000'
+			},
+			{
+				protocol: 'http',
+				hostname: 'localhost'
 			}
-			// {
-			// 	protocol: 'http',
-			// 	hostname: process.env.NEXT_PRIVATE_API_HOST || 'localhost',
-			// 	port: '2000'
-			// }
 		]
 	}
 }
