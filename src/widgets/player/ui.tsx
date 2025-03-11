@@ -1,9 +1,9 @@
 'use client'
 
-import { useAppSelector } from '@/lib/hooks/redux'
-import { useEffect, useRef, useState } from 'react'
+import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux'
+import { useEffect, useRef } from 'react'
 import { Controls } from './components'
-import { Song } from '@/entities/song'
+import { setSong, Song } from '@/entities/song'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { connectToRadio } from '@/api/server-actions'
 import { PlayerLoader } from '@/components'
@@ -16,11 +16,18 @@ export const Player = () => {
 		queryFn: connectToRadio
 	})
 
-	const audioRef = useRef<HTMLAudioElement>(null)
-	const player = useAppSelector(state => state.player)
 	const queryClient = useQueryClient()
+	const audioRef = useRef<HTMLAudioElement>(null)
+	const dispatch = useAppDispatch()
 
-	const [currentTime, setCurrentTime] = useState(0)
+	const player = useAppSelector(state => state.player)
+	const song = useAppSelector(state => state.song)
+
+	useEffect(() => {
+		if (data && data.success) {
+			dispatch(setSong(data.value.song))
+		}
+	}, [data, dispatch])
 
 	// const handleLoad = useCallback(() => {
 	// 	if (!audioRef.current) return
@@ -37,15 +44,20 @@ export const Player = () => {
 		}
 	}, [data])
 
-	useEffect(() => {
-		if (!audioRef.current) return
+	// useEffect(() => {
+	// 	if (!audioRef.current) return
 
-		if (player.isPlaying) {
-			audioRef.current.play()
-		} else {
-			audioRef.current.pause()
-		}
-	}, [audioRef, player.isPlaying])
+	// 	if (player.isPlaying) {
+	// 		audioRef.current.play()
+	// 	} else {
+	// 		audioRef.current.pause()
+	// 	}
+	// }, [audioRef, player.isPlaying])
+
+	// useEffect(() => {
+	// 	if (!audioRef.current) return
+	// 	audioRef.current.play()
+	// }, [audioRef])
 
 	useEffect(() => {
 		if (!audioRef.current) return
@@ -59,14 +71,14 @@ export const Player = () => {
 		// handleLoad()
 	}, [audioRef])
 
-	useEffect(() => {
-		const interval = setInterval(() => {
-			if (!audioRef.current) return
-			setCurrentTime(audioRef.current.currentTime)
-		}, 500)
+	// useEffect(() => {
+	// 	const interval = setInterval(() => {
+	// 		if (!audioRef.current) return
+	// 		setCurrentTime(audioRef.current.currentTime)
+	// 	}, 500)
 
-		return () => clearInterval(interval)
-	}, [])
+	// 	return () => clearInterval(interval)
+	// }, [])
 
 	useEffect(() => {
 		if (!audioRef.current) return
@@ -97,10 +109,7 @@ export const Player = () => {
 							// src='http://localhost/listen/main_station/radio.mp3'
 							src={data?.success ? data.value.url : undefined}
 						/>
-						<Song
-							currentSong={data?.success && data.value.song}
-							currentTime={currentTime}
-						/>
+						<Song currentSong={song.data} />
 					</>
 				)}
 				{isLoading && <PlayerLoader />}

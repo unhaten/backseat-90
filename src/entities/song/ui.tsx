@@ -3,11 +3,10 @@ import { ISong } from './types/type'
 
 type Props = {
 	currentSong: ISong
-	currentTime: number
 	// duration: number
 }
 
-export const Song = ({ currentSong, currentTime }: Props) => {
+export const Song = ({ currentSong }: Props) => {
 	return (
 		<div className='flex items-center gap-4 mb-4'>
 			<SongImage thumbnail={currentSong.thumbnail} />
@@ -21,7 +20,7 @@ export const Song = ({ currentSong, currentTime }: Props) => {
 				</div>
 				<SongDuration
 					duration={currentSong.duration}
-					currentTime={currentTime}
+					elapsed={currentSong.elapsed}
 				/>
 			</div>
 		</div>

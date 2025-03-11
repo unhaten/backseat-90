@@ -1,10 +1,13 @@
 import { Progress } from '@/components/ui'
+import { useEffect, useState } from 'react'
 
 type Props = {
 	duration: number
-	currentTime: number
+	elapsed: number
 }
-export const SongDuration = ({ duration, currentTime }: Props) => {
+export const SongDuration = ({ duration, elapsed }: Props) => {
+	const [time, setTime] = useState(elapsed)
+
 	const formatTime = (time: number) => {
 		const minutes = Math.floor(time / 60)
 		const seconds = Math.floor(time % 60)
@@ -13,13 +16,24 @@ export const SongDuration = ({ duration, currentTime }: Props) => {
 		return `${minutes}:${seconds}`
 	}
 
-	const progress = (currentTime / duration) * 100 || 0
+	// const progress = (elapsed / duration) * 100 || 0
+	const progress = (time / duration) * 100 || 0
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setTime(time => time + 1)
+		}, 1000)
+
+		return () => clearInterval(interval)
+	}, [])
+
+	// TODO: make progress bar count how many time left for next track
 
 	return (
 		<div className='mt-2'>
 			<Progress value={progress} className='h-0.5' />
 			<div className='flex justify-between text-sm mt-1 font-light'>
-				<span>{formatTime(currentTime)}</span>
+				<span>{formatTime(time)}</span>
 				<span>{formatTime(duration)}</span>
 			</div>
 		</div>

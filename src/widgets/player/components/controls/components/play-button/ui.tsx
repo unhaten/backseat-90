@@ -10,7 +10,7 @@ type Props = {
 export const PlayButton = ({ isPlaying, isDataLoading }: Props) => {
 	const dispatch = useAppDispatch()
 
-	const handleToggle = () => {
+	const handleToggle = async () => {
 		dispatch(togglePlayer())
 	}
 

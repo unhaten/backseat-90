@@ -1,8 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit'
-// import { ISong } from '../types/type'
+import { ISong } from '../types/type'
 
-const initialState = {
-	data: {},
+interface Props {
+	data: ISong
+	isLiked: boolean
+}
+
+const initialState: Props = {
+	data: {
+		id: 'null',
+		playedAt: 0,
+		duration: 0,
+		elapsed: 0,
+		thumbnail: 'https://placehold.co/80x80',
+		title: 'Unknown',
+		author: 'Unknown',
+		playlist: 'default',
+		likes: 0
+	},
 	isLiked: false
 }
 
