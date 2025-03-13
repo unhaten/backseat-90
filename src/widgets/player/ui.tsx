@@ -9,12 +9,19 @@ import { connectToRadio, getRadioMetadata } from '@/api/server-actions'
 import { PlayerLoader } from '@/components'
 import { toast } from 'sonner'
 import { setStreamUrl } from './model/player.slice'
+import { Button } from '@/components/ui'
 // import { API_PUBLIC_URL } from '@/lib/config'
 
 export const Player = () => {
-	const { data, isLoading } = useQuery({
+	const { data, isLoading, isError } = useQuery({
 		queryKey: ['player'],
 		queryFn: getRadioMetadata
+	})
+
+	const { data: streamUrl } = useQuery({
+		queryKey: ['stream-url'],
+		queryFn: connectToRadio,
+		enabled: false // don't fetch until manually triggered!
 	})
 
 	const queryClient = useQueryClient()
@@ -38,6 +45,13 @@ export const Player = () => {
 	// 	}
 	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	// }, [])
+
+	useEffect(() => {
+		if (streamUrl && audioRef.current) {
+			audioRef.current.src = streamUrl
+			audioRef.current.play()
+		}
+	}, [streamUrl])
 
 	useEffect(() => {
 		if (data && !data.success) {
@@ -93,35 +107,6 @@ export const Player = () => {
 	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	// }, [])
 
-	useEffect(() => {
-		if (!audioRef.current) return
-
-		if (player.isPlaying) {
-			// If no URL or song, fetch first
-			if (!player.url) {
-				connectToRadio().then(data => {
-					if (data.success) {
-						dispatch(setSong(data.value.song)) // set song and url to player state
-						dispatch(setStreamUrl(data))
-						// Play after setting
-						setTimeout(() => audioRef.current?.play(), 0)
-					} else {
-						toast.warning('Connection error', {
-							description: data.error
-						})
-						dispatch(togglePlayer()) // Reset play state if failed
-					}
-				})
-			} else {
-				// Already have URL and song
-				audioRef.current.play()
-			}
-		} else {
-			// Pause if not playing
-			audioRef.current.pause()
-		}
-	}, [player.isPlaying, player.song, player.url, dispatch])
-
 	return (
 		<div>
 			<>
@@ -144,7 +129,14 @@ export const Player = () => {
 				)}
 				{isLoading && <PlayerLoader />}
 				{!data?.success ? (
-					<></>
+					isError && (
+						<div className='flex items-center flex-col'>
+							<p>Something went wrong</p>
+							<Button>
+								<span>reconnect</span>
+							</Button>
+						</div>
+					)
 				) : (
 					<Controls
 						isDataLoading={isLoading}
