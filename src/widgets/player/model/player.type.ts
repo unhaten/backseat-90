@@ -7,10 +7,10 @@ export interface IPlayer {
 	volume: number
 	listeningUsers: number
 	// duration: number
+	url: string | undefined
 }
 
 export interface StationData {
-	url: string
 	currentListeners: number
 	song: ISong
 }

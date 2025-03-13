@@ -5,21 +5,22 @@ import { useEffect, useRef } from 'react'
 import { Controls } from './components'
 import { setSong, Song } from '@/entities/song'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { connectToRadio } from '@/api/server-actions'
+import { connectToRadio, getRadioMetadata } from '@/api/server-actions'
 import { PlayerLoader } from '@/components'
 import { toast } from 'sonner'
+import { setStreamUrl } from './model/player.slice'
 // import { API_PUBLIC_URL } from '@/lib/config'
 
 export const Player = () => {
 	const { data, isLoading } = useQuery({
 		queryKey: ['player'],
-		queryFn: connectToRadio
+		queryFn: getRadioMetadata
 	})
 
 	const queryClient = useQueryClient()
 	const audioRef = useRef<HTMLAudioElement>(null)
-	const dispatch = useAppDispatch()
 
+	const dispatch = useAppDispatch()
 	const player = useAppSelector(state => state.player)
 	const song = useAppSelector(state => state.song)
 
@@ -80,17 +81,46 @@ export const Player = () => {
 	// 	return () => clearInterval(interval)
 	// }, [])
 
+	// useEffect(() => {
+	// 	if (!audioRef.current) return
+	// 	audioRef.current.onerror = () => {
+	// 		console.warn('Stream error, retrying...')
+	// 		toast.warning('Stream Disconnected', {
+	// 			description: 'Trying to reconnect...'
+	// 		})
+	// 		queryClient.invalidateQueries({ queryKey: ['player'] })
+	// 	}
+	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
+	// }, [])
+
 	useEffect(() => {
 		if (!audioRef.current) return
-		audioRef.current.onerror = () => {
-			console.warn('Stream error, retrying...')
-			toast.warning('Stream Disconnected', {
-				description: 'Trying to reconnect...'
-			})
-			queryClient.invalidateQueries({ queryKey: ['player'] })
+
+		if (player.isPlaying) {
+			// If no URL or song, fetch first
+			if (!player.url) {
+				connectToRadio().then(data => {
+					if (data.success) {
+						dispatch(setSong(data.value.song)) // set song and url to player state
+						dispatch(setStreamUrl(data))
+						// Play after setting
+						setTimeout(() => audioRef.current?.play(), 0)
+					} else {
+						toast.warning('Connection error', {
+							description: data.error
+						})
+						dispatch(togglePlayer()) // Reset play state if failed
+					}
+				})
+			} else {
+				// Already have URL and song
+				audioRef.current.play()
+			}
+		} else {
+			// Pause if not playing
+			audioRef.current.pause()
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, [player.isPlaying, player.song, player.url, dispatch])
 
 	return (
 		<div>
@@ -107,7 +137,7 @@ export const Player = () => {
 							preload='auto'
 							// onLoadedMetadata={handleLoad}
 							// src='http://localhost/listen/main_station/radio.mp3'
-							src={data?.success ? data.value.url : undefined}
+							src={player.url}
 						/>
 						<Song currentSong={song.data} />
 					</>

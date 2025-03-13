@@ -1,32 +1,14 @@
 import { IPlayer } from './player.type'
-import { createSlice } from '@reduxjs/toolkit'
-
-// const colors = [
-// 	{
-// 		mainColor: '#e7568d',
-// 		secondaryColor: '#ea6a9b'
-// 	},
-// 	{
-// 		mainColor: '#6a5de7',
-// 		secondaryColor: '#5c18d9'
-// 	},
-// 	{
-// 		mainColor: '#efcb4b',
-// 		secondaryColor: '#fcd05d'
-// 	},
-// 	{
-// 		mainColor: '#3a8d6a',
-// 		secondaryColor: '#4d9b7b'
-// 	}
-// ]
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: IPlayer = {
 	isPlaying: false,
 	mainColor: '#e7568d',
 	secondaryColor: '#ea6a9b',
-	volume: 100,
-	listeningUsers: 1
+	volume: 75,
+	listeningUsers: 1,
 	// duration: 0
+	url: undefined
 }
 
 const playerSlice = createSlice({
@@ -38,13 +20,16 @@ const playerSlice = createSlice({
 		},
 		setVolume: (state, action) => {
 			state.volume = action.payload
-		}
+		},
 		// setDuration: (state, action) => {
 		// 	state.duration = action.payload
 		// }
+		setStreamUrl: (state, action: PayloadAction<string | undefined>) => {
+			state.url = action.payload
+		}
 	}
 })
 
-export const { togglePlayer, setVolume } = playerSlice.actions
+export const { togglePlayer, setVolume, setStreamUrl } = playerSlice.actions
 
 export default playerSlice.reducer

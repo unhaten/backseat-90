@@ -8,7 +8,7 @@ interface Props {
 
 const initialState: Props = {
 	data: {
-		id: 'null',
+		id: 'default',
 		playedAt: 0,
 		duration: 0,
 		elapsed: 0,
