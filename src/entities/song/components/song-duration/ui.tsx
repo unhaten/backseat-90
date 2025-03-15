@@ -3,10 +3,22 @@ import { useEffect, useState } from 'react'
 
 type Props = {
 	duration: number
-	elapsed: number
+	playedAt: number
 }
-export const SongDuration = ({ duration, elapsed }: Props) => {
-	const [time, setTime] = useState(elapsed)
+export const SongDuration = ({ duration, playedAt }: Props) => {
+	const [now, setNow] = useState(Date.now())
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setNow(Date.now())
+		}, 1000)
+
+		return () => clearInterval(interval)
+	}, [])
+
+	const elapsed = Math.floor(now / 1000 - playedAt)
+	const clampedElapsed = Math.min(Math.max(elapsed, 0), duration) //? prevent negative or overflow
+	const progress = (clampedElapsed / duration) * 100
 
 	const formatTime = (time: number) => {
 		const minutes = Math.floor(time / 60)
@@ -16,24 +28,11 @@ export const SongDuration = ({ duration, elapsed }: Props) => {
 		return `${minutes}:${seconds}`
 	}
 
-	// const progress = (elapsed / duration) * 100 || 0
-	const progress = (time / duration) * 100 || 0
-
-	useEffect(() => {
-		const interval = setInterval(() => {
-			setTime(time => time + 1)
-		}, 1000)
-
-		return () => clearInterval(interval)
-	}, [])
-
-	// TODO: make progress bar count how many time left for next track
-
 	return (
 		<div className='mt-2'>
 			<Progress value={progress} className='h-0.5' />
 			<div className='flex justify-between text-sm mt-1 font-light'>
-				<span>{formatTime(time)}</span>
+				<span>{formatTime(clampedElapsed)}</span>
 				<span>{formatTime(duration)}</span>
 			</div>
 		</div>

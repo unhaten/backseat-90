@@ -4,11 +4,10 @@ import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux'
 import { useEffect, useRef } from 'react'
 import { Controls } from './components'
 import { setSong, Song } from '@/entities/song'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { connectToRadio, getRadioMetadata } from '@/api/server-actions'
+import { useQuery } from '@tanstack/react-query'
+import { getRadioMetadata } from '@/api/server-actions'
 import { PlayerLoader } from '@/components'
 import { toast } from 'sonner'
-import { setStreamUrl } from './model/player.slice'
 import { Button } from '@/components/ui'
 // import { API_PUBLIC_URL } from '@/lib/config'
 
@@ -19,7 +18,8 @@ export const Player = () => {
 		isError
 	} = useQuery({
 		queryKey: ['player'],
-		queryFn: getRadioMetadata
+		queryFn: getRadioMetadata,
+		refetchInterval: 3000
 	})
 
 	const audioRef = useRef<HTMLAudioElement>(null)
@@ -53,15 +53,7 @@ export const Player = () => {
 	// 	audioRef.current.onloadedmetadata = () => {
 	// 		dispatch(setDuration(audioRef.current?.duration || 0))
 	// 	}
-	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	// }, [])
-
-	// useEffect(() => {
-	// 	if (streamUrl && audioRef.current) {
-	// 		audioRef.current.src = streamUrl
-	// 		audioRef.current.play()
-	// 	}
-	// }, [streamUrl])
 
 	useEffect(() => {
 		if (data && !data.success) {
@@ -69,24 +61,8 @@ export const Player = () => {
 		}
 	}, [data])
 
-	// useEffect(() => {
-	// 	if (!audioRef.current) return
-
-	// 	if (player.isPlaying) {
-	// 		audioRef.current.play()
-	// 	} else {
-	// 		audioRef.current.pause()
-	// 	}
-	// }, [audioRef, player.isPlaying])
-
-	// useEffect(() => {
-	// 	if (!audioRef.current) return
-	// 	audioRef.current.play()
-	// }, [audioRef])
-
 	useEffect(() => {
 		if (!audioRef.current) return
-
 		audioRef.current.volume = player.volume / 100
 	}, [player.volume])
 
@@ -95,27 +71,6 @@ export const Player = () => {
 		audioRef.current.load() //* forcing because mobile browsers does not preload music smh
 		// handleLoad()
 	}, [audioRef])
-
-	// useEffect(() => {
-	// 	const interval = setInterval(() => {
-	// 		if (!audioRef.current) return
-	// 		setCurrentTime(audioRef.current.currentTime)
-	// 	}, 500)
-
-	// 	return () => clearInterval(interval)
-	// }, [])
-
-	// useEffect(() => {
-	// 	if (!audioRef.current) return
-	// 	audioRef.current.onerror = () => {
-	// 		console.warn('Stream error, retrying...')
-	// 		toast.warning('Stream Disconnected', {
-	// 			description: 'Trying to reconnect...'
-	// 		})
-	// 		queryClient.invalidateQueries({ queryKey: ['player'] })
-	// 	}
-	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	// }, [])
 
 	return (
 		<div>

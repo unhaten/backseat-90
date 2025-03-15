@@ -3,7 +3,6 @@ import { ISong } from './types/type'
 
 type Props = {
 	currentSong: ISong
-	// duration: number
 }
 
 export const Song = ({ currentSong }: Props) => {
@@ -20,7 +19,7 @@ export const Song = ({ currentSong }: Props) => {
 				</div>
 				<SongDuration
 					duration={currentSong.duration}
-					elapsed={currentSong.elapsed}
+					playedAt={currentSong.playedAt}
 				/>
 			</div>
 		</div>

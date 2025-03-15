@@ -7,7 +7,6 @@ const initialState: IPlayer = {
 	secondaryColor: '#ea6a9b',
 	volume: 75,
 	listeningUsers: 1,
-	// duration: 0
 	url: undefined
 }
 
