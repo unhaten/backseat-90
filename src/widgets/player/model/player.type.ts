@@ -15,7 +15,16 @@ export interface StationData {
 	song: ISong
 }
 
-export interface ConnectToRadioResponse {
+export interface UrlData {
+	url: string
+}
+
+export interface GettingMetadataResponse {
 	success: boolean
 	value: StationData
+}
+
+export interface ConnectToRadioResponse {
+	success: boolean
+	value: { url: string }
 }

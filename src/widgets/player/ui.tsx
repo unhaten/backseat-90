@@ -13,18 +13,15 @@ import { Button } from '@/components/ui'
 // import { API_PUBLIC_URL } from '@/lib/config'
 
 export const Player = () => {
-	const { data, isLoading, isError } = useQuery({
+	const {
+		data,
+		isLoading: isSongDataLoading,
+		isError
+	} = useQuery({
 		queryKey: ['player'],
 		queryFn: getRadioMetadata
 	})
 
-	const { data: streamUrl } = useQuery({
-		queryKey: ['stream-url'],
-		queryFn: connectToRadio,
-		enabled: false // don't fetch until manually triggered!
-	})
-
-	const queryClient = useQueryClient()
 	const audioRef = useRef<HTMLAudioElement>(null)
 
 	const dispatch = useAppDispatch()
@@ -37,6 +34,19 @@ export const Player = () => {
 		}
 	}, [data, dispatch])
 
+	useEffect(() => {
+		if (!audioRef.current) return
+
+		const audio = audioRef.current
+
+		if (player.url && player.isPlaying) {
+			audio.src = player.url
+			audio.play().catch(err => console.warn(err))
+		} else {
+			audio.pause()
+		}
+	}, [player.isPlaying, player.url])
+
 	// const handleLoad = useCallback(() => {
 	// 	if (!audioRef.current) return
 
@@ -46,12 +56,12 @@ export const Player = () => {
 	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	// }, [])
 
-	useEffect(() => {
-		if (streamUrl && audioRef.current) {
-			audioRef.current.src = streamUrl
-			audioRef.current.play()
-		}
-	}, [streamUrl])
+	// useEffect(() => {
+	// 	if (streamUrl && audioRef.current) {
+	// 		audioRef.current.src = streamUrl
+	// 		audioRef.current.play()
+	// 	}
+	// }, [streamUrl])
 
 	useEffect(() => {
 		if (data && !data.success) {
@@ -127,7 +137,7 @@ export const Player = () => {
 						<Song currentSong={song.data} />
 					</>
 				)}
-				{isLoading && <PlayerLoader />}
+				{isSongDataLoading && <PlayerLoader />}
 				{!data?.success ? (
 					isError && (
 						<div className='flex items-center flex-col'>
@@ -138,10 +148,7 @@ export const Player = () => {
 						</div>
 					)
 				) : (
-					<Controls
-						isDataLoading={isLoading}
-						isPlaying={player.isPlaying}
-					/>
+					<Controls isDataLoading={isSongDataLoading} />
 				)}
 			</>
 		</div>

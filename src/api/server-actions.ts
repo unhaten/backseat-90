@@ -2,17 +2,15 @@
 
 import { API_BASE_URL } from '@/lib/config'
 import { createServerAction, ServerActionError } from '@/lib/utils'
-import { StationData } from '@/widgets/player/model/player.type'
+import { StationData, UrlData } from '@/widgets/player/model/player.type'
 
-export const connectToRadio = createServerAction(async () => {
+export const connectToRadio = createServerAction<UrlData>(async () => {
 	try {
 		const response = await fetch(`${API_BASE_URL}/api/songs/connect`)
 		if (!response.ok)
 			throw new ServerActionError(`Something went wrong, try again later`)
-
-		const data: StationData = await response.json()
+		const data: UrlData = await response.json()
 		return data
-		// return { success: true, value: data }
 	} catch (error) {
 		if (error instanceof TypeError) {
 			throw new ServerActionError(
@@ -31,7 +29,6 @@ export const getRadioMetadata = createServerAction<StationData>(async () => {
 
 		const data: StationData = await response.json()
 		return data
-		// return { success: true, value: data }
 	} catch (error) {
 		if (error instanceof TypeError) {
 			throw new ServerActionError(

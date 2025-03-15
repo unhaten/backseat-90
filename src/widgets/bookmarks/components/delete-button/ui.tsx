@@ -24,7 +24,7 @@ type Props = {
 	thumbnail: string
 	author: string
 	title: string
-	id: number
+	id: string
 }
 
 export const DeleteButton = ({ thumbnail, author, title, id }: Props) => {
@@ -35,7 +35,7 @@ export const DeleteButton = ({ thumbnail, author, title, id }: Props) => {
 
 	const mutation = useMutation({
 		mutationKey: ['is-liked', 'bookmarks'],
-		mutationFn: (songId: number) => removeFromBookmarks(songId),
+		mutationFn: (songId: string) => removeFromBookmarks(songId),
 		onSuccess: () => {
 			dispatch(setLike(false))
 			queryClient.invalidateQueries({
@@ -48,7 +48,7 @@ export const DeleteButton = ({ thumbnail, author, title, id }: Props) => {
 		}
 	})
 
-	const handleDelete = async (songId: number) => {
+	const handleDelete = async (songId: string) => {
 		await mutation.mutateAsync(songId)
 		toast.error(t('deleted'), {
 			description: `${t('track-word')} "${author} - ${title}"${t(
