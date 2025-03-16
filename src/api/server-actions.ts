@@ -21,9 +21,9 @@ export const connectToRadio = createServerAction<UrlData>(async () => {
 	}
 })
 
-export const getRadioMetadata = createServerAction<StationData>(async () => {
+export const getNowPlayingSong = createServerAction<StationData>(async () => {
 	try {
-		const response = await fetch(`${API_BASE_URL}/api/songs/get-metadata`)
+		const response = await fetch(`${API_BASE_URL}/api/songs/now-playing`)
 		if (!response.ok)
 			throw new ServerActionError(`Something went wrong, try again later`)
 

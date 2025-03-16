@@ -1,4 +1,5 @@
 import { getProfile } from '@/api/actions'
+import { getNowPlayingSong } from '@/api/server-actions'
 import { useQuery } from '@tanstack/react-query'
 
 export const useProfileNoRetry = () =>
@@ -7,6 +8,13 @@ export const useProfileNoRetry = () =>
 		queryFn: getProfile,
 		retry: false,
 		refetchOnWindowFocus: true
+	})
+
+export const useNowPlayingSong = () =>
+	useQuery({
+		queryKey: ['now-playing'],
+		queryFn: getNowPlayingSong,
+		refetchInterval: 3000
 	})
 
 // export const useIfSongIsLikedNoRetry = (songId: number) =>

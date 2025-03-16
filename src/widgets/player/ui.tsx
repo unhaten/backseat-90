@@ -4,23 +4,14 @@ import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux'
 import { useEffect, useRef } from 'react'
 import { Controls } from './components'
 import { setSong, Song } from '@/entities/song'
-import { useQuery } from '@tanstack/react-query'
-import { getRadioMetadata } from '@/api/server-actions'
 import { PlayerLoader } from '@/components'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui'
+import { useNowPlayingSong } from '@/lib/hooks/react-query'
 // import { API_PUBLIC_URL } from '@/lib/config'
 
 export const Player = () => {
-	const {
-		data,
-		isLoading: isSongDataLoading,
-		isError
-	} = useQuery({
-		queryKey: ['player'],
-		queryFn: getRadioMetadata,
-		refetchInterval: 3000
-	})
+	const { data, isLoading: isSongDataLoading, isError } = useNowPlayingSong()
 
 	const audioRef = useRef<HTMLAudioElement>(null)
 
@@ -40,7 +31,7 @@ export const Player = () => {
 		const audio = audioRef.current
 
 		if (player.url && player.isPlaying) {
-			audio.src = player.url
+			// audio.src = player.url
 			audio.play().catch(err => console.warn(err))
 		} else {
 			audio.pause()
@@ -75,7 +66,7 @@ export const Player = () => {
 	return (
 		<div>
 			<>
-				{/* h = 82px mb-4 */}
+				{/* //? h = 82px mb-4 */}
 				{data?.success && (
 					<>
 						<audio
