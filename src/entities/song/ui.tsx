@@ -1,5 +1,8 @@
-import { LikeButton, SongDuration, SongImage, SongInfo } from './components'
-import { ISong } from './types/type'
+import { ISong } from './model/types'
+import { LikeButton } from './ui/like-button'
+import { SongDuration } from './ui/song-duration'
+import { SongImage } from './ui/song-image'
+import { SongInfo } from './ui/song-info'
 
 type Props = {
 	currentSong: ISong

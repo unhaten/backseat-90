@@ -8,6 +8,8 @@ import { PlayerLoader } from '@/components'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui'
 import { useNowPlayingSong } from '@/lib/hooks/react-query'
+import { useAudioVolume } from './lib/useAudioVolume'
+import { useAudioPlayback } from './lib/useAudioPlayback'
 // import { API_PUBLIC_URL } from '@/lib/config'
 
 export const Player = () => {
@@ -19,43 +21,21 @@ export const Player = () => {
 	const player = useAppSelector(state => state.player)
 	const song = useAppSelector(state => state.song)
 
+	useAudioVolume(audioRef)
+	useAudioPlayback(audioRef)
+
 	useEffect(() => {
 		if (data && data.success) {
 			dispatch(setSong(data.value.song))
 		}
-	}, [data, dispatch])
-
-	useEffect(() => {
-		if (!audioRef.current) return
-
-		const audio = audioRef.current
-
-		if (player.url && player.isPlaying) {
-			// audio.src = player.url
-			audio.play().catch(err => console.warn(err))
-		} else {
-			audio.pause()
-		}
-	}, [player.isPlaying, player.url])
-
-	// const handleLoad = useCallback(() => {
-	// 	if (!audioRef.current) return
-
-	// 	audioRef.current.onloadedmetadata = () => {
-	// 		dispatch(setDuration(audioRef.current?.duration || 0))
-	// 	}
-	// }, [])
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [data])
 
 	useEffect(() => {
 		if (data && !data.success) {
 			toast.warning('Error', { description: data.error })
 		}
 	}, [data])
-
-	useEffect(() => {
-		if (!audioRef.current) return
-		audioRef.current.volume = player.volume / 100
-	}, [player.volume])
 
 	useEffect(() => {
 		if (!audioRef.current) return

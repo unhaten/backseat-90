@@ -1,13 +1,14 @@
 import { Heart } from 'lucide-react'
 import { DeleteButton } from '../delete-button/ui'
-import { SongImage, SongInfo } from '@/entities/song/components'
+import { SongImage } from '@/entities/song/ui/song-image'
+import { SongInfo } from '@/entities/song/ui/song-info'
 
 type Props = {
 	thumbnail: string
 	title: string
 	author: string
 	likes: number
-	id: number
+	id: string
 }
 
 export const LikedTrack = ({ thumbnail, title, author, likes, id }: Props) => {

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { ISong } from '../types/type'
+import { ISong } from './types'
 
 interface Props {
 	data: ISong

@@ -1,6 +1,6 @@
 import { Progress } from '@/components/ui'
-import { formatTime } from '../../lib/format-time'
-import { useSongTimer } from '../../model/useSongTimer'
+import { formatTime } from '../lib/format-time'
+import { useSongTimer } from '../model/useSongTimer'
 
 type Props = {
 	duration: number

@@ -13,7 +13,8 @@ import {
 	AlertDialogAction
 } from '@/components/ui'
 import { setLike } from '@/entities/song'
-import { SongImage, SongInfo } from '@/entities/song/components'
+import { SongImage } from '@/entities/song/ui/song-image'
+import { SongInfo } from '@/entities/song/ui/song-info'
 import { useAppDispatch } from '@/lib/hooks/redux'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Trash2 } from 'lucide-react'
