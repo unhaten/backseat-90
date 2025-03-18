@@ -1,11 +1,11 @@
 export interface ISong {
-	id: string
+	id: string | null
 	playedAt: number
 	duration: number
 	elapsed: number
 	thumbnail: string
 	title: string
 	author: string
-	playlist: string
+	playlist: string | null
 	likes: number
 }

@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ISong } from './types'
 
 interface Props {
@@ -8,14 +8,15 @@ interface Props {
 
 const initialState: Props = {
 	data: {
-		id: 'default',
+		id: null,
 		playedAt: 0,
 		duration: 0,
 		elapsed: 0,
-		thumbnail: 'https://placehold.co/80x80',
+		// thumbnail: 'https://placehold.co/80x80',
+		thumbnail: '/public/song-placeholder.png',
 		title: 'Unknown',
 		author: 'Unknown',
-		playlist: 'default',
+		playlist: null,
 		likes: 0
 	},
 	isLiked: false
@@ -31,7 +32,7 @@ const songSlice = createSlice({
 		setLike: (state, action: { payload: boolean }) => {
 			state.isLiked = action.payload
 		},
-		setSong: (state, action) => {
+		setSong: (state, action: PayloadAction<ISong>) => {
 			state.data = action.payload
 		}
 	}

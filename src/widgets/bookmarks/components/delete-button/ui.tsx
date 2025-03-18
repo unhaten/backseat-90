@@ -15,7 +15,7 @@ import {
 import { setLike } from '@/entities/song'
 import { SongImage } from '@/entities/song/ui/song-image'
 import { SongInfo } from '@/entities/song/ui/song-info'
-import { useAppDispatch } from '@/lib/hooks/redux'
+import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Trash2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
@@ -34,11 +34,13 @@ export const DeleteButton = ({ thumbnail, author, title, id }: Props) => {
 	const queryClient = useQueryClient()
 	const dispatch = useAppDispatch()
 
+	const playingSongId = useAppSelector(state => state.song.data.id)
+
 	const mutation = useMutation({
 		mutationKey: ['is-liked', 'bookmarks'],
 		mutationFn: (songId: string) => removeFromBookmarks(songId),
 		onSuccess: () => {
-			dispatch(setLike(false))
+			if (id === playingSongId) dispatch(setLike(false))
 			queryClient.invalidateQueries({
 				queryKey: ['is-liked']
 			})

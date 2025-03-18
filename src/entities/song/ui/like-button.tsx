@@ -9,7 +9,7 @@ import { setLike, toggleLike } from '@/entities/song/model/song.slice'
 import { useTranslations } from 'next-intl'
 
 type Props = {
-	songId: string
+	songId: string | null
 }
 
 export const LikeButton = ({ songId }: Props) => {
@@ -21,10 +21,18 @@ export const LikeButton = ({ songId }: Props) => {
 	const isLiked = useAppSelector(state => state.song.isLiked)
 	const isAuth = useAppSelector(state => state.user.isAuth)
 
-	const { isPending, isError, data } = useQuery({
+	const {
+		isPending,
+		isError,
+		refetch,
+		isFetched,
+		isRefetching,
+		data: isSongLiked
+	} = useQuery({
 		queryKey: ['is-liked'],
 		queryFn: () => checkIfSongIsLiked(songId),
-		retry: false
+		retry: false,
+		enabled: false
 	})
 
 	const mutation = useMutation({
@@ -40,7 +48,25 @@ export const LikeButton = ({ songId }: Props) => {
 		}
 	})
 
+	useEffect(() => {
+		if (!songId) return
+		refetch()
+	}, [songId])
+
+	useEffect(() => {
+		if (isRefetching) {
+			dispatch(setLike(false))
+		}
+	}, [isRefetching])
+
+	useEffect(() => {
+		if (!isRefetching) {
+			dispatch(setLike(isSongLiked))
+		}
+	}, [isSongLiked, isRefetching])
+
 	const handleClick = async () => {
+		if (!songId) return
 		// setIsLiked(prev => !prev)
 		dispatch(toggleLike())
 		// setIsLiked((prev: boolean) => !prev)
@@ -62,29 +88,12 @@ export const LikeButton = ({ songId }: Props) => {
 	}
 
 	useEffect(() => {
-		if (data !== undefined) {
-			dispatch(setLike(data))
-		}
-	}, [data, dispatch])
-
-	useEffect(() => {
 		if (!isAuth) {
 			dispatch(setLike(false))
 		}
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isAuth])
-
-	// useEffect(() => {
-	// 	if (isAuthorized) {
-	// 		queryClient.invalidateQueries({
-	// 			queryKey: ['bookmarks', 'profile', songId]
-	// 		})
-	// 		queryClient.refetchQueries({
-	// 			queryKey: ['bookmarks', 'profile', songId]
-	// 		})
-	// 	}
-	// }, [isAuthorized, queryClient, songId])
 
 	return (
 		<Button
@@ -93,7 +102,13 @@ export const LikeButton = ({ songId }: Props) => {
 			variant={'ghost'}
 			aria-label='Like'
 			onClick={handleClick}
-			disabled={isPending || isError || mutation.isPending || !isAuth}
+			disabled={
+				isPending ||
+				isError ||
+				mutation.isPending ||
+				!isAuth ||
+				isRefetching
+			}
 		>
 			<Heart
 				className={`${

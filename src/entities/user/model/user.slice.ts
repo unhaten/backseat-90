@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { IUser, UserState } from './user.type'
-import { toast } from 'sonner'
 
 const initialState: UserState = {
 	data: { name: 'User' },
@@ -14,8 +13,6 @@ const userSlice = createSlice({
 		setUser: (state, action: PayloadAction<IUser | null>) => {
 			state.data = action.payload
 			state.isAuth = !!action.payload
-
-			toast(!!action.payload ? 'Is online' : 'NOT Authorized')
 		},
 		logout: state => {
 			state.data = null

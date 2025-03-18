@@ -5,10 +5,7 @@ import { setStreamUrl, togglePlayer } from '@/widgets/player'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { connectToRadio } from '@/api/server-actions'
 
-type Props = {
-	isDataLoading: boolean
-}
-export const PlayButton = ({ isDataLoading }: Props) => {
+export const PlayButton = () => {
 	const queryClient = useQueryClient()
 	const { refetch: getStreamUrl, isFetching } = useQuery({
 		queryKey: ['stream-url'],
@@ -39,7 +36,7 @@ export const PlayButton = ({ isDataLoading }: Props) => {
 			className='shrink-0 mx-auto'
 			aria-label={isPlaying ? 'Turn off radio' : 'Turn on radio'}
 			onClick={handleClick}
-			disabled={isDataLoading || isFetching}
+			disabled={isFetching}
 		>
 			{isFetching ? (
 				<AudioLines className='animate-ping' />

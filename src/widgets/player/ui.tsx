@@ -5,7 +5,6 @@ import { useEffect, useRef } from 'react'
 import { Controls } from './components'
 import { Song } from '@/entities/song'
 import { PlayerLoader } from '@/components'
-import { toast } from 'sonner'
 import { Button } from '@/components/ui'
 import { useNowPlayingSong } from '@/lib/hooks/react-query'
 import { useAudioVolume } from './lib/useAudioVolume'
@@ -17,19 +16,17 @@ export const Player = () => {
 	const { data, isLoading: isSongDataLoading, isError } = useNowPlayingSong()
 
 	const audioRef = useRef<HTMLAudioElement>(null)
-
 	const player = useAppSelector(state => state.player)
-	const song = useAppSelector(state => state.song)
 
 	useAudioVolume(audioRef)
 	useAudioPlayback(audioRef)
 	useSyncNowPlayingSong(data)
 
-	useEffect(() => {
-		if (data && !data.success) {
-			toast.warning('Error', { description: data.error })
-		}
-	}, [data])
+	// useEffect(() => {
+	// 	if (data && !data.success) {
+	// 		toast.warning('Error', { description: data.error })
+	// 	}
+	// }, [data])
 
 	useEffect(() => {
 		if (!audioRef.current) return
@@ -54,7 +51,7 @@ export const Player = () => {
 							// src='http://localhost/listen/main_station/radio.mp3'
 							src={player.url}
 						/>
-						<Song currentSong={song.data} />
+						<Song />
 					</>
 				)}
 				{isSongDataLoading && <PlayerLoader />}
@@ -68,7 +65,7 @@ export const Player = () => {
 						</div>
 					)
 				) : (
-					<Controls isDataLoading={isSongDataLoading} />
+					<Controls />
 				)}
 			</>
 		</div>

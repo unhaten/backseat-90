@@ -1,28 +1,23 @@
-import { ISong } from './model/types'
+import { useAppSelector } from '@/lib/hooks/redux'
 import { LikeButton } from './ui/like-button'
 import { SongDuration } from './ui/song-duration'
 import { SongImage } from './ui/song-image'
 import { SongInfo } from './ui/song-info'
 
-type Props = {
-	currentSong: ISong
-}
+export const Song = () => {
+	const song = useAppSelector(state => state.song.data)
 
-export const Song = ({ currentSong }: Props) => {
 	return (
 		<div className='flex items-center gap-4 mb-4'>
-			<SongImage thumbnail={currentSong.thumbnail} />
+			<SongImage thumbnail={song.thumbnail} />
 			<div className='w-full'>
 				<div className='flex justify-between items-center gap-2'>
-					<SongInfo
-						title={currentSong.title}
-						author={currentSong.author}
-					/>
-					<LikeButton songId={currentSong.id} />
+					<SongInfo title={song.title} author={song.author} />
+					<LikeButton songId={song.id} />
 				</div>
 				<SongDuration
-					duration={currentSong.duration}
-					playedAt={currentSong.playedAt}
+					duration={song.duration}
+					playedAt={song.playedAt}
 				/>
 			</div>
 		</div>
