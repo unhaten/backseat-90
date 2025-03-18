@@ -1,6 +1,5 @@
 import { checkIfSongIsLiked, addToBookmarks } from '@/api/actions'
 import { Button } from '@/components/ui'
-import { useProfileNoRetry } from '@/lib/hooks/react-query'
 import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Heart } from 'lucide-react'
@@ -20,14 +19,13 @@ export const LikeButton = ({ songId }: Props) => {
 	const dispatch = useAppDispatch()
 
 	const isLiked = useAppSelector(state => state.song.isLiked)
+	const isAuth = useAppSelector(state => state.user.isAuth)
 
 	const { isPending, isError, data } = useQuery({
 		queryKey: ['is-liked'],
 		queryFn: () => checkIfSongIsLiked(songId),
 		retry: false
 	})
-
-	const { isSuccess: isAuthorized } = useProfileNoRetry()
 
 	const mutation = useMutation({
 		mutationKey: ['is-liked', 'bookmarks'],
@@ -70,10 +68,12 @@ export const LikeButton = ({ songId }: Props) => {
 	}, [data, dispatch])
 
 	useEffect(() => {
-		if (!isAuthorized) {
+		if (!isAuth) {
 			dispatch(setLike(false))
 		}
-	}, [isAuthorized, dispatch])
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isAuth])
 
 	// useEffect(() => {
 	// 	if (isAuthorized) {
@@ -93,9 +93,7 @@ export const LikeButton = ({ songId }: Props) => {
 			variant={'ghost'}
 			aria-label='Like'
 			onClick={handleClick}
-			disabled={
-				isPending || isError || mutation.isPending || !isAuthorized
-			}
+			disabled={isPending || isError || mutation.isPending || !isAuth}
 		>
 			<Heart
 				className={`${

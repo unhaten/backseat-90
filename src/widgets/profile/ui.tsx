@@ -1,21 +1,12 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
 import { LogButton, Settings } from './components'
-import { getProfile } from '@/api/actions'
 import { Button } from '@/components/ui'
+import { useAuth } from '@/lib/hooks/useAuth'
 import { Hourglass } from 'lucide-react'
 
 export const Profile = () => {
-	const { isPending, isSuccess } = useQuery({
-		queryKey: ['profile'],
-		queryFn: getProfile,
-		staleTime: 1000 * 60 * 5,
-		refetchOnWindowFocus: false,
-		retry: false,
-		refetchInterval: 1000 * 60 * 2,
-		refetchIntervalInBackground: true
-	})
+	const { user, isPending } = useAuth()
 
 	if (isPending)
 		return (
@@ -28,5 +19,5 @@ export const Profile = () => {
 			</Button>
 		)
 
-	return <>{isSuccess ? <Settings /> : <LogButton />}</>
+	return <>{user.isAuth ? <Settings /> : <LogButton />}</>
 }

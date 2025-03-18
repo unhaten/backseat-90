@@ -1,12 +1,8 @@
+import { IUser } from '@/entities/user'
 import { API_BASE_URL } from '@/lib/config'
 import { handleErrors, handleResponseErrorArray } from '@/lib/utils'
-interface UserProfile {
-	// id: string
-	name: string
-	// email: string
-}
 
-export const getProfile = async (): Promise<UserProfile> => {
+export const getProfile = async (): Promise<IUser> => {
 	try {
 		const response = await fetch(`${API_BASE_URL}/api/users/profile`, {
 			credentials: 'include'

@@ -13,13 +13,13 @@ import {
 } from '@/components/ui'
 import { Bookmark as BookmarkIcon } from 'lucide-react'
 import { LikedList } from './components'
-import { useProfileNoRetry } from '@/lib/hooks/react-query'
 import { useTranslations } from 'next-intl'
 import { HeaderText } from '@/components'
+import { useAppSelector } from '@/lib/hooks/redux'
 
 export const Bookmarks = ({}) => {
 	const t = useTranslations('HomePage')
-	const { isSuccess: isAuthorized } = useProfileNoRetry()
+	const isAuth = useAppSelector(state => state.user.isAuth)
 
 	return (
 		<Drawer>
@@ -27,7 +27,7 @@ export const Bookmarks = ({}) => {
 				<Button
 					size='icon'
 					className='shrink-0 ml-auto'
-					disabled={!isAuthorized}
+					disabled={!isAuth}
 				>
 					<BookmarkIcon />
 				</Button>
