@@ -20,7 +20,7 @@ export default async function Home() {
 	return (
 		<>
 			{/* //? main color hex = 93c5fd */}
-			{/* //* this div that covers entire app is for setting height of image and patter to full in horizontal and vertical direction either */}
+			{/* //* this div that covers entire app is for setting height of image and pattern to full in horizontal and vertical direction either */}
 			<div className='relative min-h-svh'>
 				{/* <Pattern /> */}
 				<HydrationBoundary state={dehydrate(queryClient)}>

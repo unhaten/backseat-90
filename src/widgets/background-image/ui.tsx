@@ -39,22 +39,30 @@ export const BackgroundImage = () => {
 			<Image
 				className='absolute top-0 left-0 z-0 w-full h-full object-cover md:object-fill object-center'
 				src={'/tv-loading.webp'}
-				alt='the gif'
+				alt='background-image'
 				unoptimized
 				fill
 			/>
 		)
-	return (
-		data?.success &&
+	return data?.success ? (
 		data?.value.background && (
 			<Image
 				className='absolute top-0 left-0 z-0 w-full h-full object-cover md:object-fill object-center'
 				// src={API_SERVER_URL + data.value.background}
 				src={API_PUBLIC_URL + data.value.background}
-				alt='the gif'
+				alt='background-image'
 				unoptimized
 				fill
 			/>
 		)
+	) : (
+		<Image
+			className='absolute top-0 left-0 z-0 w-full h-full object-cover md:object-fill object-center'
+			// src={API_SERVER_URL + data.value.background}
+			src={'/vinyl-spin.webp'}
+			alt='background-image'
+			unoptimized
+			fill
+		/>
 	)
 }

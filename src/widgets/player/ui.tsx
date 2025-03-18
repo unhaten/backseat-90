@@ -1,15 +1,16 @@
 'use client'
 
-import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux'
+import { useAppSelector } from '@/lib/hooks/redux'
 import { useEffect, useRef } from 'react'
 import { Controls } from './components'
-import { setSong, Song } from '@/entities/song'
+import { Song } from '@/entities/song'
 import { PlayerLoader } from '@/components'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui'
 import { useNowPlayingSong } from '@/lib/hooks/react-query'
 import { useAudioVolume } from './lib/useAudioVolume'
 import { useAudioPlayback } from './lib/useAudioPlayback'
+import { useSyncNowPlayingSong } from './model/useSyncNowPlayingSong'
 // import { API_PUBLIC_URL } from '@/lib/config'
 
 export const Player = () => {
@@ -17,19 +18,12 @@ export const Player = () => {
 
 	const audioRef = useRef<HTMLAudioElement>(null)
 
-	const dispatch = useAppDispatch()
 	const player = useAppSelector(state => state.player)
 	const song = useAppSelector(state => state.song)
 
 	useAudioVolume(audioRef)
 	useAudioPlayback(audioRef)
-
-	useEffect(() => {
-		if (data && data.success) {
-			dispatch(setSong(data.value.song))
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [data])
+	useSyncNowPlayingSong(data)
 
 	useEffect(() => {
 		if (data && !data.success) {
