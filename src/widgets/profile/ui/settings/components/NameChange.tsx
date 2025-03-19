@@ -1,7 +1,7 @@
 import { SettingsContainer, SettingsDescription } from '@/components'
-import { NameChangeDialog } from './components/name-change-dialog'
 import { useTranslations } from 'next-intl'
 import { useAppSelector } from '@/lib/hooks/redux'
+import { NameChangeDialog } from './NameChangeDialog'
 
 export const NameChange = () => {
 	const t = useTranslations('HomePage')

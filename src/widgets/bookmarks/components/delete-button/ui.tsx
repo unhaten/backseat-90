@@ -25,7 +25,7 @@ type Props = {
 	thumbnail: string
 	author: string
 	title: string
-	id: string
+	id: string | null
 }
 
 export const DeleteButton = ({ thumbnail, author, title, id }: Props) => {
@@ -51,7 +51,8 @@ export const DeleteButton = ({ thumbnail, author, title, id }: Props) => {
 		}
 	})
 
-	const handleDelete = async (songId: string) => {
+	const handleDelete = async (songId: string | null) => {
+		if (!songId) return
 		await mutation.mutateAsync(songId)
 		toast.error(t('deleted'), {
 			description: `${t('track-word')} "${author} - ${title}"${t(

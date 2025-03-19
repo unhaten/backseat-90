@@ -1,22 +1,14 @@
 // import { likedData } from '@/lib/dummies/liked-data'
 import { LikedTrack } from '../liked-track/ui'
-import { useQuery } from '@tanstack/react-query'
-import { getLikedSongs } from '@/api/actions'
 import { Skeleton } from '@/components/ui'
 import { ISong } from '@/entities/song'
 import { useTranslations } from 'next-intl'
+import { useBookmarks } from '@/lib/hooks/react-query'
 
 export const LikedList = () => {
 	const t = useTranslations('HomePage')
 
-	const { data, isError, isLoading, isRefetching, isSuccess } = useQuery({
-		queryKey: ['bookmarks'],
-		queryFn: getLikedSongs,
-		staleTime: 1000 * 60, // Cache for 1 minute
-		refetchOnMount: false, // Prevent refetch on mount
-		refetchOnWindowFocus: false, // Refresh if user comes back to the tab
-		refetchInterval: 1000 * 60 * 2 // Auto-refresh every 2 minutes
-	})
+	const { data, isError, isLoading, isRefetching, isSuccess } = useBookmarks()
 	return (
 		<>
 			<ul className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4 py-2'>

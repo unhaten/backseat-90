@@ -17,7 +17,7 @@ import { useTranslations } from 'next-intl'
 import { HeaderText } from '@/components'
 import { useAppSelector } from '@/lib/hooks/redux'
 
-export const Bookmarks = ({}) => {
+export const Bookmarks = () => {
 	const t = useTranslations('HomePage')
 	const isAuth = useAppSelector(state => state.user.isAuth)
 

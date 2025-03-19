@@ -161,8 +161,9 @@ export const getLikedSongs = async () => {
 	}
 }
 
-export const checkIfSongIsLiked = async (songId: string) => {
+export const checkIfSongIsLiked = async (songId: string | null) => {
 	try {
+		if (!songId) return
 		const response = await fetch(`${API_BASE_URL}/api/songs/is-liked`, {
 			method: 'POST',
 			body: JSON.stringify({ id: songId }),

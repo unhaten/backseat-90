@@ -1,12 +1,13 @@
-import { checkIfSongIsLiked, addToBookmarks } from '@/api/actions'
+import { addToBookmarks } from '@/api/actions'
 import { Button } from '@/components/ui'
 import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Heart } from 'lucide-react'
 import { useEffect } from 'react'
 import { toast } from 'sonner'
 import { setLike, toggleLike } from '@/entities/song/model/song.slice'
 import { useTranslations } from 'next-intl'
+import { useLikedSong } from '@/lib/hooks/react-query'
 
 type Props = {
 	songId: string | null
@@ -25,15 +26,9 @@ export const LikeButton = ({ songId }: Props) => {
 		isPending,
 		isError,
 		refetch,
-		isFetched,
 		isRefetching,
 		data: isSongLiked
-	} = useQuery({
-		queryKey: ['is-liked'],
-		queryFn: () => checkIfSongIsLiked(songId),
-		retry: false,
-		enabled: false
-	})
+	} = useLikedSong(songId)
 
 	const mutation = useMutation({
 		mutationKey: ['is-liked', 'bookmarks'],
@@ -67,9 +62,7 @@ export const LikeButton = ({ songId }: Props) => {
 
 	const handleClick = async () => {
 		if (!songId) return
-		// setIsLiked(prev => !prev)
 		dispatch(toggleLike())
-		// setIsLiked((prev: boolean) => !prev)
 
 		await mutation.mutateAsync(songId)
 		if (!isLiked) {
@@ -91,7 +84,6 @@ export const LikeButton = ({ songId }: Props) => {
 		if (!isAuth) {
 			dispatch(setLike(false))
 		}
-
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isAuth])
 

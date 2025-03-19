@@ -8,7 +8,7 @@ type Props = {
 	title: string
 	author: string
 	likes: number
-	id: string
+	id: string | null
 }
 
 export const LikedTrack = ({ thumbnail, title, author, likes, id }: Props) => {

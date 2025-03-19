@@ -14,17 +14,16 @@ import {
 } from '@/components/ui'
 import { DialogClose, DialogFooter } from '@/components/ui/dialog'
 import { Settings as SettingsIcon } from 'lucide-react'
-import {
-	ChangePassword,
-	IconLinks,
-	LanguageChange,
-	LogOut,
-	NameChange,
-	ThemeColor
-} from './components'
+
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { HeaderText } from '@/components'
+import { ThemeColor } from './components/ThemeColor'
+import { LanguageChange } from './components/LanguageChange'
+import { ChangePassword } from './components/ChangePassword'
+import { IconLinks } from './components/IconLinks'
+import { LogoutButton } from './components/LogoutButton'
+import { NameChange } from './components/NameChange'
 
 export const Settings = () => {
 	const t = useTranslations('HomePage')
@@ -75,7 +74,7 @@ export const Settings = () => {
 					</DialogClose>
 					<div className='flex items-center gap-2'>
 						<IconLinks />
-						<LogOut setIsOpen={setIsOpen} />
+						<LogoutButton setIsOpen={setIsOpen} />
 					</div>
 				</DialogFooter>
 			</DialogContent>

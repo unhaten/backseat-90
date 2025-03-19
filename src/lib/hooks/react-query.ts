@@ -1,5 +1,5 @@
-import { getProfile } from '@/api/actions'
-import { getNowPlayingSong } from '@/api/server-actions'
+import { checkIfSongIsLiked, getLikedSongs, getProfile } from '@/api/actions'
+import { getImages, getNowPlayingSong } from '@/api/server-actions'
 import { useQuery } from '@tanstack/react-query'
 
 export const useNowPlayingSong = () =>
@@ -28,9 +28,29 @@ export const useProfileNoRetry = () =>
 		refetchOnWindowFocus: true
 	})
 
-// export const useIfSongIsLikedNoRetry = (songId: number) =>
-// 	useQuery({
-// 		queryKey: ['bookmarks', songId],
-// 		queryFn: () => checkIfSongIsLiked(songId),
-// 		retry: false
-// 	})
+export const useBookmarks = () =>
+	useQuery({
+		queryKey: ['bookmarks'],
+		queryFn: getLikedSongs,
+		staleTime: 1000 * 60, // Cache for 1 minute
+		refetchOnMount: false, // Prevent refetch on mount
+		refetchOnWindowFocus: false, // Refresh if user comes back to the tab
+		refetchInterval: 1000 * 60 * 2 // Auto-refresh every 2 minutes
+	})
+
+export const useLikedSong = (songId: string | null) =>
+	useQuery({
+		queryKey: ['is-liked'],
+		queryFn: () => checkIfSongIsLiked(songId),
+		retry: false,
+		enabled: false
+	})
+
+export const useBackgroundImage = (imageId: number) =>
+	useQuery({
+		queryKey: ['image-generator'],
+		queryFn: () => getImages(imageId),
+		staleTime: 0,
+		refetchOnMount: false,
+		refetchOnWindowFocus: false
+	})

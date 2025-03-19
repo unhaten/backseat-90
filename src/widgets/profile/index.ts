@@ -1,2 +1,2 @@
-export { Profile } from './ui'
-export * from './model/profile.helpers'
+export { Profile } from './ui/Profile'
+export { formatName } from './lib/format-name'

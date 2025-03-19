@@ -10,6 +10,7 @@ import { useNowPlayingSong } from '@/lib/hooks/react-query'
 import { useAudioVolume } from './lib/useAudioVolume'
 import { useAudioPlayback } from './lib/useAudioPlayback'
 import { useSyncNowPlayingSong } from './model/useSyncNowPlayingSong'
+import { toast } from 'sonner'
 // import { API_PUBLIC_URL } from '@/lib/config'
 
 export const Player = () => {
@@ -22,17 +23,17 @@ export const Player = () => {
 	useAudioPlayback(audioRef)
 	useSyncNowPlayingSong(data)
 
-	// useEffect(() => {
-	// 	if (data && !data.success) {
-	// 		toast.warning('Error', { description: data.error })
-	// 	}
-	// }, [data])
-
 	useEffect(() => {
 		if (!audioRef.current) return
 		audioRef.current.load() //* forcing because mobile browsers does not preload music smh
 		// handleLoad()
 	}, [audioRef])
+
+	useEffect(() => {
+		if (!data?.success) {
+			toast.warning('Unable to connect to the radio')
+		}
+	}, [data?.success])
 
 	return (
 		<div>

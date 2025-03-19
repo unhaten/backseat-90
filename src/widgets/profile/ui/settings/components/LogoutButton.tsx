@@ -9,7 +9,7 @@ type Props = {
 	setIsOpen: (value: boolean) => void
 }
 
-export const LogOut = ({ setIsOpen }: Props) => {
+export const LogoutButton = ({ setIsOpen }: Props) => {
 	const t = useTranslations('HomePage')
 
 	const queryClient = useQueryClient()

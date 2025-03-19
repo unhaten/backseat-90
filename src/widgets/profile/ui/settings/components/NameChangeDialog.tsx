@@ -18,7 +18,7 @@ import {
 	FormMessage,
 	FormField
 } from '@/components/ui'
-import { formatName } from '@/widgets/profile/model/profile.helpers'
+import { formatName } from '@/widgets/profile/lib/format-name'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'

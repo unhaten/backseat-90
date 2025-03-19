@@ -1,9 +1,10 @@
 'use client'
 
-import { LogButton, Settings } from './components'
 import { Button } from '@/components/ui'
 import { useAuth } from '@/lib/hooks/useAuth'
 import { Hourglass } from 'lucide-react'
+import { LogButton } from './log-button/LogButton'
+import { Settings } from './settings/Settings'
 
 export const Profile = () => {
 	const { user, isPending } = useAuth()
