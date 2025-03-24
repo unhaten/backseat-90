@@ -12,10 +12,10 @@ import {
 	DrawerDescription
 } from '@/components/ui'
 import { Bookmark as BookmarkIcon } from 'lucide-react'
-import { LikedList } from './components'
 import { useTranslations } from 'next-intl'
 import { HeaderText } from '@/components'
 import { useAppSelector } from '@/lib/hooks/redux'
+import { LikedList } from './ui/LikedList'
 
 export const Bookmarks = () => {
 	const t = useTranslations('HomePage')

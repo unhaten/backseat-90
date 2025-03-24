@@ -32,10 +32,10 @@ export const useBookmarks = () =>
 	useQuery({
 		queryKey: ['bookmarks'],
 		queryFn: getLikedSongs,
-		staleTime: 1000 * 60, // Cache for 1 minute
+		staleTime: 1000 * 60 * 5, // Cache for 5 minutes
 		refetchOnMount: false, // Prevent refetch on mount
 		refetchOnWindowFocus: false, // Refresh if user comes back to the tab
-		refetchInterval: 1000 * 60 * 2 // Auto-refresh every 2 minutes
+		refetchInterval: 1000 * 60 * 5 // Auto-refresh every 5 minutes
 	})
 
 export const useLikedSong = (songId: string | null) =>

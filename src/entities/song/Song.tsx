@@ -1,8 +1,8 @@
 import { useAppSelector } from '@/lib/hooks/redux'
-import { LikeButton } from './ui/like-button'
-import { SongDuration } from './ui/song-duration'
-import { SongImage } from './ui/song-image'
-import { SongInfo } from './ui/song-info'
+import { LikeButton } from './ui/LikeButton'
+import { SongDuration } from './ui/SongDuration'
+import { SongImage } from './ui/SongImage'
+import { SongInfo } from './ui/SongInfo'
 
 export const Song = () => {
 	const song = useAppSelector(state => state.song.data)

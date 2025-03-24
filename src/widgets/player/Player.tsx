@@ -21,6 +21,7 @@ export const Player = () => {
 
 	useAudioVolume(audioRef)
 	useAudioPlayback(audioRef)
+	// FIXME: //! after changing language of the app while radio is turned on it reloads the page and state is still isPlaying while you can't really hear the song. SAME SITUATION when you go to login page and back after successful login
 	useSyncNowPlayingSong(data)
 
 	useEffect(() => {

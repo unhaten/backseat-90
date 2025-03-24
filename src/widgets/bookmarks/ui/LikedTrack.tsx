@@ -1,7 +1,7 @@
 import { Heart } from 'lucide-react'
-import { DeleteButton } from '../delete-button/ui'
-import { SongImage } from '@/entities/song/ui/song-image'
-import { SongInfo } from '@/entities/song/ui/song-info'
+import { DeleteButton } from './DeleteButton'
+import { SongImage } from '@/entities/song/ui/SongImage'
+import { SongInfo } from '@/entities/song/ui/SongInfo'
 
 type Props = {
 	thumbnail: string

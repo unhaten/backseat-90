@@ -1,5 +1,5 @@
 // import { likedData } from '@/lib/dummies/liked-data'
-import { LikedTrack } from '../liked-track/ui'
+import { LikedTrack } from './LikedTrack'
 import { Skeleton } from '@/components/ui'
 import { ISong } from '@/entities/song'
 import { useTranslations } from 'next-intl'

@@ -8,6 +8,7 @@ import { toast } from 'sonner'
 import { setLike, toggleLike } from '@/entities/song/model/song.slice'
 import { useTranslations } from 'next-intl'
 import { useLikedSong } from '@/lib/hooks/react-query'
+import { useToggleLikeOnRefetch } from '../model/useToggleLikeOnRefetch'
 
 type Props = {
 	songId: string | null
@@ -30,6 +31,8 @@ export const LikeButton = ({ songId }: Props) => {
 		data: isSongLiked
 	} = useLikedSong(songId)
 
+	useToggleLikeOnRefetch({ isRefetching, isSongLiked })
+
 	const mutation = useMutation({
 		mutationKey: ['is-liked', 'bookmarks'],
 		mutationFn: (songId: string) => addToBookmarks(songId),
@@ -47,18 +50,6 @@ export const LikeButton = ({ songId }: Props) => {
 		if (!songId) return
 		refetch()
 	}, [songId])
-
-	useEffect(() => {
-		if (isRefetching) {
-			dispatch(setLike(false))
-		}
-	}, [isRefetching])
-
-	useEffect(() => {
-		if (!isRefetching) {
-			dispatch(setLike(isSongLiked))
-		}
-	}, [isSongLiked, isRefetching])
 
 	const handleClick = async () => {
 		if (!songId) return

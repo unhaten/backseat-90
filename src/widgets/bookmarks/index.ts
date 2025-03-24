@@ -1,1 +1,1 @@
-export { Bookmarks } from './ui'
+export { Bookmarks } from './Bookmarks'
