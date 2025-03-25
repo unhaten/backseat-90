@@ -1,5 +1,5 @@
 import { Heart } from 'lucide-react'
-import { DeleteButton } from './DeleteButton'
+import { DeleteButton } from '../delete-button/DeleteButton'
 import { SongImage } from '@/entities/song/ui/SongImage'
 import { SongInfo } from '@/entities/song/ui/SongInfo'
 

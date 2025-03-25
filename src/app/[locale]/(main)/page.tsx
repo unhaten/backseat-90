@@ -1,6 +1,6 @@
 import { getImages } from '@/api/server-actions'
 import { BackgroundImage } from '@/widgets/background-image'
-import { ChangeImage } from '@/widgets/background-image/ui/ChangeImage'
+import { ChangeImage } from '@/widgets/background-image/ui/change-image/ChangeImage'
 import { Player } from '@/widgets/player'
 import { Profile } from '@/widgets/profile'
 import { Turntable } from '@/widgets/turntable'

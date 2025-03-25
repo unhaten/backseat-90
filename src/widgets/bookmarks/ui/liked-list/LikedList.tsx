@@ -1,9 +1,9 @@
 // import { likedData } from '@/lib/dummies/liked-data'
-import { LikedTrack } from './LikedTrack'
 import { Skeleton } from '@/components/ui'
 import { ISong } from '@/entities/song'
 import { useTranslations } from 'next-intl'
 import { useBookmarks } from '@/lib/hooks/react-query'
+import { LikedTrack } from '../liked-track/LikedTrack'
 
 export const LikedList = () => {
 	const t = useTranslations('HomePage')

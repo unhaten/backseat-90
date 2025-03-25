@@ -1,5 +1,6 @@
 import { Bookmarks } from '@/widgets/bookmarks'
-import { PlayButton, SoundButton } from './components'
+import { SoundButton } from './components/sound-button/SoundButton'
+import { PlayButton } from './components/play-button/PlayButton'
 
 export const Controls = () => {
 	return (

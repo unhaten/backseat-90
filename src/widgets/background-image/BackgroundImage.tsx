@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import { setImage } from './model/image.slice'
 import { API_PUBLIC_URL } from '@/lib/config'
 import { useBackgroundImage } from '@/lib/hooks/react-query'
-import { Background } from './ui/Background'
+import { Background } from './ui/background/Background'
 
 export const BackgroundImage = () => {
 	const dispatch = useAppDispatch()

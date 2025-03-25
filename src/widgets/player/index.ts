@@ -1,4 +1,4 @@
-export { Player } from './Player'
+export { Player } from './ui/Player'
 export { default as playerReducer } from './model/player.slice'
 export { togglePlayer, setVolume, setStreamUrl } from './model/player.slice'
 export type {

@@ -2,15 +2,16 @@
 
 import { useAppSelector } from '@/lib/hooks/redux'
 import { useEffect, useRef } from 'react'
-import { Controls } from './components'
 import { Song } from '@/entities/song'
 import { PlayerLoader } from '@/components'
-import { Button } from '@/components/ui'
 import { useNowPlayingSong } from '@/lib/hooks/react-query'
-import { useAudioVolume } from './lib/useAudioVolume'
-import { useAudioPlayback } from './lib/useAudioPlayback'
-import { useSyncNowPlayingSong } from './model/useSyncNowPlayingSong'
+import { useAudioVolume } from '../lib/useAudioVolume'
+import { useAudioPlayback } from '../lib/useAudioPlayback'
+import { useSyncNowPlayingSong } from '../model/useSyncNowPlayingSong'
 import { toast } from 'sonner'
+import { Controls } from './controls/Controls'
+import { Audio } from './audio/Audio'
+import { Reconnect } from './reconnect/Reconnect'
 // import { API_PUBLIC_URL } from '@/lib/config'
 
 export const Player = () => {
@@ -42,30 +43,13 @@ export const Player = () => {
 				{/* //? h = 82px mb-4 */}
 				{data?.success && (
 					<>
-						<audio
-							ref={audioRef}
-							// src={
-							// 	API_PUBLIC_URL +
-							// 	(data?.success && data.value.file)
-							// }
-							preload='auto'
-							// onLoadedMetadata={handleLoad}
-							// src='http://localhost/listen/main_station/radio.mp3'
-							src={player.url}
-						/>
+						<Audio audioRef={audioRef} url={player.url} />
 						<Song />
 					</>
 				)}
 				{isSongDataLoading && <PlayerLoader />}
 				{!data?.success ? (
-					isError && (
-						<div className='flex items-center flex-col'>
-							<p>Something went wrong</p>
-							<Button>
-								<span>reconnect</span>
-							</Button>
-						</div>
-					)
+					<Reconnect isError={isError} />
 				) : (
 					<Controls />
 				)}

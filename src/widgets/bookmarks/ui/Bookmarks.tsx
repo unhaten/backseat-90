@@ -15,7 +15,7 @@ import { Bookmark as BookmarkIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { HeaderText } from '@/components'
 import { useAppSelector } from '@/lib/hooks/redux'
-import { LikedList } from './ui/LikedList'
+import { LikedList } from './liked-list/LikedList'
 
 export const Bookmarks = () => {
 	const t = useTranslations('HomePage')
