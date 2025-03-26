@@ -12,7 +12,8 @@ export const useAudioVolume = (
 		if (typeof window === 'undefined') return
 
 		const storageVolume = localStorage.getItem('playerVolume')
-		const parsedVolume = storageVolume !== null ? Number(storageVolume) : 50
+		const parsedVolume =
+			storageVolume !== null ? Number(storageVolume) : volume
 		dispatch(setVolume(parsedVolume))
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps

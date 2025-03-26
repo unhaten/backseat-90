@@ -1,5 +1,9 @@
 import { checkIfSongIsLiked, getLikedSongs, getProfile } from '@/api/actions'
-import { getImages, getNowPlayingSong } from '@/api/server-actions'
+import {
+	connectToRadio,
+	getImages,
+	getNowPlayingSong
+} from '@/api/server-actions'
 import { useQuery } from '@tanstack/react-query'
 
 export const useNowPlayingSong = () =>
@@ -7,6 +11,13 @@ export const useNowPlayingSong = () =>
 		queryKey: ['now-playing'],
 		queryFn: getNowPlayingSong,
 		refetchInterval: 3000
+	})
+
+export const useConnectionToRadio = () =>
+	useQuery({
+		queryKey: ['stream-url'],
+		queryFn: connectToRadio,
+		enabled: false
 	})
 
 export const useProfile = () =>
