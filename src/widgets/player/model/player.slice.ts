@@ -17,8 +17,9 @@ const playerSlice = createSlice({
 		togglePlayer: state => {
 			state.isPlaying = !state.isPlaying
 		},
-		setVolume: (state, action) => {
+		setVolume: (state, action: PayloadAction<number>) => {
 			state.volume = action.payload
+			localStorage?.setItem('playerVolume', String(action.payload))
 		},
 		// setDuration: (state, action) => {
 		// 	state.duration = action.payload
