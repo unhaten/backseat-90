@@ -11,12 +11,14 @@ export const useFormSchema = () => {
 				.min(1, {
 					message: t('email-required')
 				})
-				.email(),
+				.email()
+				.trim(),
 			password: z
 				.string()
 				.min(6, {
 					message: t('six-characters')
 				})
+				.trim()
 				.refine(password => /[A-Z]/.test(password), {
 					message: t('uppercase')
 				})
@@ -29,9 +31,12 @@ export const useFormSchema = () => {
 			// .refine(password => /[!@#$%^&*]/.test(password), {
 			// 	message: 'Password must contain at least one special character'
 			// })
-			confirmPassword: z.string().min(1, {
-				message: t('not-empty')
-			})
+			confirmPassword: z
+				.string()
+				.min(1, {
+					message: t('not-empty')
+				})
+				.trim()
 		})
 		.refine(
 			values => {

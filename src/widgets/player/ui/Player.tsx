@@ -12,10 +12,12 @@ import { toast } from 'sonner'
 import { Controls } from './controls/Controls'
 import { Audio } from './audio/Audio'
 import { Reconnect } from './reconnect/Reconnect'
+import { useTranslations } from 'next-intl'
 // import { API_PUBLIC_URL } from '@/lib/config'
 
 export const Player = () => {
 	const { data, isLoading: isSongDataLoading, isError } = useNowPlayingSong()
+	const t = useTranslations('HomePage')
 
 	const audioRef = useRef<HTMLAudioElement>(null)
 	const player = useAppSelector(state => state.player)
@@ -35,8 +37,9 @@ export const Player = () => {
 
 	useEffect(() => {
 		if (!data?.success) {
-			toast.warning('Unable to connect to the radio')
+			toast.warning(t('cant-connect'))
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [data?.success])
 
 	return (

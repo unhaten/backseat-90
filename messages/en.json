@@ -1,4 +1,9 @@
 {
+	"Metadata": {
+		"title": "Backseat 90 - Listen to 90s Underground Rap",
+		"description": "Sit back and relax with 90's underground rap songs",
+		"title-small": "Backseat 90"
+	},
 	"HomePage": {
 		"settings": "Settings",
 		"setting-description": "Customize your settings and take a look at another options",
@@ -51,7 +56,8 @@
 		"like-description": "This track is added to favorites",
 		"dislike": "Dislike",
 		"dislike-description": "This track is removed from favorites",
-		"logout": "Logged out, see you soon!"
+		"logout": "Logged out, see you soon!",
+		"cant-connect": "Unable to connect to the radio"
 	},
 	"Register": {
 		"registration-error": "Registration failed",

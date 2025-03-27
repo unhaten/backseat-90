@@ -1,4 +1,9 @@
 {
+	"Metadata": {
+		"title": "Backseat 90 – Hören Sie Underground-Rap der 90er",
+		"description": "Lehnen Sie sich zurück und entspannen Sie sich mit Underground-Rap-Songs aus den 90ern",
+		"title-small": "Backseat 90"
+	},
 	"HomePage": {
 		"settings": "Einstellungen",
 		"setting-description": "Passen Sie Ihre Einstellungen an und sehen Sie sich andere Optionen an",
@@ -51,7 +56,8 @@
 		"like-description": "Dieser Track wurde zu den Favoriten hinzugefügt",
 		"dislike": "Gefällt mir nicht",
 		"dislike-description": "Dieser Track wurde aus den Favoriten entfernt",
-		"logout": "Abgemeldet, bis bald!"
+		"logout": "Abgemeldet, bis bald!",
+		"cant-connect": "Verbindung zum Radio nicht möglich"
 	},
 	"Register": {
 		"registration-error": "Registrierung fehlgeschlagen",

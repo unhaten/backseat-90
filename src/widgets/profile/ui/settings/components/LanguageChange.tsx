@@ -18,6 +18,18 @@ export const LanguageChange = () => {
 
 	const [language, setLanguage] = useState('')
 
+	// <select onChange={(e) =>
+	//       router.push(
+	//         {
+	//           pathname: router.pathname,
+	//           query: router.query,
+	//         },
+	//         null,
+	//         { locale: e.target.value }
+	//       )
+	//     }
+	//   >
+
 	useEffect(() => {
 		// Get the language code from the current path
 		const currentLanguage = window.location.pathname.split('/')[1] || 'en'

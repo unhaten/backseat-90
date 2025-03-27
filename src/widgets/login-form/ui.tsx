@@ -61,10 +61,14 @@ export const LoginForm = ({}) => {
 			.min(1, {
 				message: t('email-required')
 			})
-			.email(),
-		password: z.string().min(1, {
-			message: t('password-required')
-		})
+			.email()
+			.trim(),
+		password: z
+			.string()
+			.min(1, {
+				message: t('password-required')
+			})
+			.trim()
 	})
 
 	const form = useForm<z.infer<typeof formSchema>>({
