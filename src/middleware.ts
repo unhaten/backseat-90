@@ -1,11 +1,36 @@
 import createMiddleware from 'next-intl/middleware'
 import { routing } from './i18n/routing'
+import { NextRequest, NextResponse } from 'next/server'
 
-export default createMiddleware(routing)
+const intlMiddleware = createMiddleware(routing)
+
+export function middleware(request: NextRequest) {
+	const response = intlMiddleware(request)
+	const { pathname } = request.nextUrl
+	const token = request.cookies.get('access_token')?.value
+
+	// Regex to match localized auth pages like /en/auth/login, /ru/auth/register
+	const authPathRegex = /^\/(en|ru|de)\/auth\/(login|register)/
+
+	// Redirect unauthenticated users trying to access /dashboard
+	if (pathname.startsWith('/dashboard') && !token) {
+		return NextResponse.redirect(new URL('/login', request.url))
+	}
+
+	// Redirect authenticated users away from auth pages
+	if (token && authPathRegex.test(pathname)) {
+		return NextResponse.redirect(new URL('/', request.url))
+	}
+
+	return response
+}
 
 export const config = {
-	// Match all pathnames except for
-	// - … if they start with `/api`, `/trpc`, `/_next` or `/_vercel`
-	// - … the ones containing a dot (e.g. `favicon.ico`)
-	matcher: '/((?!api|trpc|_next|_vercel|.*\\..*).*)'
+	matcher: [
+		'/dashboard/:path*', // Protect dashboard
+		'/(en|ru|de)/auth/:path*', // Handle localized auth pages
+		'/((?!api|trpc|_next|_vercel|.*\\..*).*)' // Keep next-intl working
+	]
 }
+
+export default middleware
