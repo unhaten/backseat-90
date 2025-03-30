@@ -1,6 +1,6 @@
 import { getImages } from '@/api/server-actions'
 import { BackgroundImage } from '@/widgets/background-image'
-import { ChangeImage } from '@/widgets/background-image/ui/change-image/ChangeImage'
+import { Options } from '@/widgets/options'
 import { Player } from '@/widgets/player'
 import { Profile } from '@/widgets/profile'
 import { Turntable } from '@/widgets/turntable'
@@ -34,7 +34,7 @@ export default async function Home() {
 						<Turntable />
 						<Player />
 						<Profile />
-						<ChangeImage />
+						<Options />
 					</div>
 				</div>
 			</div>

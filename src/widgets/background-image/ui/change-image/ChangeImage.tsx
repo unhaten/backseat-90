@@ -1,5 +1,3 @@
-'use client'
-
 import { Button } from '@/components/ui'
 import { useIsFetching, useQueryClient } from '@tanstack/react-query'
 import { ImagePlay } from 'lucide-react'
@@ -19,7 +17,7 @@ export const ChangeImage = () => {
 
 	return (
 		<Button
-			className='absolute top-2 left-2 rounded-full p-1.5 cursor-pointer'
+			className='rounded-full p-1.5 cursor-pointer'
 			variant={'outline'}
 			size='icon'
 			onClick={handleClick}
