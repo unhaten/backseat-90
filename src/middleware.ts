@@ -9,15 +9,19 @@ export function middleware(request: NextRequest) {
 	const { pathname } = request.nextUrl
 	const token = request.cookies.get('access_token')?.value
 
-	// Regex to match localized auth pages like /en/auth/login, /ru/auth/register
+	// const browserLang =
+	// 	request.headers.get('accept-language')?.split(',')[0]?.split('-')[0] ||
+	// 	'en'
+
+	//* Regex to match localized auth pages like /en/auth/login, /ru/auth/register
 	const authPathRegex = /^\/(en|ru|de)\/auth\/(login|register)/
 
-	// Redirect unauthenticated users trying to access /dashboard
+	//* Redirect unauthenticated users trying to access /dashboard
 	if (pathname.startsWith('/dashboard') && !token) {
 		return NextResponse.redirect(new URL('/login', request.url))
 	}
 
-	// Redirect authenticated users away from auth pages
+	//* Redirect authenticated users away from auth pages
 	if (token && authPathRegex.test(pathname)) {
 		return NextResponse.redirect(new URL('/', request.url))
 	}

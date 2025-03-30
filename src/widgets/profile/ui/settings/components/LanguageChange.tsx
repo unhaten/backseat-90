@@ -18,18 +18,6 @@ export const LanguageChange = () => {
 
 	const [language, setLanguage] = useState('')
 
-	// <select onChange={(e) =>
-	//       router.push(
-	//         {
-	//           pathname: router.pathname,
-	//           query: router.query,
-	//         },
-	//         null,
-	//         { locale: e.target.value }
-	//       )
-	//     }
-	//   >
-
 	useEffect(() => {
 		// Get the language code from the current path
 		const currentLanguage = window.location.pathname.split('/')[1] || 'en'
@@ -39,16 +27,9 @@ export const LanguageChange = () => {
 	const handleLanguageChange = (newLanguage: string) => {
 		setLanguage(newLanguage)
 
-		// Check if router.asPath is defined and has a pathname
-		const path = window.location.pathname ? window.location.pathname : '/'
+		const path = window.location.pathname.replace(/^\/(en|ru|de)/, '')
 
-		// Check if current path includes the language and remove it
-		const newPath = path.startsWith(`/${newLanguage}`)
-			? path
-			: `/${newLanguage}${path.substring(3)}` // Replace the language part
-
-		// Redirect to the new language path
-		router.push(newPath)
+		router.push(`/${newLanguage}${path}`)
 	}
 
 	return (
