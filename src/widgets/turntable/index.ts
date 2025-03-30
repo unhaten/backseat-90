@@ -1,1 +1,1 @@
-export { Turntable } from './ui'
+export { Turntable } from './ui/Turntable'

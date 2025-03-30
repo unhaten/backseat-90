@@ -6,7 +6,7 @@ const initialState: IPlayer = {
 	mainColor: '#e7568d',
 	secondaryColor: '#ea6a9b',
 	volume: 50,
-	listeningUsers: 1,
+	listeningUsers: 0,
 	url: undefined
 }
 
@@ -26,10 +26,14 @@ const playerSlice = createSlice({
 		// }
 		setStreamUrl: (state, action: PayloadAction<string | undefined>) => {
 			state.url = action.payload
+		},
+		setListeners: (state, action) => {
+			state.listeningUsers = action.payload
 		}
 	}
 })
 
-export const { togglePlayer, setVolume, setStreamUrl } = playerSlice.actions
+export const { togglePlayer, setVolume, setStreamUrl, setListeners } =
+	playerSlice.actions
 
 export default playerSlice.reducer

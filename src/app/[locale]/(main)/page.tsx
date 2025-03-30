@@ -28,7 +28,7 @@ export default async function Home() {
 				</HydrationBoundary>
 				<div className='relative flex items-center bg-background/30 justify-center min-h-svh w-screen sm:p-8'>
 					<div className='relative bg-rose-500/35 rounded-lg px-4 pb-4 md:px-8 w-80 md:w-96'>
-						<h1 className='font-rockSalt text-center text-2xl font-bold m-0 my-4'>
+						<h1 className='font-rockSalt text-center text-2xl font-bold m-0 my-4 select-none'>
 							Backseat 90
 						</h1>
 						<Turntable />

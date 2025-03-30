@@ -1,46 +1,34 @@
 'use client'
 
 import { useAppSelector } from '@/lib/hooks/redux'
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { Song } from '@/entities/song'
 import { PlayerLoader } from '@/components'
 import { useNowPlayingSong } from '@/lib/hooks/react-query'
 import { useAudioVolume } from '../lib/useAudioVolume'
 import { useAudioPlayback } from '../lib/useAudioPlayback'
 import { useSyncNowPlayingSong } from '../model/useSyncNowPlayingSong'
-import { toast } from 'sonner'
 import { Controls } from './controls/Controls'
 import { Audio } from './audio/Audio'
 import { Reconnect } from './reconnect/Reconnect'
-import { useTranslations } from 'next-intl'
+import { useMobilePreload } from '../lib/useMobilePreload'
+import { useConnectionWarning } from '../lib/useConnectionWarning'
 // import { API_PUBLIC_URL } from '@/lib/config'
 
 export const Player = () => {
-	const { data, isLoading: isSongDataLoading, isError } = useNowPlayingSong()
-	const t = useTranslations('HomePage')
+	const { data, isLoading: isSongDataLoading } = useNowPlayingSong()
 
 	const audioRef = useRef<HTMLAudioElement>(null)
 	const player = useAppSelector(state => state.player)
 
 	useAudioVolume(audioRef)
+	useMobilePreload(audioRef)
 	useAudioPlayback(audioRef)
 	// FIXME: //! after changing language of the app while radio is turned on it reloads the page and state is still isPlaying while you can't really hear the song. SAME SITUATION when you go to login page and back after successful login
 	useSyncNowPlayingSong(data)
 	// FIXME: //! pressing spacebar ignores everything and can create delay between radio and playback
 	// useSpacebarPlayback()
-
-	useEffect(() => {
-		if (!audioRef.current) return
-		audioRef.current.load() //* forcing because mobile browsers does not preload music smh
-		// handleLoad()
-	}, [audioRef])
-
-	useEffect(() => {
-		if (!data?.success) {
-			toast.warning(t('cant-connect'))
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [data?.success])
+	useConnectionWarning(data)
 
 	return (
 		<div>
@@ -54,7 +42,10 @@ export const Player = () => {
 				)}
 				{isSongDataLoading && <PlayerLoader />}
 				{!data?.success ? (
-					<Reconnect isError={isError} />
+					<Reconnect
+						isSuccess={data?.success}
+						isLoading={isSongDataLoading}
+					/>
 				) : (
 					<Controls />
 				)}

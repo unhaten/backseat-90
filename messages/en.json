@@ -57,7 +57,8 @@
 		"dislike": "Dislike",
 		"dislike-description": "This track is removed from favorites",
 		"logout": "Logged out, see you soon!",
-		"cant-connect": "Unable to connect to the radio"
+		"cant-connect": "Unable to connect to the radio",
+		"radio-problem": "Something went wrong, reload the page or wait a bit please..."
 	},
 	"Register": {
 		"registration-error": "Registration failed",

@@ -9,7 +9,7 @@ export function middleware(request: NextRequest) {
 	const { pathname } = request.nextUrl
 	const token = request.cookies.get('access_token')?.value
 
-	// const browserLang =
+	//! const browserLang =
 	// 	request.headers.get('accept-language')?.split(',')[0]?.split('-')[0] ||
 	// 	'en'
 

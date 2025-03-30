@@ -1,7 +1,11 @@
 'use client'
 
 import { useAppSelector } from '@/lib/hooks/redux'
-import { AlbumCover, Details, RunningName, Vinyl, Wheels } from './components'
+import { AlbumCover } from './album-cover/AlbumCover'
+import { Details } from './details/Details'
+import { Vinyl } from './vinyl/Vinyl'
+import { Wheels } from './wheels/Wheels'
+import { CurrentListeners } from './current-listeners/CurrentListeners'
 
 export const Turntable = () => {
 	const player = useAppSelector(state => state.player)
@@ -12,7 +16,7 @@ export const Turntable = () => {
 				<AlbumCover />
 				<Vinyl player={player} />
 				<Details />
-				<RunningName listeningUsers={player.listeningUsers} />
+				<CurrentListeners listeningUsers={player.listeningUsers} />
 			</div>
 			<Wheels />
 		</div>

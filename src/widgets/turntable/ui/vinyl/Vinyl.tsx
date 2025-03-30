@@ -1,11 +1,10 @@
+import { Line } from './components/line'
+import { Needle } from './components/needle'
+import { NeedleConstruction } from './components/needle-construction'
+import { NeedleContainer } from './components/needle-container'
+import { Record } from './components/record'
 import s from './vinyl.module.css'
-import {
-	Record,
-	Line,
-	Needle,
-	NeedleConstruction,
-	NeedleContainer
-} from './components/index'
+
 import { IPlayer } from '@/widgets/player'
 
 type Props = { player: IPlayer }

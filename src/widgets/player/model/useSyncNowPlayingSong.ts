@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useAppDispatch } from '@/lib/hooks/redux'
 import { setSong } from '@/entities/song'
 import { ServerActionResult } from '@/lib/utils'
-import { StationData } from '..'
+import { setListeners, StationData } from '..'
 
 export const useSyncNowPlayingSong = (
 	data?: ServerActionResult<StationData>
@@ -12,6 +12,7 @@ export const useSyncNowPlayingSong = (
 	useEffect(() => {
 		if (data && data.success) {
 			dispatch(setSong(data.value.song))
+			dispatch(setListeners(data.value.currentListeners))
 		}
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps

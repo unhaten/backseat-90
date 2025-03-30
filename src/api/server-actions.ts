@@ -4,6 +4,8 @@ import { API_BASE_URL } from '@/lib/config'
 import { createServerAction, ServerActionError } from '@/lib/utils'
 import { StationData, UrlData } from '@/widgets/player/model/player.type'
 
+// ! TO BE NOTED: HOT RELOAD IS NOT ABLE TO UPDATE SERVER FUNCTIONS AND IN ORDER TO SEE SOME CHANGES APP NEEDS TO BE FULLY REBOOTED! btw im not sure now
+
 export const connectToRadio = createServerAction<UrlData>(async () => {
 	try {
 		const response = await fetch(`${API_BASE_URL}/api/songs/connect`)
