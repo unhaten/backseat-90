@@ -1,82 +1,42 @@
 'use client'
 
 import {
-	Button,
 	Dialog,
 	DialogContent,
-	DialogDescription,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
 	ScrollArea,
 	ScrollBar,
 	Separator
 } from '@/components/ui'
-import { DialogClose, DialogFooter } from '@/components/ui/dialog'
-import { Settings as SettingsIcon } from 'lucide-react'
-
 import { useState } from 'react'
-import { useTranslations } from 'next-intl'
-import { HeaderText } from '@/components'
-import { ThemeColor } from './components/ThemeColor'
-import { LanguageChange } from './components/LanguageChange'
-import { ChangePassword } from './components/ChangePassword'
-import { IconLinks } from './components/IconLinks'
-import { LogoutButton } from './components/LogoutButton'
-import { NameChange } from './components/NameChange'
+import { ThemeColor } from './ui/theme-color/ThemeColor'
+import { LanguageChange } from './ui/language-change/LanguageChange'
+import { ChangePassword } from './ui/change-password/ChangePassword'
+import { NameChange } from './ui/name-change/NameChange'
+import { SettingsFooter } from './ui/SettingsFooter'
+import { SettingsHeader } from './ui/SettingsHeader'
+import { SettingsTrigger } from './ui/SettingsTrigger'
+
+const COMPONENTS = [ThemeColor, LanguageChange, NameChange, ChangePassword]
 
 export const Settings = () => {
-	const t = useTranslations('HomePage')
 	const [isOpen, setIsOpen] = useState(false)
 
 	return (
 		<Dialog open={isOpen} onOpenChange={setIsOpen}>
-			<DialogTrigger asChild>
-				<Button
-					className='absolute top-2 right-2 rounded-full'
-					variant={'outline'}
-					size='icon'
-				>
-					<SettingsIcon />
-				</Button>
-			</DialogTrigger>
+			<SettingsTrigger />
 			<DialogContent
 			// FIXME: //! when clicking on phone outside of dialog with select-language it closes dialog, not select
 			//  onPointerDownOutside={e => e.preventDefault()}
 			>
-				<DialogHeader>
-					<DialogTitle className='text-center text-2xl font-bebasNeue'>
-						<HeaderText text={t('settings')} />
-					</DialogTitle>
-					<DialogDescription className='text-center text-xs'>
-						{t('setting-description')}
-					</DialogDescription>
-				</DialogHeader>
-				<Separator className='' />
+				<SettingsHeader />
+				<Separator />
 				<ScrollArea className='px-4 max-h-72'>
-					<ThemeColor />
-					<LanguageChange />
-					<NameChange />
-					<ChangePassword />
+					{COMPONENTS.map((Component, index) => (
+						<Component key={index} />
+					))}
 					<ScrollBar />
 				</ScrollArea>
-				<DialogFooter
-					className='mt-0.5'
-					style={{
-						justifyContent: 'space-between',
-						flexDirection: 'row'
-					}}
-				>
-					<DialogClose asChild>
-						<Button className='w-fit' variant='outline'>
-							{t('save-changes')}
-						</Button>
-					</DialogClose>
-					<div className='flex items-center gap-2'>
-						<IconLinks />
-						<LogoutButton setIsOpen={setIsOpen} />
-					</div>
-				</DialogFooter>
+				<SettingsFooter setIsOpen={setIsOpen} />
 			</DialogContent>
 		</Dialog>
 	)

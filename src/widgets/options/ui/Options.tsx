@@ -14,6 +14,8 @@ import { NewsFeed } from './news-feed/NewsFeed'
 import { Pomodoro } from '@/widgets/pomodoro'
 import { BugReport } from './bug-report/BugReport'
 
+const COMPONENTS = [ChangeImage, NewsFeed, Pomodoro, BugReport]
+
 export const Options = () => {
 	return (
 		<DropdownMenu>
@@ -27,21 +29,14 @@ export const Options = () => {
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className='min-w-9 flex flex-col'>
-				<DropdownMenuItem asChild>
-					<ChangeImage />
-				</DropdownMenuItem>
-				<DropdownMenuSeparator />
-				<DropdownMenuItem asChild>
-					<NewsFeed />
-				</DropdownMenuItem>
-				<DropdownMenuSeparator />
-				<DropdownMenuItem asChild>
-					<Pomodoro />
-				</DropdownMenuItem>
-				<DropdownMenuSeparator />
-				<DropdownMenuItem asChild>
-					<BugReport />
-				</DropdownMenuItem>
+				{COMPONENTS.map((Component, index) => [
+					<DropdownMenuItem key={`item-${index}`} asChild>
+						<Component />
+					</DropdownMenuItem>,
+					index < COMPONENTS.length - 1 && (
+						<DropdownMenuSeparator key={`sep-${index}`} />
+					)
+				])}
 			</DropdownMenuContent>
 		</DropdownMenu>
 	)
