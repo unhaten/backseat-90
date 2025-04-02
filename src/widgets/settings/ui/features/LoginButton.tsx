@@ -2,7 +2,7 @@ import { Button } from '@/components/ui'
 import { User } from 'lucide-react'
 import Link from 'next/link'
 
-export const LogButton = () => {
+export const LoginButton = () => {
 	const currentPath = window.location.pathname
 	const pathParts = currentPath.split('/')
 	const currentLanguage = pathParts[1] || 'en'

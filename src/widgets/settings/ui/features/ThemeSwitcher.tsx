@@ -4,7 +4,7 @@ import { RadioGroup, RadioGroupItem, Label } from '@/components/ui'
 import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 
-export const ThemeColor = () => {
+export const ThemeSwitcher = () => {
 	const t = useTranslations('HomePage')
 
 	const { theme, setTheme } = useTheme()

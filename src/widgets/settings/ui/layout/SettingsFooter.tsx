@@ -1,8 +1,8 @@
 import { Button, DialogClose, DialogFooter } from '@/components/ui'
-import { IconLinks } from './IconLinks'
-import { LogoutButton } from './LogoutButton'
 import { Dispatch, SetStateAction } from 'react'
 import { useTranslations } from 'next-intl'
+import { IconLinks } from './IconLinks'
+import { LogoutButton } from '../features/LogoutButton'
 
 type Props = {
 	setIsOpen: Dispatch<SetStateAction<boolean>>

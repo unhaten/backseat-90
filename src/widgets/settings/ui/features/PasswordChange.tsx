@@ -20,7 +20,7 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
-export function ChangePassword() {
+export function PasswordChange() {
 	const t = useTranslations('HomePage')
 
 	const mutation = useMutation({

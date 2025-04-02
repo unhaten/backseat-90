@@ -1,2 +1,2 @@
 export { Profile } from './ui/Profile'
-export { formatName } from './lib/format-name'
+export { formatName } from '../settings/lib/format-name'
