@@ -1,11 +1,12 @@
+import { HeaderText } from '@/components'
 import {
 	Button,
 	Dialog,
 	DialogContent,
-	DialogDescription,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
+	Form,
 	FormControl,
 	FormDescription,
 	FormField,
@@ -14,11 +15,35 @@ import {
 	FormMessage,
 	Input
 } from '@/components/ui'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Bug } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import { z } from 'zod'
 
 export const BugReport = () => {
-	const form = useForm()
+	const t = useTranslations('HomePage')
+
+	const formSchema = z.object({
+		message: z
+			.string()
+			.min(1, {
+				message: t('cant-send-empty-message')
+			})
+			.trim()
+	})
+
+	const form = useForm<z.infer<typeof formSchema>>({
+		resolver: zodResolver(formSchema),
+		defaultValues: {
+			message: ''
+		}
+	})
+
+	function onSubmit(values: z.infer<typeof formSchema>) {
+		toast.info(JSON.stringify(values))
+	}
 
 	return (
 		<Dialog>
@@ -34,32 +59,36 @@ export const BugReport = () => {
 			</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>Are you absolutely sure?</DialogTitle>
-					<DialogDescription>
-						This action cannot be undone. This will permanently
-						delete your account and remove your data from our
-						servers.
-					</DialogDescription>
+					<DialogTitle className='text-center'>
+						<HeaderText text={t('report-a-bug')} />
+					</DialogTitle>
 				</DialogHeader>
-				<FormField
-					control={form.control}
-					name='message'
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Message</FormLabel>
-							<FormControl>
-								<Input
-									placeholder='Enter your message here'
-									{...field}
-								/>
-							</FormControl>
-							<FormDescription>
-								Tell us about bug you found or something else
-							</FormDescription>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
+				<Form {...form}>
+					<form onSubmit={form.handleSubmit(onSubmit)}>
+						<FormField
+							control={form.control}
+							name='message'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>{t('message')}</FormLabel>
+									<FormControl>
+										<Input
+											placeholder={t('enter-message')}
+											{...field}
+										/>
+									</FormControl>
+									<FormDescription>
+										{t('tell-us-message')}
+									</FormDescription>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<Button type='submit' className='mt-3 min-w-full'>
+							{t('send')}
+						</Button>
+					</form>
+				</Form>
 			</DialogContent>
 		</Dialog>
 	)

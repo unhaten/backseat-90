@@ -2,7 +2,7 @@ import { getImages } from '@/api/server-actions'
 import { BackgroundImage } from '@/widgets/background-image'
 import { Options } from '@/widgets/options'
 import { Player } from '@/widgets/player'
-import { Profile } from '@/widgets/profile'
+import { Settings } from '@/widgets/settings'
 import { Turntable } from '@/widgets/turntable'
 import {
 	dehydrate,
@@ -33,7 +33,7 @@ export default async function Home() {
 						</h1>
 						<Turntable />
 						<Player />
-						<Profile />
+						<Settings />
 						<Options />
 					</div>
 				</div>

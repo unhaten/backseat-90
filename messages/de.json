@@ -59,7 +59,13 @@
 		"logout": "Abgemeldet, bis bald!",
 		"cant-connect": "Verbindung zum Radio nicht möglich",
 		"radio-problem": "Something went wrong, reload the page or wait a bit please...",
-		"online": "ONLINE"
+		"online": "ONLINE",
+		"cant-send-empty-message": "I am so sorry, but you can't send empty message",
+		"report-a-bug": "Report a bug",
+		"message": "message",
+		"enter-message": "Enter your message here",
+		"tell-us-message": "Tell us about bug you have found or something else",
+		"send": "Send"
 	},
 	"Register": {
 		"registration-error": "Registrierung fehlgeschlagen",

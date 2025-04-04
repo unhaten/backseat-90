@@ -27,27 +27,25 @@ export const Settings = () => {
 
 	if (isPending) return <SettingsLoader />
 
-	if (user.isAuth) {
-		return (
-			<Dialog open={isOpen} onOpenChange={setIsOpen}>
-				<SettingsTrigger />
-				<DialogContent
-				// FIXME: //! when clicking on phone outside of dialog with select-language it closes dialog, not select
-				//  onPointerDownOutside={e => e.preventDefault()}
-				>
-					<SettingsHeader />
-					<Separator />
-					<ScrollArea className='px-4 max-h-72'>
-						{COMPONENTS.map((Component, index) => (
-							<Component key={index} />
-						))}
-						<ScrollBar />
-					</ScrollArea>
-					<SettingsFooter setIsOpen={setIsOpen} />
-				</DialogContent>
-			</Dialog>
-		)
-	} else {
-		return <LoginButton />
-	}
+	if (!user.isAuth) return <LoginButton />
+
+	return (
+		<Dialog open={isOpen} onOpenChange={setIsOpen}>
+			<SettingsTrigger />
+			<DialogContent
+			// FIXME: //! when clicking on phone outside of dialog with select-language it closes dialog, not select
+			//  onPointerDownOutside={e => e.preventDefault()}
+			>
+				<SettingsHeader />
+				<Separator />
+				<ScrollArea className='px-4 max-h-72'>
+					{COMPONENTS.map((Component, index) => (
+						<Component key={index} />
+					))}
+					<ScrollBar />
+				</ScrollArea>
+				<SettingsFooter setIsOpen={setIsOpen} />
+			</DialogContent>
+		</Dialog>
+	)
 }
