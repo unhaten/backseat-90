@@ -215,3 +215,24 @@ export const removeFromBookmarks = async (songId: string) => {
 		handleErrors(error)
 	}
 }
+
+export const sendBugReport = async (message: string) => {
+	try {
+		const response = await fetch(
+			`${API_BASE_URL}/api/users/send-bug-report`,
+			{
+				method: 'POST',
+				body: JSON.stringify(message),
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				credentials: 'include'
+			}
+		)
+		const data = await response.json()
+		handleResponseErrorArray(response, data)
+		return data
+	} catch (error) {
+		handleErrors(error)
+	}
+}
