@@ -48,16 +48,17 @@ export const getImages = createServerAction(async (imageID?: number) => {
 				imageID ? `?image-id=${imageID}` : ''
 			}`
 		)
-		if (!response.ok) throw new ServerActionError(`Something went wrong...`)
+		// if (!response.ok) throw new ServerActionError(`errors.fetchFailed`)
 		const data = await response.json()
 		return { background: data.background, imageId: data.imageId }
 	} catch (error) {
-		if (error instanceof TypeError) {
-			throw new ServerActionError(
-				'Unable to connect to the server. Please check your network connection or try again later.'
-			)
+		if (error instanceof ServerActionError) {
+			throw error
 		}
-		throw new ServerActionError((error as Error).message)
+		if (error instanceof TypeError) {
+			throw new ServerActionError('errors.network')
+		}
+		throw new ServerActionError('errors.unknown')
 	}
 })
 

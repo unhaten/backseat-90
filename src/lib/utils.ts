@@ -1,8 +1,20 @@
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
+import { ERROR_MESSAGES } from './types/errors'
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
+}
+
+// Function to detect if the text contains Cyrillic characters
+export const containsCyrillic = (text: string) => {
+	return /[\u0400-\u04FF\u0500-\u052F]/.test(text) // Matches Cyrillic Unicode range
+}
+
+interface ErrorResponse {
+	error: string
+	message: string | string[]
+	statusCode: number
 }
 
 export type ServerActionResult<T> =
@@ -31,10 +43,6 @@ export function createServerAction<Return, Args extends unknown[] = []>(
 	}
 }
 
-// interface CustomError extends Error {
-// 	message: string
-// }
-
 export function handleErrors(error: unknown): never {
 	console.error(error)
 	if (error instanceof TypeError) {
@@ -48,12 +56,6 @@ export function handleErrors(error: unknown): never {
 	throw new Error('Something went wrong')
 }
 
-interface ErrorResponse {
-	error: string
-	message: string | string[]
-	statusCode: number
-}
-
 export function handleResponseErrorArray(
 	response: Response,
 	data: ErrorResponse
@@ -65,7 +67,8 @@ export function handleResponseErrorArray(
 	}
 }
 
-// Function to detect if the text contains Cyrillic characters
-export const containsCyrillic = (text: string) => {
-	return /[\u0400-\u04FF\u0500-\u052F]/.test(text) // Matches Cyrillic Unicode range
+export function getErrorMessageKey(error: unknown): string {
+	if (error instanceof TypeError) return ERROR_MESSAGES.network
+	if (error instanceof Error) return error.message
+	return ERROR_MESSAGES.generic
 }
