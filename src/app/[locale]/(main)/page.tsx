@@ -1,4 +1,5 @@
 import { getImages } from '@/api/server-actions'
+import { serverActionToQueryFn } from '@/lib/utils'
 import { BackgroundImage } from '@/widgets/background-image'
 import { Options } from '@/widgets/options'
 import { Player } from '@/widgets/player'
@@ -14,7 +15,7 @@ export default async function Home() {
 	const queryClient = new QueryClient()
 	await queryClient.prefetchQuery({
 		queryKey: ['image-generator'],
-		queryFn: () => getImages(0)
+		queryFn: serverActionToQueryFn(() => getImages(0))
 	})
 
 	return (

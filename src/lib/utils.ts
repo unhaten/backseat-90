@@ -43,6 +43,20 @@ export function createServerAction<Return, Args extends unknown[] = []>(
 	}
 }
 
+export function serverActionToQueryFn<T>(
+	action: () => Promise<ServerActionResult<T>>
+): () => Promise<T> {
+	return async () => {
+		const result = await action()
+
+		if (!result.success) {
+			throw new Error(result.error) // или ServerActionError(result.error)
+		}
+
+		return result.value
+	}
+}
+
 export function handleErrors(error: unknown): never {
 	console.error(error)
 	if (error instanceof TypeError) {

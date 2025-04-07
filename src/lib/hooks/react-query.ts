@@ -5,18 +5,19 @@ import {
 	getNowPlayingSong
 } from '@/api/server-actions'
 import { useQuery } from '@tanstack/react-query'
+import { serverActionToQueryFn } from '../utils'
 
 export const useNowPlayingSong = () =>
 	useQuery({
 		queryKey: ['now-playing'],
-		queryFn: getNowPlayingSong,
+		queryFn: serverActionToQueryFn(getNowPlayingSong),
 		refetchInterval: 3000
 	})
 
 export const useConnectionToRadio = () =>
 	useQuery({
 		queryKey: ['stream-url'],
-		queryFn: connectToRadio,
+		queryFn: serverActionToQueryFn(connectToRadio),
 		enabled: false
 	})
 
@@ -60,7 +61,7 @@ export const useLikedSong = (songId: string | null) =>
 export const useBackgroundImage = (imageId: number) =>
 	useQuery({
 		queryKey: ['image-generator'],
-		queryFn: () => getImages(imageId),
+		queryFn: serverActionToQueryFn(() => getImages(imageId)),
 		staleTime: 0,
 		refetchOnMount: false,
 		refetchOnWindowFocus: false

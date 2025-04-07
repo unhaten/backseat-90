@@ -48,17 +48,10 @@ export const getImages = createServerAction(async (imageID?: number) => {
 				imageID ? `?image-id=${imageID}` : ''
 			}`
 		)
-		// if (!response.ok) throw new ServerActionError(`errors.fetchFailed`)
 		const data = await response.json()
 		return { background: data.background, imageId: data.imageId }
 	} catch (error) {
-		if (error instanceof ServerActionError) {
-			throw error
-		}
-		if (error instanceof TypeError) {
-			throw new ServerActionError('errors.network')
-		}
-		throw new ServerActionError('errors.unknown')
+		throw error
 	}
 })
 

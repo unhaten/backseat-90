@@ -5,25 +5,18 @@ import { API_PUBLIC_URL } from '@/lib/config'
 import { useBackgroundImage } from '@/lib/hooks/react-query'
 import { Background } from './ui/background/Background'
 import { useSyncBackgroundIMage } from './model/useSyncBackgroundImage'
-import { toast } from 'sonner'
 
 export const BackgroundImage = () => {
 	const { imageId } = useAppSelector(state => state.image)
 
-	const { data, isRefetching } = useBackgroundImage(imageId)
+	const { data, isSuccess, isError, isLoading, isRefetching } =
+		useBackgroundImage(imageId)
 	useSyncBackgroundIMage({ data, imageId })
 
-	toast(JSON.stringify(data))
+	if (isLoading || isRefetching)
+		return <Background src={'/tv-loading.webp'} />
 
-	if (isRefetching) return <Background src={'/tv-loading.webp'} />
-	return data?.success ? (
-		data?.value.background && (
-			<Background
-				// src={API_SERVER_URL + data.value.background}
-				src={API_PUBLIC_URL + data.value.background}
-			/>
-		)
-	) : (
-		<Background src={'/vinyl-spin.webp'} />
-	)
+	if (isError) return <Background src={'/vinyl-spin.webp'} />
+
+	if (isSuccess) return <Background src={API_PUBLIC_URL + data.background} />
 }
