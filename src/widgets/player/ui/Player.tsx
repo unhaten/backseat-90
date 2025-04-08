@@ -17,7 +17,7 @@ import { useMobilePreload } from '../lib/useMobilePreload'
 export const Player = () => {
 	//? h = 82px mb-4
 
-	const { data, isLoading, isError, isSuccess } = useNowPlayingSong()
+	const { data, isLoading, isError, isSuccess, refetch } = useNowPlayingSong()
 
 	const audioRef = useRef<HTMLAudioElement>(null)
 	const player = useAppSelector(state => state.player)
@@ -33,7 +33,7 @@ export const Player = () => {
 
 	if (isLoading) return <PlayerLoader />
 
-	if (isError) return <Reconnect />
+	if (isError) return <Reconnect onRetry={refetch} />
 
 	return (
 		<>

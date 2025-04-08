@@ -1,22 +1,20 @@
 import { useAppDispatch } from '@/lib/hooks/redux'
 import { useEffect } from 'react'
 import { setImage } from './image.slice'
+import { BackgroundImageData } from './image.type'
 
 type Props = {
 	imageId: number
-	data: any
+	data: BackgroundImageData | undefined
+	isSuccess: boolean
 }
 
-export const useSyncBackgroundIMage = ({ data, imageId }: Props) => {
+export const useSyncBackgroundImage = ({ data, imageId, isSuccess }: Props) => {
 	const dispatch = useAppDispatch()
 
 	useEffect(() => {
-		if (
-			data?.success &&
-			data?.value.imageId &&
-			data.value.imageId !== imageId
-		) {
-			dispatch(setImage(data.value.imageId))
+		if (isSuccess && data?.imageId && data.imageId !== imageId) {
+			dispatch(setImage(data.imageId))
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [data, imageId])

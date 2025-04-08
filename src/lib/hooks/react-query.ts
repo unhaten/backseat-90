@@ -4,14 +4,17 @@ import {
 	getImages,
 	getNowPlayingSong
 } from '@/api/server-actions'
-import { useQuery } from '@tanstack/react-query'
+import { Query, useQuery } from '@tanstack/react-query'
 import { serverActionToQueryFn } from '../utils'
+import { StationData } from '@/widgets/player'
 
 export const useNowPlayingSong = () =>
-	useQuery({
+	useQuery<StationData>({
 		queryKey: ['now-playing'],
 		queryFn: serverActionToQueryFn(getNowPlayingSong),
-		refetchInterval: 3000
+		retry: 3,
+		refetchInterval: (query: Query<StationData>) =>
+			query?.state.data ? 3000 : false
 	})
 
 export const useConnectionToRadio = () =>
@@ -64,5 +67,6 @@ export const useBackgroundImage = (imageId: number) =>
 		queryFn: serverActionToQueryFn(() => getImages(imageId)),
 		staleTime: 0,
 		refetchOnMount: false,
-		refetchOnWindowFocus: false
+		refetchOnWindowFocus: false,
+		retry: false
 	})
