@@ -20,6 +20,7 @@ import { useTranslations } from 'next-intl'
 
 export const LoginForm = ({}) => {
 	const t = useTranslations('Login')
+	const errorT = useTranslations('errors')
 
 	const router = useRouter()
 	const queryClient = useQueryClient()
@@ -49,8 +50,9 @@ export const LoginForm = ({}) => {
 			router.push(`/${currentLanguage}`)
 		},
 		onError: error => {
+			const key = error instanceof Error ? error.message : 'unknown-error'
 			toast.warning(t('login-error'), {
-				description: error.message
+				description: errorT(key)
 			})
 		}
 	})

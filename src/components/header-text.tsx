@@ -8,7 +8,7 @@ export const HeaderText = ({ text }: { text: string }) => {
 			className={
 				isSettingNameCyrillic
 					? 'font-alumni font-black text-3xl uppercase'
-					: 'font-bebasNeue'
+					: 'font-bebasNeue text-2xl uppercase tracking-wide'
 			}
 		>
 			{text}

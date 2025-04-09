@@ -74,7 +74,7 @@ export const DeleteButton = ({ thumbnail, author, title, id }: Props) => {
 			</AlertDialogTrigger>
 			<AlertDialogContent className='max-w-96'>
 				<AlertDialogHeader>
-					<AlertDialogTitle className='text-2xl font-bebasNeue text-center text-rose-500'>
+					<AlertDialogTitle className='text-center text-rose-500'>
 						<HeaderText text={t('delete-track')} />
 					</AlertDialogTitle>
 					<AlertDialogDescription>

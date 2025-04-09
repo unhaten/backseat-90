@@ -63,10 +63,11 @@
 		"online": "ONLINE",
 		"cant-send-empty-message": "I am so sorry, but you can't send empty message",
 		"report-a-bug": "Report a bug",
-		"message": "message",
+		"message": "Message",
 		"enter-message": "Enter your message here",
 		"tell-us-message": "Tell us about bug you have found or something else",
-		"send": "Send"
+		"send": "Send",
+		"authorize-to-get": "Authorize to get access to this feature"
 	},
 	"Register": {
 		"registration-error": "Registration failed",
@@ -100,5 +101,15 @@
 		"password-required": "Password is required",
 		"have-not-account": "Don't have an account?",
 		"login": "Log in"
+	},
+	"errors": {
+		"network-error": "Unable to connect to the server. Please check your network connection or try again later.",
+		"unknown-error": "Something went wrong.",
+		"login-error": "Incorrect email or password.",
+		"image-error": "Can't load background from the server",
+		"error": "Error",
+		"same-name": "Your new name is the same as current one",
+		"email-password-incorrect": "Email or password is incorrect",
+		"email-exists": "This email is already taken"
 	}
 }

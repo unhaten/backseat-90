@@ -16,11 +16,12 @@ import { useRouter } from 'next/navigation'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { register } from '@/api/actions'
-import { useFormSchema } from './lib/schema'
+import { useFormSchema } from '../lib/schema'
 import { useTranslations } from 'next-intl'
 
-export const SignUpForm = ({}) => {
+export const RegisterForm = ({}) => {
 	const t = useTranslations('Register')
+	const errorT = useTranslations('errors')
 
 	const router = useRouter()
 
@@ -36,8 +37,9 @@ export const SignUpForm = ({}) => {
 			router.push('/auth/login')
 		},
 		onError: error => {
+			const key = error instanceof Error ? error.message : 'unknown-error'
 			toast.warning(t('registration-error'), {
-				description: (error as Error).message
+				description: errorT(key)
 			})
 		}
 	})

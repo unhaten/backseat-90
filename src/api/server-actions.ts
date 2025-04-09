@@ -1,7 +1,11 @@
 'use server'
 
 import { API_BASE_URL } from '@/lib/config'
-import { createServerAction, ServerActionError } from '@/lib/utils'
+import {
+	assertServerOk,
+	createServerAction,
+	handleServerErrors
+} from '@/lib/utils'
 import { StationData, UrlData } from '@/widgets/player/model/player.type'
 
 // ! TO BE NOTED: HOT RELOAD IS NOT ABLE TO UPDATE SERVER FUNCTIONS AND IN ORDER TO SEE SOME CHANGES APP NEEDS TO BE FULLY REBOOTED! btw im not sure now
@@ -9,35 +13,21 @@ import { StationData, UrlData } from '@/widgets/player/model/player.type'
 export const connectToRadio = createServerAction<UrlData>(async () => {
 	try {
 		const response = await fetch(`${API_BASE_URL}/api/songs/connect`)
-		if (!response.ok)
-			throw new ServerActionError(`Something went wrong, try again later`)
-		const data: UrlData = await response.json()
-		return data
+		await assertServerOk(response)
+		return await response.json()
 	} catch (error) {
-		if (error instanceof TypeError) {
-			throw new ServerActionError(
-				'Unable to connect to the server. Please check your network connection or try again later.'
-			)
-		}
-		throw new ServerActionError((error as Error).message)
+		handleServerErrors(error)
 	}
 })
 
 export const getNowPlayingSong = createServerAction<StationData>(async () => {
 	try {
 		const response = await fetch(`${API_BASE_URL}/api/songs/now-playing`)
-		if (!response.ok)
-			throw new ServerActionError(`Something went wrong, try again later`)
+		await assertServerOk(response)
 
-		const data: StationData = await response.json()
-		return data
+		return await response.json()
 	} catch (error) {
-		if (error instanceof TypeError) {
-			throw new ServerActionError(
-				'Unable to connect to the server. Please check your network connection or try again later.'
-			)
-		}
-		throw new ServerActionError((error as Error).message)
+		handleServerErrors(error)
 	}
 })
 
@@ -48,37 +38,11 @@ export const getImages = createServerAction(async (imageID?: number) => {
 				imageID ? `?image-id=${imageID}` : ''
 			}`
 		)
+		await assertServerOk(response)
+
 		const data = await response.json()
 		return { background: data.background, imageId: data.imageId }
 	} catch (error) {
-		throw error
+		handleServerErrors(error)
 	}
 })
-
-// export const getImages = createServerAction(async (imageID?: number) => {
-// ! this is goat
-// 	console.log('🚀 Server Action Triggered: getImages', { imageID })
-
-// 	try {
-// 		const url = `http://host.docker.internal:2000/api/users/background${
-// 			imageID ? `?image-id=${imageID}` : ''
-// 		}`
-// 		console.log('📡 Fetching URL:', url)
-
-// 		const response = await fetch(url)
-// 		console.log('✅ Response Received:', response.status)
-
-// 		if (!response.ok)
-// 			throw new ServerActionError(`Something went wrong...`)
-
-// 		const data = await response.json()
-// 		console.log('📸 Image Data:', data)
-
-// 		return { background: data.background, imageId: data.imageId }
-// 	} catch (error) {
-// 		console.error('❌ Error in getImages:', error)
-// 		throw new ServerActionError(
-// 			'Unable to connect to the server. Please check your network connection or try again later.'
-// 		)
-// 	}
-// })

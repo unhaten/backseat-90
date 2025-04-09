@@ -1,6 +1,5 @@
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import { ERROR_MESSAGES } from './types/errors'
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
@@ -58,16 +57,23 @@ export function serverActionToQueryFn<T>(
 }
 
 export function handleErrors(error: unknown): never {
-	console.error(error)
 	if (error instanceof TypeError) {
-		throw new Error(
-			'Unable to connect to the server. Please check your network connection or try again later.'
-		)
+		throw new Error('network-error')
 	}
 	if (error instanceof Error) {
 		throw error
 	}
-	throw new Error('Something went wrong')
+	throw new Error('unknown-error')
+}
+
+export function handleServerErrors(error: unknown): never {
+	if (error instanceof TypeError) {
+		throw new ServerActionError('network-error')
+	}
+	if (error instanceof ServerActionError) {
+		throw error
+	}
+	throw new ServerActionError('unknown-error')
 }
 
 export function handleResponseErrorArray(
@@ -81,8 +87,22 @@ export function handleResponseErrorArray(
 	}
 }
 
-export function getErrorMessageKey(error: unknown): string {
-	if (error instanceof TypeError) return ERROR_MESSAGES.network
-	if (error instanceof Error) return error.message
-	return ERROR_MESSAGES.generic
+export const assertOk = async (response: Response) => {
+	if (!response.ok) {
+		let message = 'unknown-error'
+		try {
+			message = (await response.json())?.message || message
+		} catch {}
+		throw new Error(message)
+	}
+}
+
+export const assertServerOk = async (response: Response) => {
+	if (!response.ok) {
+		let message = 'unknown-error'
+		try {
+			message = (await response.json())?.message || message
+		} catch {}
+		throw new ServerActionError(message)
+	}
 }

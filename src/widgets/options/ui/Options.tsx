@@ -10,13 +10,21 @@ import {
 } from '@/components/ui'
 import { ChangeImage } from '@/widgets/background-image/ui/change-image/ChangeImage'
 import { List } from 'lucide-react'
-import { NewsFeed } from './news-feed/NewsFeed'
+import { NewsFeed } from './layout/NewsFeed'
 import { Pomodoro } from '@/widgets/pomodoro'
-import { BugReport } from './bug-report/BugReport'
+import { BugReport } from './features/BugReport'
+import { BugReportFake } from './layout/BugReportFake'
+import { useAppSelector } from '@/lib/hooks/redux'
 
-const COMPONENTS = [ChangeImage, NewsFeed, Pomodoro, BugReport]
+const AUTH_COMPONENTS = [ChangeImage, NewsFeed, Pomodoro, BugReport]
+
+const NON_AUTH_COMPONENTS = [ChangeImage, NewsFeed, Pomodoro, BugReportFake]
 
 export const Options = () => {
+	const isAuth = useAppSelector(state => state.user.isAuth)
+
+	const COMPONENTS = isAuth ? AUTH_COMPONENTS : NON_AUTH_COMPONENTS
+
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>

@@ -18,6 +18,8 @@ import {
 	FormMessage,
 	FormField
 } from '@/components/ui'
+import { IUser, setUser } from '@/entities/user'
+import { useAppDispatch } from '@/lib/hooks/redux'
 import { formatName } from '@/widgets/settings/lib/format-name'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -32,23 +34,25 @@ type Props = {
 
 export const NameChangeDialog = ({ name }: Props) => {
 	const t = useTranslations('HomePage')
+	const errorT = useTranslations('errors')
+
+	const dispatch = useAppDispatch()
 
 	const queryClient = useQueryClient()
 
 	const mutation = useMutation({
 		mutationKey: ['profile'],
-		mutationFn: (values: z.infer<typeof formSchema>) => {
-			return changeName(values)
-		},
-		onSuccess: async data => {
+		mutationFn: (values: z.infer<typeof formSchema>) => changeName(values),
+		onSuccess: async (data: IUser) => {
 			await queryClient.invalidateQueries({
 				queryKey: ['profile']
 			})
+			dispatch(setUser({ name: data.name }))
 			toast.info(`${t('edit-name-success')}, ${data.name}!`)
 		},
-		onError: error => {
+		onError: (error: Error) => {
 			toast.warning(t('edit-name-error'), {
-				description: error.message
+				description: errorT(error.message)
 			})
 		}
 	})

@@ -1,5 +1,5 @@
-import { SignUpForm } from "@/widgets/signup-form";
+import { RegisterForm } from '@/widgets/register-form'
 
 export default async function SignUp() {
-    return <SignUpForm />
+	return <RegisterForm />
 }
