@@ -160,10 +160,10 @@ export const removeFromBookmarks = async (songId: string) => {
 	return await response.json()
 }
 
-export const sendBugReport = async (message: string) => {
-	const response = await fetch(`${API_BASE_URL}/api/users/send-bug-report`, {
+export const sendBugReport = async (values: { message: string }) => {
+	const response = await fetch(`${API_BASE_URL}/api/bug-reports`, {
 		method: 'POST',
-		body: JSON.stringify(message),
+		body: JSON.stringify(values),
 		headers: {
 			'Content-Type': 'application/json'
 		},

@@ -18,13 +18,15 @@ type Props<S> = {
 	label: string
 	description?: string
 	type: string
+	disableSuggestions?: 'off' | 'on'
 } & InputHTMLAttributes<HTMLInputElement>
 export function FormField<S>({
 	name,
 	placeholder,
 	label,
 	description,
-	type
+	type,
+	disableSuggestions
 }: Props<S>) {
 	const { control } = useFormContext()
 
@@ -40,6 +42,7 @@ export function FormField<S>({
 							placeholder={placeholder}
 							type={type}
 							id={name}
+							autoComplete={disableSuggestions}
 							{...field}
 						/>
 					</FormControl>

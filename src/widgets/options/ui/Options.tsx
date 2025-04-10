@@ -12,7 +12,7 @@ import { ChangeImage } from '@/widgets/background-image/ui/change-image/ChangeIm
 import { List } from 'lucide-react'
 import { NewsFeed } from './layout/NewsFeed'
 import { Pomodoro } from '@/widgets/pomodoro'
-import { BugReport } from './features/BugReport'
+import { BugReport } from './features/bug-report/BugReport'
 import { BugReportFake } from './layout/BugReportFake'
 import { useAppSelector } from '@/lib/hooks/redux'
 

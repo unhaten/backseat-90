@@ -67,7 +67,9 @@
 		"enter-message": "Enter your message here",
 		"tell-us-message": "Tell us about bug you have found or something else",
 		"send": "Send",
-		"authorize-to-get": "Authorize to get access to this feature"
+		"authorize-to-get": "Authorize to get access to this feature",
+		"success": "Success",
+		"bug-report-sent": "You've send bug report"
 	},
 	"Register": {
 		"registration-error": "Registration failed",
