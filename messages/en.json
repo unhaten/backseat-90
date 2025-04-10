@@ -110,6 +110,14 @@
 		"error": "Error",
 		"same-name": "Your new name is the same as current one",
 		"email-password-incorrect": "Email or password is incorrect",
-		"email-exists": "This email is already taken"
+		"email-exists": "This email is already taken",
+		"current-password-incorrect": "Current password is incorrect",
+		"same-password": "Your new password is the same as current one",
+		"passwords-do-not-match": "Passwords do not match",
+		"song-not-liked": "This song is not liked, something went wrong",
+		"song-metadata-mismatch": "Song metadata mismatch",
+		"failed-station-connection": "Failed to connect to the station",
+		"invalid-station-data": "Invalid station data received",
+		"bug-report-limit-reached": "Limit reached, please wait until your previous bug reports will be resolved"
 	}
 }

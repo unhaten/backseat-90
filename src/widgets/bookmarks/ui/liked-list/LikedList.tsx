@@ -4,6 +4,7 @@ import { ISong } from '@/entities/song'
 import { useTranslations } from 'next-intl'
 import { useBookmarks } from '@/lib/hooks/react-query'
 import { LikedTrack } from '../liked-track/LikedTrack'
+import { StylishText } from '@/components'
 
 export const LikedList = () => {
 	const t = useTranslations('HomePage')
@@ -33,13 +34,13 @@ export const LikedList = () => {
 					  ))}
 			</ul>
 			{isSuccess && data.length === 0 && (
-				<div className='flex items-center justify-center font-rockSalt text-xl'>
-					<p>{t('no-tracks')}</p>
+				<div className='flex items-center justify-center'>
+					<StylishText text={t('no-tracks')} />
 				</div>
 			)}
 			{isError && (
-				<div className='flex items-center justify-center font-rockSalt text-xl'>
-					<p>{t('something-wrong')}</p>
+				<div className='flex items-center justify-center'>
+					<StylishText text={t('something-wrong')} />
 				</div>
 			)}
 		</>

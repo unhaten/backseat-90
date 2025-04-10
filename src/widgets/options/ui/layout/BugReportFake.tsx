@@ -18,7 +18,7 @@ export const BugReportFake = () => {
 			size='icon'
 			onClick={handleClick}
 		>
-			<Bug />
+			<Bug className='stroke-foreground' />
 		</Button>
 	)
 }
