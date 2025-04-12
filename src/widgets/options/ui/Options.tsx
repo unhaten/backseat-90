@@ -15,10 +15,17 @@ import { Pomodoro } from '@/widgets/pomodoro'
 import { BugReport } from './features/bug-report/BugReport'
 import { BugReportFake } from './layout/BugReportFake'
 import { useAppSelector } from '@/lib/hooks/redux'
+import { Focus } from './features/focus/ui/Focus'
 
-const AUTH_COMPONENTS = [ChangeImage, NewsFeed, Pomodoro, BugReport]
+const AUTH_COMPONENTS = [ChangeImage, NewsFeed, Pomodoro, Focus, BugReport]
 
-const NON_AUTH_COMPONENTS = [ChangeImage, NewsFeed, Pomodoro, BugReportFake]
+const NON_AUTH_COMPONENTS = [
+	ChangeImage,
+	NewsFeed,
+	Pomodoro,
+	Focus,
+	BugReportFake
+]
 
 export const Options = () => {
 	const isAuth = useAppSelector(state => state.user.isAuth)
