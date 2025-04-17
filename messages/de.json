@@ -69,6 +69,7 @@
 		"send": "Send",
 		"authorize-to-get": "Authorize to get access to this feature",
 		"success": "Success",
+		"bug-report-left": "Bug reports left",
 
 		"bug-report-sent": "You've send bug report"
 	},

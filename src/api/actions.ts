@@ -173,3 +173,13 @@ export const sendBugReport = async (values: { message: string }) => {
 	await assertOk(response)
 	return await response.json()
 }
+
+export const getBugReportAmount = async () => {
+	const response = await fetch(`${API_BASE_URL}/api/bug-reports`, {
+		method: 'GET',
+		credentials: 'include'
+	})
+
+	await assertOk(response)
+	return await response.json()
+}

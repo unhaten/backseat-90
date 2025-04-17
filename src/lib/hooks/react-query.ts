@@ -1,4 +1,9 @@
-import { checkIfSongIsLiked, getLikedSongs, getProfile } from '@/api/actions'
+import {
+	checkIfSongIsLiked,
+	getBugReportAmount,
+	getLikedSongs,
+	getProfile
+} from '@/api/actions'
 import {
 	connectToRadio,
 	getImages,
@@ -68,5 +73,12 @@ export const useBackgroundImage = (imageId: number) =>
 		staleTime: 0,
 		refetchOnMount: false,
 		refetchOnWindowFocus: false,
+		retry: false
+	})
+
+export const useBugReportAmount = () =>
+	useQuery({
+		queryKey: ['bug-report'],
+		queryFn: getBugReportAmount,
 		retry: false
 	})

@@ -69,7 +69,8 @@
 		"send": "Send",
 		"authorize-to-get": "Authorize to get access to this feature",
 		"success": "Success",
-		"bug-report-sent": "You've send bug report"
+		"bug-report-sent": "You've send bug report",
+		"bug-report-left": "Bug reports left"
 	},
 	"Register": {
 		"registration-error": "Registration failed",
