@@ -69,9 +69,9 @@
 		"send": "Отправить",
 		"authorize-to-get": "Авторизуйтесь, чтобы получить доступ к этой функции",
 		"success": "Успех",
-
 		"bug-report-sent": "Вы отправили сообщение об ошибке",
-		"bug-report-left": "Осталось жалоб"
+		"bug-report-left": "Осталось жалоб",
+		"bug-report-limit": "у вас больше не осталось жалоб"
 	},
 	"Register": {
 		"registration-error": "Ошибка регистрации",

@@ -9,12 +9,14 @@ import { BugReportHeader } from './ui/BugReportHeader'
 import { useBugReportForm } from './lib/useBugReportForm'
 import { FormField } from '@/components'
 import { useBugReportSchema } from './lib/useBugReportSchema'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { sendBugReport } from '@/api/actions'
 
 export const BugReport = () => {
 	const t = useTranslations('HomePage')
 	const errorT = useTranslations('errors')
+
+	const queryClient = useQueryClient()
 
 	const schema = useBugReportSchema()
 	const form = useBugReportForm(schema)
@@ -30,6 +32,9 @@ export const BugReport = () => {
 		onSuccess: () => {
 			toast.info(t('success'), { description: t('bug-report-sent') })
 			form.resetField('message')
+			queryClient.invalidateQueries({
+				queryKey: ['bug-report']
+			})
 		},
 		onError: (error: Error) => {
 			const key = error instanceof Error ? error.message : 'unknown-error'

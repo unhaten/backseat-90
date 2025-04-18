@@ -70,8 +70,8 @@
 		"authorize-to-get": "Authorize to get access to this feature",
 		"success": "Success",
 		"bug-report-left": "Bug reports left",
-
-		"bug-report-sent": "You've send bug report"
+		"bug-report-sent": "You've send bug report",
+		"bug-report-limit": "you are out of bug reports"
 	},
 	"Register": {
 		"registration-error": "Registrierung fehlgeschlagen",

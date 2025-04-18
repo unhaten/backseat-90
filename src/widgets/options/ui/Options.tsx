@@ -16,6 +16,7 @@ import { BugReport } from './features/bug-report/BugReport'
 import { BugReportFake } from './layout/BugReportFake'
 import { useAppSelector } from '@/lib/hooks/redux'
 import { Focus } from './features/focus/ui/Focus'
+import { FocusFake } from './layout/FocusFake'
 
 const AUTH_COMPONENTS = [ChangeImage, NewsFeed, Pomodoro, Focus, BugReport]
 
@@ -23,7 +24,7 @@ const NON_AUTH_COMPONENTS = [
 	ChangeImage,
 	NewsFeed,
 	Pomodoro,
-	Focus,
+	FocusFake,
 	BugReportFake
 ]
 
