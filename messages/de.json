@@ -71,7 +71,11 @@
 		"success": "Success",
 		"bug-report-left": "Bug reports left",
 		"bug-report-sent": "You've send bug report",
-		"bug-report-limit": "you are out of bug reports"
+		"bug-report-limit": "you are out of bug reports",
+		"focus-mode": "Focus Mode",
+		"focus-description": "Dive in the focus mode - nothing but music will lead your way",
+		"pomodoro": "Pomodoro",
+		"pomodoro-description": "Follow pomodoro technique in order to concentrate on your work better"
 	},
 	"Register": {
 		"registration-error": "Registrierung fehlgeschlagen",

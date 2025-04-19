@@ -1,34 +1,15 @@
-import { HeaderText } from '@/components'
-import {
-	Button,
-	Dialog,
-	DialogContent,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger
-} from '@/components/ui'
-import { Timer } from 'lucide-react'
+import { Dialog, DialogContent, Separator } from '@/components/ui'
+import { PomodoroTrigger } from './layout/PomodoroTrigger'
+import { PomodoroHeader } from './layout/PomodoroHeader'
 
 export const Pomodoro = () => {
 	return (
 		<Dialog>
-			<DialogTrigger asChild>
-				<Button
-					asChild
-					className='rounded-full p-1.5 cursor-pointer'
-					variant={'outline'}
-					size='icon'
-				>
-					<Timer />
-				</Button>
-			</DialogTrigger>
+			<PomodoroTrigger />
 			<DialogContent className='sm:max-w-[425px]'>
-				<DialogHeader>
-					<DialogTitle className='text-center'>
-						<HeaderText text='Pomodoro' />
-					</DialogTitle>
-				</DialogHeader>
-				<div className=''>test</div>
+				<PomodoroHeader />
+				<Separator />
+				<div className=''>00:00:00</div>
 				{/* <DialogFooter>
 					<Button type='submit'>Save changes</Button>
 				</DialogFooter> */}
